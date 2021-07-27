@@ -24,7 +24,7 @@
         <cosmosdb.version>3.6.0</cosmosdb.version>
         <azure.springboot.version>3.6.0</azure.springboot.version>
         <azure.servicebus.version>3.6.4</azure.servicebus.version>
-        <jackson.version>2.12.3</jackson.version>
+        <jackson.version>2.12.4</jackson.version>
         <mockito.version>3.11.2</mockito.version>
         <lombok.version>1.18.20</lombok.version>
         <hamcrest.version>2.2</hamcrest.version>
