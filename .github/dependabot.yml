@@ -1,0 +1,51 @@
+version: 2
+updates:
+  - package-ecosystem: maven
+    directory: "/java"
+    schedule:
+      interval: daily
+      timezone: Europe/London
+    open-pull-requests-limit: 10
+    assignees:
+      - steveclewer
+    rebase-strategy: disabled
+
+  - package-ecosystem: npm
+    directory: "/build/azDevOps/azure/coverage"
+    schedule:
+      interval: daily
+      timezone: Europe/London
+    open-pull-requests-limit: 10
+    assignees:
+      - ElvenSpellmaker
+    rebase-strategy: disabled
+
+  - package-ecosystem: maven
+    directory: "/api-tests"
+    schedule:
+      interval: daily
+      timezone: Europe/London
+    open-pull-requests-limit: 10
+    assignees:
+      - VitalinaVZdrobau
+    rebase-strategy: disabled
+
+  - package-ecosystem: maven
+    directory: "/api-tests-karate"
+    schedule:
+      interval: daily
+      timezone: Europe/London
+    open-pull-requests-limit: 10
+    assignees:
+      - VitalinaVZdrobau
+    rebase-strategy: disabled
+
+  - package-ecosystem: terraform
+    directory: "/deploy/azure/app/kube"
+    schedule:
+      interval: daily
+      timezone: Europe/London
+    open-pull-requests-limit: 10
+    assignees:
+      - ElvenSpellmaker
+    rebase-strategy: disabled
