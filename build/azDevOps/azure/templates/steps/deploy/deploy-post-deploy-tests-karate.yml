@@ -1,0 +1,60 @@
+parameters:
+  environment: ""
+  pipeline_scripts_directory: ""
+  functional_test: true
+  functional_test_artefact_name: ""
+  functional_test_artefact_download_location: ""
+  functional_test_base_url: ""
+  maven_cache_directory: ""
+  maven_ignored_post_deploy_test_tags: ""
+  maven_post_deploy_html_report_directory: ""
+  maven_post_deploy_failsafe_reports_directory: ""
+  docker_java_container: ""
+  auth0_credentials: {}
+steps:
+  - ${{ if eq(parameters.functional_test, true) }}:
+      - download: current
+        artifact: "${{ parameters.functional_test_artefact_name }}"
+        displayName: "Download: Post-Deploy Test Artefacts"
+
+      # Files downloaded from artefacts seem to lose their permissions...
+      # https://github.com/microsoft/azure-pipelines-tasks/issues/12002
+      - task: Bash@3
+        inputs:
+          targetType: "inline"
+          script: |
+            chmod u+x mvnw
+          workingDirectory: "${{ parameters.functional_test_artefact_download_location }}"
+        target:
+          container: ${{ parameters.docker_java_container }}
+        displayName: "Chmod +x Maven Wrapper"
+
+      # Copy this for each tag you have, for example @Functional and @Smoke etc.
+      # Note: Don't forget to update the `maven_allowed_post_deploy_test_tags` in the root pipeline file.
+      - task: Bash@3
+        inputs:
+          filePath: "${{ parameters.pipeline_scripts_directory }}/test-maven-post-deploy-karate-test-run.bash"
+          arguments: >
+            -a "Functional"
+            -b "${{ parameters.functional_test_base_url }}"
+            -Z "${{ parameters.maven_cache_directory }}"
+          workingDirectory: "${{ parameters.functional_test_artefact_download_location }}"
+        target:
+          container: ${{ parameters.docker_java_container }}
+        displayName: "Post-Deploy Test: Run Functional Tests"
+        env:
+          ${{ each var in parameters.auth0_credentials }}:
+            ${{ var.key }}: ${{ var.value }}
+
+      - task: PublishPipelineArtifact@1
+        condition: always()
+        inputs:
+          path: "${{ parameters.functional_test_artefact_download_location }}/${{ parameters.maven_post_deploy_html_report_directory }}"
+          artifact: "${{ parameters.environment }}-${{ parameters.functional_test_artefact_name }}-report-$(System.JobAttempt)"
+        displayName: "Publish: Post-Deploy Tests Artefact"
+
+      - task: PublishTestResults@2
+        condition: always()
+        inputs:
+          searchFolder: "${{ parameters.functional_test_artefact_download_location }}"
+        displayName: "Publish Post-Deploy Test Results"

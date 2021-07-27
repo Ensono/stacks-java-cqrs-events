@@ -1,0 +1,65 @@
+parameters:
+  pipeline_scripts_directory: ""
+  shared_replacements: {}
+  template_input: []
+  cat_template_output: false
+  azure_client_id: ""
+  azure_client_secret: ""
+  azure_tenant_id: ""
+  azure_subscription_id: ""
+  aks_cluster_resourcegroup: ""
+  aks_cluster_name: ""
+  deployments: []
+steps:
+  # Template Substitutions
+  - ${{ each template in parameters.template_input }}:
+      - task: Bash@3
+        inputs:
+          filePath: "$(self_pipeline_scripts_dir)/deploy-k8s-envsubst.bash"
+          arguments: >
+            -a "${{ template.base }}"
+            -b "${{ template.additional_args }}"
+            -Y "${{ parameters.cat_template_output }}"
+            -Z "${{ template.out }}"
+        env:
+          ${{ each var in parameters.shared_replacements }}:
+            ${{ var.key }}: ${{ var.value }}
+          ${{ each var in template.replacements }}:
+            ${{ var.key }}: ${{ var.value }}
+        displayName: "K8s: Yaml '${{ template.displayName }}'"
+
+  - task: Bash@3
+    inputs:
+      filePath: "${{ parameters.pipeline_scripts_directory }}/util-azure-login.bash"
+      arguments: >
+        -a "${{ parameters.azure_client_id }}"
+        -b "${{ parameters.azure_client_secret }}"
+        -c "${{ parameters.azure_tenant_id }}"
+        -d "${{ parameters.azure_subscription_id }}"
+    displayName: "Login: Azure CLI"
+
+  - task: Bash@3
+    inputs:
+      filePath: "${{ parameters.pipeline_scripts_directory }}/util-azure-aks-login.bash"
+      arguments: >
+        -a "${{ parameters.aks_cluster_resourcegroup }}"
+        -b "${{ parameters.aks_cluster_name }}"
+    displayName: "Login: Azure AKS Cluster Login"
+
+  - ${{ each template in parameters.template_input }}:
+      - task: Bash@3
+        inputs:
+          filePath: "${{ parameters.pipeline_scripts_directory }}/deploy-k8s-apply.bash"
+          arguments: >
+            -a "${{ template.out }}"
+        displayName: "Deploy: Kubectl Apply (${{ template.out }})"
+
+  - ${{ each deployment in parameters.deployments }}:
+      - task: Bash@3
+        inputs:
+          filePath: "${{ parameters.pipeline_scripts_directory }}/deploy-k8s-rollout-status.bash"
+          arguments: >
+            -a "${{ deployment.name }}"
+            -b "${{ deployment.namespace }}"
+            -Z "${{ deployment.timeout }}"
+        displayName: "Deploy: Kubectl Rollout Status Check (${{ deployment.name }} @ ${{ deployment.namespace }})"

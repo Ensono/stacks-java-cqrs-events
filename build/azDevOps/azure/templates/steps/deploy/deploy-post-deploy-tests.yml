@@ -1,0 +1,41 @@
+parameters:
+  environment: ""
+  pipeline_scripts_directory: ""
+  functional_test: true
+  functional_test_artefact_name: ""
+  functional_test_artefact_download_location: ""
+  functional_test_base_url: ""
+  maven_cache_directory: ""
+  maven_ignored_post_deploy_test_tags: ""
+  maven_post_deploy_html_report_directory: ""
+  maven_post_deploy_failsafe_reports_directory: ""
+  docker_java_container: ""
+  auth0_credentials: {}
+steps:
+  - template: ./deploy-post-deploy-tests-serenity.yml
+    parameters:
+      environment: "${{ parameters.environment }}"
+      pipeline_scripts_directory: "${{ parameters.pipeline_scripts_directory }}"
+      functional_test: ${{ parameters.functional_test }}
+      functional_test_artefact_name: "${{ parameters.functional_test_artefact_name }}"
+      functional_test_artefact_download_location: "${{ parameters.functional_test_artefact_download_location }}"
+      functional_test_base_url: "${{ parameters.functional_test_base_url }}"
+      maven_cache_directory: "${{ parameters.maven_cache_directory }}"
+      maven_ignored_post_deploy_test_tags: "${{ parameters.maven_ignored_post_deploy_test_tags }}"
+      maven_post_deploy_html_report_directory: "${{ parameters.maven_post_deploy_html_report_directory }}"
+      docker_java_container: "${{ parameters.docker_java_container }}"
+      auth0_credentials: "${{ parameters.auth0_credentials }}"
+
+  - template: ./deploy-post-deploy-tests-karate.yml
+    parameters:
+      environment: "${{ parameters.environment }}"
+      pipeline_scripts_directory: "${{ parameters.pipeline_scripts_directory }}"
+      functional_test: ${{ parameters.functional_test }}
+      functional_test_artefact_name: "${{ parameters.functional_test_artefact_name }}-karate"
+      functional_test_artefact_download_location: "${{ parameters.functional_test_artefact_download_location }}-karate"
+      functional_test_base_url: "${{ parameters.functional_test_base_url }}"
+      maven_cache_directory: "${{ parameters.maven_cache_directory }}"
+      maven_ignored_post_deploy_test_tags: "${{ parameters.maven_ignored_post_deploy_test_tags }}"
+      maven_post_deploy_html_report_directory: "target/surefire-reports"
+      docker_java_container: "${{ parameters.docker_java_container }}"
+      auth0_credentials: "${{ parameters.auth0_credentials }}"

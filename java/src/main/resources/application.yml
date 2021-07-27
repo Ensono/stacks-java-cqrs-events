@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: xxSTACKSxx-api
+  data:
+    rest:
+      detection-strategy: annotated
+
+server:
+  # Note: ONLY use this if you're behind a trusted Reverse Proxy, such as Application Gateway.
+  # If you host this app directly then users can easily inject headers.
+  forward-headers-strategy: framework
+  #######
+  port: 9000
+
+management:
+  endpoints:
+    web:
+      base-path: /
+      exposure:
+        include: health, info, beans
+
+springdoc:
+  swagger-ui:
+    disable-swagger-default-url: true
+    display-operation-id: true
+    # TODO: Swagger keeps redirecting, it'd be good to stop it if possible
+    path: /swagger/index.html
+  packagesToScan: com.xxAMIDOxx.xxSTACKSxx.menu.api
+  api-docs:
+    groups:
+      enabled: true
+    enabled: true
+    path: /swagger/oas-json
+
+azure:
+  cosmosdb:
+    uri: https://localhost:8081
+    database: Stacks
+    key: xxxxxx
+  application-insights:
+    instrumentation-key: xxxxxx
+    enabled: true
+  keyvault:
+    enabled: false
+    uri: https://amido-stacks-tmp.vault.azure.net/
+    client-id: xxxxxx
+    client-key: xxxxxx
+    tenant-id: xxxxxx
+  servicebus:
+    connectionString: xxxxxx
+    topicName: menu-updates
+    subscriptionName: Subscription1
+    enabled: false

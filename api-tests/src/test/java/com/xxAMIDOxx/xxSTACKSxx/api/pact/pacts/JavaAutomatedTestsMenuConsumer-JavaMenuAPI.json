@@ -1,0 +1,207 @@
+{
+    "provider": {
+        "name": "JavaMenuAPI"
+    },
+    "consumer": {
+        "name": "JavaAutomatedTestsMenuConsumer"
+    },
+    "interactions": [
+        {
+            "description": "GET REQUEST",
+            "request": {
+                "method": "GET",
+                "path": "/v1/menu"
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "body": {
+                    "pageSize": 20,
+                    "pageNumber": 1
+                }
+            },
+            "providerStates": [
+                {
+                    "name": "Get all menus"
+                }
+            ]
+        },
+        {
+            "description": "POST REQUEST",
+            "request": {
+                "method": "POST",
+                "path": "/v1/menu",
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "body": {
+                    "tenantId": "e2490de5-5bd3-43d5-b7c4-526e33f71304",
+                    "name": "Dessert Menu (Automated Test Data)",
+                    "description": "string",
+                    "id": "e2490de5-5bd3-43d5-b7c4-526e33f71304",
+                    "enabled": true
+                },
+                "matchingRules": {
+                    "body": {
+                        "$.id": {
+                            "matchers": [
+                                {
+                                    "match": "regex",
+                                    "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$.tenantId": {
+                            "matchers": [
+                                {
+                                    "match": "regex",
+                                    "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$.name": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$.description": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$.enabled": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        }
+                    },
+                    "path": {
+                        
+                    },
+                    "header": {
+                        
+                    }
+                },
+                "generators": {
+                    "body": {
+                        "$.id": {
+                            "type": "Uuid"
+                        },
+                        "$.tenantId": {
+                            "type": "Uuid"
+                        },
+                        "$.description": {
+                            "type": "RandomString",
+                            "size": 20
+                        }
+                    }
+                }
+            },
+            "response": {
+                "status": 201,
+                "headers": {
+                    "Content-Type": "application/json; charset=UTF-8"
+                },
+                "body": {
+                    "id": "e2490de5-5bd3-43d5-b7c4-526e33f71304"
+                },
+                "matchingRules": {
+                    "body": {
+                        "$.id": {
+                            "matchers": [
+                                {
+                                    "match": "regex",
+                                    "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+                                }
+                            ],
+                            "combine": "AND"
+                        }
+                    }
+                },
+                "generators": {
+                    "body": {
+                        "$.id": {
+                            "type": "Uuid"
+                        }
+                    }
+                }
+            },
+            "providerStates": [
+                {
+                    "name": "Create a new menu"
+                }
+            ]
+        },
+        {
+            "description": "GET REQUEST BY TERM",
+            "request": {
+                "method": "GET",
+                "path": "/v1/menu",
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "query": {
+                    "searchTerm": [
+                        "Dessert Menu (Automated Test Data)"
+                    ]
+                }
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "Content-Type": "application/json; charset=UTF-8"
+                },
+                "body": {
+                    "pageNumber": 1,
+                    "pageSize": 20
+                },
+                "matchingRules": {
+                    "body": {
+                        "$.pageSize": {
+                            "matchers": [
+                                {
+                                    "match": "integer"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$.pageNumber": {
+                            "matchers": [
+                                {
+                                    "match": "integer"
+                                }
+                            ],
+                            "combine": "AND"
+                        }
+                    }
+                }
+            },
+            "providerStates": [
+                {
+                    "name": "Search menu by 'search term'"
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "pact-specification": {
+            "version": "3.0.0"
+        },
+        "pact-jvm": {
+            "version": "3.5.0"
+        }
+    }
+}

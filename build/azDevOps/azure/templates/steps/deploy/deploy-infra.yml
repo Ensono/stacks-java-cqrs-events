@@ -1,0 +1,90 @@
+parameters:
+  pipeline_scripts_directory: ""
+  docker_terraform_container: ""
+  azure_client_id: ""
+  azure_client_secret: ""
+  azure_tenant_id: ""
+  azure_subscription_id: ""
+  terraform_directory: ""
+  terraform_backend_azure_client_id: ""
+  terraform_backend_azure_client_secret: ""
+  terraform_backend_azure_tenant_id: ""
+  terraform_backend_azure_subscription_id: ""
+  terraform_state_rg: ""
+  terraform_state_storage: ""
+  terraform_state_container: ""
+  terraform_state_key: ""
+  terraform_state_workspace: ""
+  terraform_extra_properties: ""
+  terraform_output_commands: ""
+  terraform_output_artefact_name: ""
+
+steps:
+  - task: Bash@3
+    inputs:
+      filePath: "${{ parameters.pipeline_scripts_directory }}/util-azure-login.bash"
+      arguments: >
+        -a "${{ parameters.azure_client_id }}"
+        -b "${{ parameters.azure_client_secret }}"
+        -c "${{ parameters.azure_tenant_id }}"
+        -d "${{ parameters.azure_subscription_id }}"
+    target:
+      container: ${{ parameters.docker_terraform_container }}
+    displayName: "Login: Azure CLI"
+
+  - task: Bash@3
+    inputs:
+      filePath: "${{ parameters.pipeline_scripts_directory }}/deploy-azure-terraform-init.bash"
+      arguments: >
+        -a "${{ parameters.terraform_backend_azure_client_id }}"
+        -b "${{ parameters.terraform_backend_azure_client_secret }}"
+        -c "${{ parameters.terraform_backend_azure_tenant_id }}"
+        -d "${{ parameters.terraform_backend_azure_subscription_id }}"
+        -e "${{ parameters.terraform_state_rg }}"
+        -f "${{ parameters.terraform_state_storage }}"
+        -g "${{ parameters.terraform_state_container }}"
+        -h "${{ parameters.terraform_state_key }}"
+        -i "${{ parameters.terraform_state_workspace }}"
+      workingDirectory: ${{ parameters.terraform_directory }}
+    target:
+      container: ${{ parameters.docker_terraform_container }}
+    displayName: "Terraform: Initialise and Set Workspace"
+
+  - task: Bash@3
+    inputs:
+      filePath: "${{ parameters.pipeline_scripts_directory }}/deploy-azure-terraform-plan.bash"
+      arguments: >
+        -a "${{ parameters.azure_client_id }}"
+        -b "${{ parameters.azure_client_secret }}"
+        -c "${{ parameters.azure_tenant_id }}"
+        -d "${{ parameters.azure_subscription_id }}"
+      workingDirectory: ${{ parameters.terraform_directory }}
+    env:
+      ${{ each var in parameters.terraform_extra_properties }}:
+        ${{ var.key }}: "${{ var.value }}"
+    target:
+      container: ${{ parameters.docker_terraform_container }}
+    displayName: "Terraform: Plan"
+
+  - task: Bash@3
+    inputs:
+      filePath: "${{ parameters.pipeline_scripts_directory }}/deploy-azure-terraform-apply.bash"
+      arguments: >
+        -a "${{ parameters.azure_client_id }}"
+        -b "${{ parameters.azure_client_secret }}"
+        -c "${{ parameters.azure_tenant_id }}"
+        -d "${{ parameters.azure_subscription_id }}"
+      workingDirectory: ${{ parameters.terraform_directory }}
+    env:
+      ${{ each var in parameters.terraform_extra_properties }}:
+        ${{ var.key }}: "${{ var.value }}"
+    target:
+      container: ${{ parameters.docker_terraform_container }}
+    displayName: "Terraform: Apply"
+
+  - bash: ${{ parameters.terraform_output_commands }}
+    workingDirectory: ${{ parameters.terraform_directory }}
+    target:
+      container: ${{ parameters.docker_terraform_container }}
+    name: ${{ parameters.terraform_output_artefact_name }}
+    displayName: 'Terraform: Write Outputs to Variables'

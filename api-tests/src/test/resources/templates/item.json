@@ -1,0 +1,6 @@
+{
+  "name": "<#if name??>${name}<#else></#if>",
+  "description": "<#if description??>${description}<#else></#if>",
+  "price": "<#if price??>${price}<#else></#if>",
+  "available": "<#if available??>${available}<#else></#if>"
+}

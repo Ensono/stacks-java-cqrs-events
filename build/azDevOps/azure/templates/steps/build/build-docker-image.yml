@@ -1,0 +1,54 @@
+parameters:
+  project_root_dir: ""
+  pipeline_scripts_directory: ""
+  # Docker
+  docker_k8s_container: ""
+  docker_build_additional_args: ""
+  docker_image_name: ""
+  docker_image_tag: ""
+  docker_container_registry_name: ""
+  # Azure
+  azure_client_id: ""
+  azure_client_secret: ""
+  azure_tenant_id: ""
+  azure_subscription_id: ""
+
+steps:
+  - task: Bash@3
+    inputs:
+      filePath: "${{ parameters.pipeline_scripts_directory }}/build-docker-image.bash"
+      arguments: >
+        -a "${{ parameters.docker_build_additional_args }}"
+        -b "${{ parameters.docker_image_name }}"
+        -c "${{ parameters.docker_image_tag }}"
+        -d "${{ parameters.docker_container_registry_name }}"
+        -Z ".azurecr.io"
+      workingDirectory: ${{ parameters.project_root_dir }}
+    target:
+      container: ${{ parameters.docker_k8s_container }}
+    displayName: "Build Container Image"
+
+  - task: Bash@3
+    inputs:
+      filePath: "${{ parameters.pipeline_scripts_directory }}/util-azure-login.bash"
+      arguments: >
+        -a "${{ parameters.azure_client_id }}"
+        -b "${{ parameters.azure_client_secret }}"
+        -c "${{ parameters.azure_tenant_id }}"
+        -d "${{ parameters.azure_subscription_id }}"
+    target:
+      container: ${{ parameters.docker_k8s_container }}
+    displayName: "Login: Azure CLI"
+
+  - task: Bash@3
+    inputs:
+      filePath: "${{ parameters.pipeline_scripts_directory }}/util-docker-image-push.bash"
+      arguments: >
+        -a "${{ parameters.docker_image_name }}"
+        -b "${{ parameters.docker_image_tag }}"
+        -c "${{ parameters.docker_container_registry_name }}"
+        -Y "false"
+        -Z ".azurecr.io"
+    target:
+      container: ${{ parameters.docker_k8s_container }}
+    displayName: "Push Container Image to Azure Container Registry"
