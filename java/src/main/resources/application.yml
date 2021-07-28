@@ -1,6 +1,6 @@
 spring:
   application:
-    name: xxSTACKSxx-api
+    name: stacks-api-cqrs-events
   data:
     rest:
       detection-strategy: annotated
