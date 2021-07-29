@@ -33,7 +33,7 @@ springdoc:
     path: /swagger/oas-json
 
 azure:
-  cosmosdb:
+  cosmos:
     uri: https://localhost:8081
     database: Stacks
     key: xxxxxx
