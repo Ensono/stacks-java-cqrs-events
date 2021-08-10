@@ -79,7 +79,7 @@ variables:
   # there are some best practices around this if you are going for feature based environments
   # - we suggest you create a runtime variable that is dynamically set based on a branch currently running
   # **`terraform_state_workspace: `**
-  # avoid running anything past dev that is not on master
+  # avoid running anything past dev that is not on main
   # sample value: company-webapp
   tf_state_key: "stacks-api-java"
   # Environment
@@ -274,7 +274,7 @@ stages:
 
   - stage: Dev
     dependsOn: Build
-    condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
+    condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/main'))
     variables:
       - group: amido-stacks-infra-credentials-nonprod
       - group: stacks-credentials-nonprod-kv
@@ -497,7 +497,7 @@ stages:
 
   - stage: Prod
     dependsOn: Build
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
     variables:
       - group: amido-stacks-infra-credentials-prod
       - group: stacks-credentials-prod-kv
