@@ -3,9 +3,9 @@ package com.amido.stacks.actuator;
 import static com.amido.stacks.util.TestHelper.getBaseURL;
 import static org.assertj.core.api.BDDAssertions.then;
 
+import com.amido.stacks.menu.repository.MenuRepository;
 import com.azure.spring.autoconfigure.cosmos.CosmosAutoConfiguration;
 import com.azure.spring.autoconfigure.cosmos.CosmosRepositoriesAutoConfiguration;
-import com.amido.stacks.menu.repository.MenuRepository;
 import java.util.Map;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
