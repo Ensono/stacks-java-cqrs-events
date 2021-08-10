@@ -1,7 +1,7 @@
 package com.amido.stacks.menu.repository;
 
-import com.azure.spring.data.cosmos.repository.CosmosRepository;
 import com.amido.stacks.menu.domain.Menu;
+import com.azure.spring.data.cosmos.repository.CosmosRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;

@@ -1,22 +1,22 @@
 package com.amido.stacks.menu.api.v1.impl;
 
-import static com.azure.cosmos.implementation.Utils.randomUUID;
 import static com.amido.stacks.menu.domain.MenuHelper.createMenu;
 import static com.amido.stacks.util.TestHelper.getBaseURL;
+import static com.azure.cosmos.implementation.Utils.randomUUID;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
-import com.azure.spring.autoconfigure.cosmos.CosmosAutoConfiguration;
-import com.azure.spring.autoconfigure.cosmos.CosmosRepositoriesAutoConfiguration;
 import com.amido.stacks.core.api.dto.ErrorResponse;
 import com.amido.stacks.menu.api.v1.dto.request.CreateCategoryRequest;
 import com.amido.stacks.menu.api.v1.dto.response.ResourceCreatedResponse;
 import com.amido.stacks.menu.domain.Category;
 import com.amido.stacks.menu.domain.Menu;
 import com.amido.stacks.menu.repository.MenuRepository;
+import com.azure.spring.autoconfigure.cosmos.CosmosAutoConfiguration;
+import com.azure.spring.autoconfigure.cosmos.CosmosRepositoriesAutoConfiguration;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
