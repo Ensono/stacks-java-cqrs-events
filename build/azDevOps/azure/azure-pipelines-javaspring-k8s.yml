@@ -145,6 +145,7 @@ stages:
       - group: amido-stacks-infra-credentials-nonprod
       - group: stacks-credentials-nonprod-kv
       - group: amido-stacks-java-api
+      - group: amido-stacks-java-cqrs-events-api
     jobs:
       - job: ApiBuild
         pool:
