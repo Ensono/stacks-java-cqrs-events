@@ -9,12 +9,12 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.xxAMIDOxx</groupId>
-    <artifactId>xxSTACKSxx-api</artifactId>
+    <groupId>com.amido</groupId>
+    <artifactId>stacks-api-cqrs-events</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
-    <name>xxSTACKSxx-api</name>
-    <description>Demo project for Java</description>
+    <name>stacks-api-cqrs-events</name>
+    <description>Demo project for Java with CQRS and event messaging using Azure ServiceBus</description>
 
     <properties>
         <java.version>11</java.version>
@@ -37,7 +37,7 @@
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <owasp-dependency-check-plugin.version>6.2.2</owasp-dependency-check-plugin.version>
         <auth0-spring-security-api.version>1.4.1</auth0-spring-security-api.version>
-        <io-projectreactor-netty.version>1.0.8</io-projectreactor-netty.version>
+        <io-projectreactor-netty.version>1.0.10</io-projectreactor-netty.version>
 
         <fmt-maven-plugin.version>2.11</fmt-maven-plugin.version>
         <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
@@ -403,7 +403,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.xxAMIDOxx.xxSTACKSxx.Application</mainClass>
+                    <mainClass>com.amido.stacks.Application</mainClass>
                 </configuration>
             </plugin>
             <plugin>
@@ -486,7 +486,7 @@
                 <artifactId>fmt-maven-plugin</artifactId>
                 <version>${fmt-maven-plugin.version}</version>
                 <configuration>
-                    <displayFiles>false</displayFiles>
+                    <displayFiles>true</displayFiles>
                     <verbose>true</verbose>
                     <filesNamePattern>.*\.java</filesNamePattern>
                     <additionalSourceDirectories/>
