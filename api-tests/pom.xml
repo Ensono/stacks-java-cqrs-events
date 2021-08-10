@@ -3,15 +3,15 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.xxAMIDOxx</groupId>
-    <artifactId>xxSTACKSxx-api-tests</artifactId>
+    <groupId>com.amido</groupId>
+    <artifactId>stacks-api-tests</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <serenity.version>2.4.34</serenity.version>
         <serenity.maven.version>2.4.34</serenity.maven.version>
-        <serenity.cucumber.version>2.4.34</serenity.cucumber.version>
+        <serenity.cucumber.version>2.5.7</serenity.cucumber.version>
         <cucumber.version>6.10.4</cucumber.version>
         <logback.version>1.2.3</logback.version>
         <encoding>UTF-8</encoding>
@@ -365,7 +365,7 @@
                 <artifactId>fmt-maven-plugin</artifactId>
                 <version>${fmt-maven-plugin.version}</version>
                 <configuration>
-                    <displayFiles>false</displayFiles>
+                    <displayFiles>true</displayFiles>
                     <verbose>true</verbose>
                     <filesNamePattern>.*\.java</filesNamePattern>
                     <additionalSourceDirectories/>
