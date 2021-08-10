@@ -486,7 +486,7 @@
                 <artifactId>fmt-maven-plugin</artifactId>
                 <version>${fmt-maven-plugin.version}</version>
                 <configuration>
-                    <displayFiles>false</displayFiles>
+                    <displayFiles>true</displayFiles>
                     <verbose>true</verbose>
                     <filesNamePattern>.*\.java</filesNamePattern>
                     <additionalSourceDirectories/>
