@@ -367,6 +367,7 @@ stages:
                       TF_VAR_internal_dns_zone_name: "${{ variables.base_domain_internal_nonprod }}",
                       TF_VAR_create_cosmosdb: "${{ variables.create_cosmosdb }}",
                       TF_VAR_create_cache: "${{ variables.create_cache }}",
+                      TF_VAR_stage: $(Environment.ShortName),
                       TF_VAR_create_dns_record: "${{ variables.create_dns_record }}",
                       TF_VAR_create_cdn_endpoint: "${{ variables.create_cdn_endpoint }}",
                       TF_VAR_cosmosdb_sql_container: "${{ variables.cosmosdb_sql_container }}",
