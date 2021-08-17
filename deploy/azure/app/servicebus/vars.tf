@@ -26,7 +26,7 @@ variable "name_domain" {
   type = string
 }
 
-variable "name_environment" {
+variable "stage" {
   type = string
 }
 
