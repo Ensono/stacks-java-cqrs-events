@@ -47,7 +47,7 @@ module "servicebus" {
   name_company               = var.name_company
   name_project               = var.name_project
   name_domain                = var.name_domain
-  stage                      = var.stage
+  stage                      = var.name_environment
   cosmosdb_database_name     = module.app.cosmosdb_database_name
   cosmosdb_collection_name   = var.cosmosdb_sql_container
   cosmosdb_connection_string = "AccountEndpoint=${module.app.cosmosdb_endpoint};AccountKey=${module.app.cosmosdb_primary_master_key};"
