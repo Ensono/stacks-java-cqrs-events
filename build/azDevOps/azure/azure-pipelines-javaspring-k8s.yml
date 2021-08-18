@@ -280,7 +280,7 @@ stages:
       - group: stacks-credentials-nonprod-kv
       - group: amido-stacks-java-api
       - name: dns_name
-        value: "$(Environment.ShortName)-java-api"
+        value: "$(Environment.ShortName)-$(domain)"
       - name: core_resource_group
         value: "amido-stacks-nonprod-euw-core"
       - name: Environment.ShortName
@@ -501,7 +501,7 @@ stages:
       - group: stacks-credentials-prod-kv
       - group: amido-stacks-java-api
       - name: dns_name
-        value: "$(Environment.ShortName)-java-api"
+        value: "$(Environment.ShortName)-$(domain)"
       - name: core_resource_group
         value: "amido-stacks-prod-euw-core"
       - name: Environment.ShortName
