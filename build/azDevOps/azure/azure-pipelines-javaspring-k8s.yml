@@ -51,7 +51,7 @@ resources:
 variables:
   company: amido
   project: stacks
-  domain: java-api
+  domain: java-api-cqrs-evnts
   component: api
   role: backend
   #
@@ -81,7 +81,7 @@ variables:
   # **`terraform_state_workspace: `**
   # avoid running anything past dev that is not on main
   # sample value: company-webapp
-  tf_state_key: "stacks-api-java"
+  tf_state_key: "java-api-cqrs-events"
   # Environment
   # Name of the resource group for DNS
   dns_zone_resource_group: "Stacks-Ancillary-Resources"
@@ -102,6 +102,7 @@ variables:
   k8s_docker_registry_nonprod: "${{ variables.docker_container_registry_name_nonprod }}.azurecr.io"
   docker_container_registry_name_prod: amidostacksprodeuwcore
   k8s_docker_registry_prod: "${{ variables.docker_container_registry_name_prod }}.azurecr.io"
+  resource_def_name: java-api-cqrs-evnts
   # BUILD ARTIFACTS across stages
   build_artifact_deploy_path: "${{ variables.self_repo_dir }}/deploy/k8s/app"
   build_artifact_deploy_name: "${{ variables.self_generic_name }}"
@@ -280,7 +281,7 @@ stages:
       - group: stacks-credentials-nonprod-kv
       - group: amido-stacks-java-api
       - name: dns_name
-        value: "$(Environment.ShortName)-java-api"
+        value: "$(Environment.ShortName)-$(domain)"
       - name: core_resource_group
         value: "amido-stacks-nonprod-euw-core"
       - name: Environment.ShortName
@@ -397,8 +398,6 @@ stages:
             value: "$[ dependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.cosmosdb_primary_master_key'] ]"
           - name: app_insights_instrumentation_key
             value: "$[ dependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.app_insights_instrumentation_key'] ]"
-          - name: resource_def_name
-            value: "stacks-java-api"
           - name: namespace
             value: "$(Environment.ShortName)-java-api"
           - name: k8s_app_path
@@ -503,7 +502,7 @@ stages:
       - group: stacks-credentials-prod-kv
       - group: amido-stacks-java-api
       - name: dns_name
-        value: "$(Environment.ShortName)-java-api"
+        value: "$(Environment.ShortName)-$(domain)"
       - name: core_resource_group
         value: "amido-stacks-prod-euw-core"
       - name: Environment.ShortName
@@ -659,8 +658,6 @@ stages:
             value: "$[ dependencies.AppInfraProd.outputs['AppInfraProd.tfoutputs.cosmosdb_primary_master_key'] ]"
           - name: app_insights_instrumentation_key
             value: "$[ dependencies.AppInfraProd.outputs['AppInfraProd.tfoutputs.app_insights_instrumentation_key'] ]"
-          - name: resource_def_name
-            value: "stacks-java-api"
           - name: namespace
             value: "$(Environment.ShortName)-java-api"
           - name: k8s_app_path
