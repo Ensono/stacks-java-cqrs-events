@@ -1,11 +1,10 @@
 package com.amido.stacks.core.azure.servicebus;
 
+import com.azure.messaging.servicebus.ServiceBusClientBuilder;
+import com.azure.messaging.servicebus.ServiceBusSenderAsyncClient;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.microsoft.azure.servicebus.TopicClient;
-import com.microsoft.azure.servicebus.primitives.ConnectionStringBuilder;
-import com.microsoft.azure.servicebus.primitives.ServiceBusException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -26,9 +25,12 @@ public class ServiceBusConfiguration {
   }
 
   @Bean
-  public TopicClient topicSender() throws ServiceBusException, InterruptedException {
-    return new TopicClient(
-        new ConnectionStringBuilder(properties.getConnectionString(), properties.getTopicName()));
+  public ServiceBusSenderAsyncClient serviceBusAsyncSender() {
+    return new ServiceBusClientBuilder()
+        .connectionString(properties.getConnectionString())
+        .sender()
+        .topicName(properties.getTopicName())
+        .buildAsyncClient();
   }
 
   @Bean
