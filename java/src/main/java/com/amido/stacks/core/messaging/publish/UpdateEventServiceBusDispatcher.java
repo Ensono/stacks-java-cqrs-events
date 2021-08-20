@@ -1,9 +1,8 @@
-package com.amido.stacks.core.azure.servicebus;
+package com.amido.stacks.core.messaging.publish;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.amido.stacks.core.messaging.event.ApplicationEvent;
-import com.amido.stacks.core.messaging.publish.ApplicationEventPublisher;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.microsoft.azure.servicebus.Message;
