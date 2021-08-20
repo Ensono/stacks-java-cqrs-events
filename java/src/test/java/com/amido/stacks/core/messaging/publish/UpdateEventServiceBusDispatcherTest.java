@@ -1,7 +1,8 @@
-package com.amido.stacks.core.azure.servicebus;
+package com.amido.stacks.core.messaging.publish;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
+import com.amido.stacks.core.messaging.publish.UpdateEventServiceBusDispatcher;
 import com.amido.stacks.menu.commands.CreateCategoryCommand;
 import com.amido.stacks.menu.events.MenuCreatedEvent;
 import com.fasterxml.jackson.core.JsonProcessingException;
