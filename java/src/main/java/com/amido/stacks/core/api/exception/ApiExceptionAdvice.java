@@ -1,10 +1,10 @@
 package com.amido.stacks.core.api.exception;
 
-import static com.google.common.collect.Maps.newHashMap;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.web.context.request.RequestAttributes.SCOPE_REQUEST;
 
 import com.amido.stacks.core.api.dto.ErrorResponse;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -38,7 +38,7 @@ public class ApiExceptionAdvice extends ResponseEntityExceptionHandler {
   }
 
   private Map<String, String> processFieldErrors(List<FieldError> fieldErrors) {
-    Map<String, String> errors = newHashMap();
+    Map<String, String> errors = new HashMap<>();
     for (FieldError fieldError : fieldErrors) {
       errors.put(fieldError.getField(), fieldError.getDefaultMessage());
     }

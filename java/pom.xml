@@ -24,6 +24,7 @@
         <cosmosdb.version>3.6.0</cosmosdb.version>
         <azure.springboot.version>3.6.0</azure.springboot.version>
         <azure.servicebus.version>3.6.4</azure.servicebus.version>
+        <azure.messaging-servicebus.version>7.3.0</azure.messaging-servicebus.version>
         <jackson.version>2.12.3</jackson.version>
         <mockito.version>3.11.2</mockito.version>
         <lombok.version>1.18.20</lombok.version>
@@ -157,9 +158,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.microsoft.azure</groupId>
-            <artifactId>azure-servicebus</artifactId>
-            <version>${azure.servicebus.version}</version>
+            <groupId>com.azure</groupId>
+            <artifactId>azure-messaging-servicebus</artifactId>
+            <version>${azure.messaging-servicebus.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.nimbusds</groupId>

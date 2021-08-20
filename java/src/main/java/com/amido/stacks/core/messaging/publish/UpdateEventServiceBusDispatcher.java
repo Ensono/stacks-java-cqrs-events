@@ -1,12 +1,11 @@
 package com.amido.stacks.core.messaging.publish;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.amido.stacks.core.messaging.event.ApplicationEvent;
+import com.azure.messaging.servicebus.ServiceBusMessage;
+import com.azure.messaging.servicebus.ServiceBusSenderAsyncClient;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.microsoft.azure.servicebus.Message;
-import com.microsoft.azure.servicebus.TopicClient;
 import java.time.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,11 +18,11 @@ public class UpdateEventServiceBusDispatcher implements ApplicationEventPublishe
 
   Logger logger = LoggerFactory.getLogger(UpdateEventServiceBusDispatcher.class);
 
+  ServiceBusSenderAsyncClient topicAsyncSender;
   JsonMapper jsonMapper;
-  TopicClient topicClient;
 
-  public UpdateEventServiceBusDispatcher(TopicClient topicClient, JsonMapper jsonMapper) {
-    this.topicClient = topicClient;
+  public UpdateEventServiceBusDispatcher(ServiceBusSenderAsyncClient topicAsyncSender, JsonMapper jsonMapper) {
+    this.topicAsyncSender = topicAsyncSender;
     this.jsonMapper = jsonMapper;
   }
 
@@ -32,28 +31,29 @@ public class UpdateEventServiceBusDispatcher implements ApplicationEventPublishe
 
     try {
 
-      Message message = createMessageFromEvent(applicationEvent);
+      ServiceBusMessage serviceBusMessage = createServiceBusMessageFromEvent(applicationEvent);
 
-      logger.debug("Message sending: Id = {}", message.getMessageId());
+      logger.debug("Message sending: Id = {}", serviceBusMessage.getMessageId());
 
-      topicClient
-          .sendAsync(message)
-          .thenRunAsync(
-              () -> logger.debug("Message acknowledged: Id = {}", message.getMessageId()));
+      topicAsyncSender.sendMessage(serviceBusMessage).subscribe(
+          unused -> logger.info("Message acknowledged: Id = {}", serviceBusMessage.getMessageId()),
+          error -> logger.error("Error when sending message: Id = {}, error: " + error, serviceBusMessage.getMessageId()),
+          () -> logger.info("Message sent: Id = {}", serviceBusMessage.getMessageId())
+      );
 
     } catch (JsonProcessingException e) {
       logger.error("Unable to process ApplicationEvent", e);
     }
   }
 
-  protected Message createMessageFromEvent(ApplicationEvent applicationEvent)
+  protected ServiceBusMessage createServiceBusMessageFromEvent(ApplicationEvent applicationEvent)
       throws JsonProcessingException {
     String content = jsonMapper.writeValueAsString(applicationEvent);
-    Message message = new Message(content.getBytes(UTF_8));
+    ServiceBusMessage message = new ServiceBusMessage(content);
     message.setContentType("application/json");
-    message.setLabel(applicationEvent.getClass().getSimpleName());
     message.setMessageId(applicationEvent.getId().toString());
     message.setTimeToLive(Duration.ofMinutes(2));
+    message.setSubject(applicationEvent.getClass().getSimpleName());
     return message;
   }
 }
