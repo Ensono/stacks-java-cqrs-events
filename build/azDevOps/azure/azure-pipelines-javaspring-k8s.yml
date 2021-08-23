@@ -399,7 +399,7 @@ stages:
           - name: app_insights_instrumentation_key
             value: "$[ dependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.app_insights_instrumentation_key'] ]"
           - name: namespace
-            value: "$(Environment.ShortName)-java-api-cqrs-events"
+            value: "$(Environment.ShortName)-${{ variables.domain }}"
           - name: k8s_app_path
             value: "/api/menu"
           - name: dns_pointer
@@ -659,7 +659,7 @@ stages:
           - name: app_insights_instrumentation_key
             value: "$[ dependencies.AppInfraProd.outputs['AppInfraProd.tfoutputs.app_insights_instrumentation_key'] ]"
           - name: namespace
-            value: "$(Environment.ShortName)-java-api-cqrs-events"
+            value: "$(Environment.ShortName)-${{ variables.domain }}"
           - name: k8s_app_path
             value: "/api/menu"
           - name: dns_pointer
