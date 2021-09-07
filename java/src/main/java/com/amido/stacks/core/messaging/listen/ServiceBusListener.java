@@ -50,7 +50,11 @@ public class ServiceBusListener implements ApplicationEventListener {
                     message.getSubject(),
                     event.toString());
               } catch (JsonProcessingException e) {
-                e.printStackTrace();
+                logger.error(
+                    "Error while parsing event with ID "
+                        + context.getMessage().getMessageId()
+                        + ":",
+                    e);
               }
             })
         .processError(
