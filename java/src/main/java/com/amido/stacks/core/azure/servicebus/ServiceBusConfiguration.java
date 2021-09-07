@@ -2,15 +2,11 @@ package com.amido.stacks.core.azure.servicebus;
 
 import com.azure.messaging.servicebus.ServiceBusClientBuilder;
 import com.azure.messaging.servicebus.ServiceBusClientBuilder.ServiceBusProcessorClientBuilder;
-import com.azure.messaging.servicebus.ServiceBusReceivedMessage;
 import com.azure.messaging.servicebus.ServiceBusSenderAsyncClient;
 import com.azure.messaging.servicebus.models.ServiceBusReceiveMode;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import java.util.Map;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -31,7 +27,7 @@ public class ServiceBusConfiguration {
   }
 
   @Bean
-  public ServiceBusProcessorClientBuilder serviceBusProcessorClientBuilder(){
+  public ServiceBusProcessorClientBuilder serviceBusProcessorClientBuilder() {
 
     return new ServiceBusClientBuilder()
         .connectionString(properties.getConnectionString())

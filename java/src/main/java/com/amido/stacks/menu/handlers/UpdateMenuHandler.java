@@ -1,6 +1,5 @@
 package com.amido.stacks.menu.handlers;
 
-import com.amido.stacks.core.messaging.publish.ApplicationEventPublisher;
 import com.amido.stacks.core.messaging.publish.ApplicationEventPublisherWithListener;
 import com.amido.stacks.menu.commands.UpdateMenuCommand;
 import com.amido.stacks.menu.domain.Menu;
@@ -17,7 +16,8 @@ import org.springframework.stereotype.Component;
 public class UpdateMenuHandler extends MenuBaseCommandHandler<UpdateMenuCommand> {
 
   public UpdateMenuHandler(
-      MenuRepository menuRepository, ApplicationEventPublisherWithListener applicationEventPublisher) {
+      MenuRepository menuRepository,
+      ApplicationEventPublisherWithListener applicationEventPublisher) {
     super(menuRepository, applicationEventPublisher);
   }
 

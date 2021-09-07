@@ -1,6 +1,5 @@
 package com.amido.stacks.menu.handlers;
 
-import com.amido.stacks.core.messaging.publish.ApplicationEventPublisher;
 import com.amido.stacks.core.messaging.publish.ApplicationEventPublisherWithListener;
 import com.amido.stacks.menu.commands.UpdateItemCommand;
 import com.amido.stacks.menu.domain.Category;
@@ -24,7 +23,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class UpdateItemHandler extends MenuBaseCommandHandler<UpdateItemCommand> {
 
-  public UpdateItemHandler(MenuRepository repository, ApplicationEventPublisherWithListener publisher) {
+  public UpdateItemHandler(
+      MenuRepository repository, ApplicationEventPublisherWithListener publisher) {
     super(repository, publisher);
   }
 

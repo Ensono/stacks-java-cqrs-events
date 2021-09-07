@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ConditionalOnProperty(value = "azure.servicebus.enabled", havingValue = "true")
-public class ServiceBusListener implements ApplicationEventListener{
+public class ServiceBusListener implements ApplicationEventListener {
 
   private Logger logger = LoggerFactory.getLogger(ServiceBusListener.class);
 
@@ -30,32 +30,35 @@ public class ServiceBusListener implements ApplicationEventListener{
     client.start();
   }
 
-  private ServiceBusProcessorClient configureBuilder(){
-    clientBuilder.processMessage(context -> {
-      try {
-        ServiceBusReceivedMessage message = context.getMessage();
+  private ServiceBusProcessorClient configureBuilder() {
+    clientBuilder
+        .processMessage(
+            context -> {
+              try {
+                ServiceBusReceivedMessage message = context.getMessage();
 
-        Map event = new ObjectMapper().readValue(message.getBody().toString(), Map.class);
-        logger.info("Message received: \n\t\t\t\t\t\tMessageId = {},"
-                    + " \n\t\t\t\t\t\tSequenceNumber = {},"
-                    + " \n\t\t\t\t\t\tEnqueuedTimeUtc = {},"
-                    + " \n\t\t\t\t\t\tSubject = {},"
-                    + " \n\t\t\t\t\t\tContent: {}\n",
-                message.getMessageId(),
-                message.getSequenceNumber(),
-                message.getEnqueuedTime(),
-                message.getSubject(),
-                event.toString());
-      } catch (JsonProcessingException e) {
-        e.printStackTrace();
-      }
-    })
-    .processError(context -> logger.error("There was an error listening on " +
-                  context.getFullyQualifiedNamespace() + ":",
-                  context.getException()));
+                Map event = new ObjectMapper().readValue(message.getBody().toString(), Map.class);
+                logger.info(
+                    "Message received: \n\t\t\t\t\t\tMessageId = {},"
+                        + " \n\t\t\t\t\t\tSequenceNumber = {},"
+                        + " \n\t\t\t\t\t\tEnqueuedTimeUtc = {},"
+                        + " \n\t\t\t\t\t\tSubject = {},"
+                        + " \n\t\t\t\t\t\tContent: {}\n",
+                    message.getMessageId(),
+                    message.getSequenceNumber(),
+                    message.getEnqueuedTime(),
+                    message.getSubject(),
+                    event.toString());
+              } catch (JsonProcessingException e) {
+                e.printStackTrace();
+              }
+            })
+        .processError(
+            context ->
+                logger.error(
+                    "There was an error listening on " + context.getFullyQualifiedNamespace() + ":",
+                    context.getException()));
 
     return clientBuilder.buildProcessorClient();
   }
-
-
 }

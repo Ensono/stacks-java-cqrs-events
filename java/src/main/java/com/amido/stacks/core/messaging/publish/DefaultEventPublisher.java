@@ -27,6 +27,6 @@ public class DefaultEventPublisher extends ApplicationEventPublisherWithListener
 
   @Override
   public void listen() {
-    //Nothing to listen to
+    // Nothing to listen to
   }
 }
