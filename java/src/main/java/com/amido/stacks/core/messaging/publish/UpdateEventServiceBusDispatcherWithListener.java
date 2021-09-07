@@ -2,6 +2,7 @@ package com.amido.stacks.core.messaging.publish;
 
 
 import com.amido.stacks.core.messaging.event.ApplicationEvent;
+import com.amido.stacks.core.messaging.listen.ApplicationEventListener;
 import com.azure.messaging.servicebus.ServiceBusMessage;
 import com.azure.messaging.servicebus.ServiceBusSenderAsyncClient;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -14,14 +15,18 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ConditionalOnProperty(value = "azure.servicebus.enabled", havingValue = "true")
-public class UpdateEventServiceBusDispatcher implements ApplicationEventPublisher {
+public class UpdateEventServiceBusDispatcherWithListener
+    extends ApplicationEventPublisherWithListener {
 
-  Logger logger = LoggerFactory.getLogger(UpdateEventServiceBusDispatcher.class);
+  Logger logger = LoggerFactory.getLogger(UpdateEventServiceBusDispatcherWithListener.class);
 
   ServiceBusSenderAsyncClient topicAsyncSender;
   JsonMapper jsonMapper;
 
-  public UpdateEventServiceBusDispatcher(ServiceBusSenderAsyncClient topicAsyncSender, JsonMapper jsonMapper) {
+  public UpdateEventServiceBusDispatcherWithListener(ServiceBusSenderAsyncClient topicAsyncSender,
+      JsonMapper jsonMapper, ApplicationEventListener applicationEventListener) {
+    super(applicationEventListener);
+    super.listen();
     this.topicAsyncSender = topicAsyncSender;
     this.jsonMapper = jsonMapper;
   }

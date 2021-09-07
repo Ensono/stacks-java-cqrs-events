@@ -1,6 +1,7 @@
 package com.amido.stacks.menu.handlers;
 
 import com.amido.stacks.core.messaging.publish.ApplicationEventPublisher;
+import com.amido.stacks.core.messaging.publish.ApplicationEventPublisherWithListener;
 import com.amido.stacks.menu.commands.UpdateCategoryCommand;
 import com.amido.stacks.menu.domain.Category;
 import com.amido.stacks.menu.domain.Menu;
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UpdateCategoryHandler extends MenuBaseCommandHandler<UpdateCategoryCommand> {
 
-  public UpdateCategoryHandler(MenuRepository repository, ApplicationEventPublisher publisher) {
+  public UpdateCategoryHandler(MenuRepository repository, ApplicationEventPublisherWithListener publisher) {
     super(repository, publisher);
   }
 
