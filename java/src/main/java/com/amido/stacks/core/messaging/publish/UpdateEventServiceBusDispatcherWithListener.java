@@ -1,6 +1,5 @@
 package com.amido.stacks.core.messaging.publish;
 
-
 import com.amido.stacks.core.messaging.event.ApplicationEvent;
 import com.amido.stacks.core.messaging.listen.ApplicationEventListener;
 import com.azure.messaging.servicebus.ServiceBusMessage;
@@ -23,8 +22,10 @@ public class UpdateEventServiceBusDispatcherWithListener
   ServiceBusSenderAsyncClient topicAsyncSender;
   JsonMapper jsonMapper;
 
-  public UpdateEventServiceBusDispatcherWithListener(ServiceBusSenderAsyncClient topicAsyncSender,
-      JsonMapper jsonMapper, ApplicationEventListener applicationEventListener) {
+  public UpdateEventServiceBusDispatcherWithListener(
+      ServiceBusSenderAsyncClient topicAsyncSender,
+      JsonMapper jsonMapper,
+      ApplicationEventListener applicationEventListener) {
     super(applicationEventListener);
     super.listen();
     this.topicAsyncSender = topicAsyncSender;
@@ -40,11 +41,16 @@ public class UpdateEventServiceBusDispatcherWithListener
 
       logger.debug("Message sending: Id = {}", serviceBusMessage.getMessageId());
 
-      topicAsyncSender.sendMessage(serviceBusMessage).subscribe(
-          unused -> logger.info("Message acknowledged: Id = {}", serviceBusMessage.getMessageId()),
-          error -> logger.error("Error when sending message: Id = {}, error: " + error, serviceBusMessage.getMessageId()),
-          () -> logger.info("Message sent: Id = {}", serviceBusMessage.getMessageId())
-      );
+      topicAsyncSender
+          .sendMessage(serviceBusMessage)
+          .subscribe(
+              unused ->
+                  logger.info("Message acknowledged: Id = {}", serviceBusMessage.getMessageId()),
+              error ->
+                  logger.error(
+                      "Error when sending message: Id = {}, error: " + error,
+                      serviceBusMessage.getMessageId()),
+              () -> logger.info("Message sent: Id = {}", serviceBusMessage.getMessageId()));
 
     } catch (JsonProcessingException e) {
       logger.error("Unable to process ApplicationEvent", e);

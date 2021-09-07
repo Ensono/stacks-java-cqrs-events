@@ -1,6 +1,5 @@
 package com.amido.stacks.menu.handlers;
 
-import com.amido.stacks.core.messaging.publish.ApplicationEventPublisher;
 import com.amido.stacks.core.messaging.publish.ApplicationEventPublisherWithListener;
 import com.amido.stacks.menu.commands.DeleteMenuCommand;
 import com.amido.stacks.menu.domain.Menu;
@@ -22,7 +21,8 @@ import org.springframework.stereotype.Component;
 public class DeleteMenuHandler extends MenuBaseCommandHandler<DeleteMenuCommand> {
 
   public DeleteMenuHandler(
-      MenuRepository menuRepository, ApplicationEventPublisherWithListener applicationEventPublisher) {
+      MenuRepository menuRepository,
+      ApplicationEventPublisherWithListener applicationEventPublisher) {
     super(menuRepository, applicationEventPublisher);
   }
 

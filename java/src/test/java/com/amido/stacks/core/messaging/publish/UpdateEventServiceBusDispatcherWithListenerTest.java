@@ -24,7 +24,8 @@ class UpdateEventServiceBusDispatcherWithListenerTest {
 
     // Given
     UpdateEventServiceBusDispatcherWithListener d =
-        new UpdateEventServiceBusDispatcherWithListener(topicAsyncSender, JsonMapper.builder().build(), new DefaultEventListener());
+        new UpdateEventServiceBusDispatcherWithListener(
+            topicAsyncSender, JsonMapper.builder().build(), new DefaultEventListener());
 
     // When
     CreateCategoryCommand command =

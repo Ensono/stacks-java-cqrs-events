@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
     value = "azure.servicebus.enabled",
     havingValue = "false",
     matchIfMissing = true)
-public class DefaultEventListener implements ApplicationEventListener{
+public class DefaultEventListener implements ApplicationEventListener {
 
   @Override
   public void listen() {
-//Nothing to listen to for default listener
+    // Nothing to listen to for default listener
   }
 }

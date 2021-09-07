@@ -1,7 +1,6 @@
 package com.amido.stacks.menu.handlers;
 
 import com.amido.stacks.core.cqrs.handler.CommandHandler;
-import com.amido.stacks.core.messaging.publish.ApplicationEventPublisher;
 import com.amido.stacks.core.messaging.publish.ApplicationEventPublisherWithListener;
 import com.amido.stacks.menu.commands.MenuCommand;
 import com.amido.stacks.menu.domain.Category;
@@ -21,7 +20,8 @@ public abstract class MenuBaseCommandHandler<T extends MenuCommand> implements C
   private ApplicationEventPublisherWithListener applicationEventPublisher;
 
   public MenuBaseCommandHandler(
-      MenuRepository menuRepository, ApplicationEventPublisherWithListener applicationEventPublisher) {
+      MenuRepository menuRepository,
+      ApplicationEventPublisherWithListener applicationEventPublisher) {
     this.menuRepository = menuRepository;
     this.applicationEventPublisher = applicationEventPublisher;
   }
