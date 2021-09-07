@@ -14,12 +14,13 @@ public class ServiceBusTopicListener {
 
   public static void main(String[] args) throws Exception {
     String connectionString =
-        "Endpoint=sb://amido-stacks-java.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=01D8OSZUUJfyD0B3vCqWsK9jkmzzmC8SjE9kGMlpLc8=";
+        "Endpoint=sb://sb-menu-vejtxg.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=i7Rfyj1GMno4DywPIuudxaJLcS3imr/E3IKSm8o+ESg=";
 
     ServiceBusProcessorClient listener = new ServiceBusClientBuilder()
         .connectionString(connectionString)
         .processor()
         .topicName("sbt-menu-events")
+        .subscriptionName("sbs-menu-events")
         .processMessage(context -> {
           ServiceBusReceivedMessage message = context.getMessage();
           try {

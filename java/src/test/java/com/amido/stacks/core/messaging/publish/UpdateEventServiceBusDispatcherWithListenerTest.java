@@ -2,6 +2,7 @@ package com.amido.stacks.core.messaging.publish;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
+import com.amido.stacks.core.messaging.listen.DefaultEventListener;
 import com.amido.stacks.menu.commands.CreateCategoryCommand;
 import com.amido.stacks.menu.events.MenuCreatedEvent;
 import com.azure.messaging.servicebus.ServiceBusMessage;
@@ -14,7 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 @Tag("Component")
-class UpdateEventServiceBusDispatcherTest {
+class UpdateEventServiceBusDispatcherWithListenerTest {
 
   @MockBean ServiceBusSenderAsyncClient topicAsyncSender;
 
@@ -22,8 +23,8 @@ class UpdateEventServiceBusDispatcherTest {
   void testCreateMessage() throws JsonProcessingException {
 
     // Given
-    UpdateEventServiceBusDispatcher d =
-        new UpdateEventServiceBusDispatcher(topicAsyncSender, JsonMapper.builder().build());
+    UpdateEventServiceBusDispatcherWithListener d =
+        new UpdateEventServiceBusDispatcherWithListener(topicAsyncSender, JsonMapper.builder().build(), new DefaultEventListener());
 
     // When
     CreateCategoryCommand command =
