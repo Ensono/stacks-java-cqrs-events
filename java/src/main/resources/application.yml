@@ -34,12 +34,12 @@ springdoc:
 
 azure:
   cosmos:
-    uri: https://localhost:8081
+    uri: http://localhost:8081
     database: Stacks
-    key: xxxxxx
+    key: xxxx
   application-insights:
     instrumentation-key: xxxxxx
-    enabled: true
+    enabled: false
   keyvault:
     enabled: false
     uri: https://amido-stacks-tmp.vault.azure.net/
@@ -47,7 +47,7 @@ azure:
     client-key: xxxxxx
     tenant-id: xxxxxx
   servicebus:
-    connectionString: xxxxxx
-    topicName: menu-updates
-    subscriptionName: Subscription1
-    enabled: false
+    connectionString: xxxx
+    topicName: sbt-menu-events
+    subscriptionName: sbs-menu-events
+    enabled: true
