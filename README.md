@@ -39,21 +39,12 @@ This is version `1.0.0` of the `java-stacks` project.
     AZURE_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY
     ```
 
-   <Tabs
-   groupId="operating-systems"
-   defaultValue="unix"
-   values={[
-   {label: 'Unix', value: 'unix'},
-   {label: 'Windows', value: 'windows'},
-   ]}>
-   <TabItem value="unix">
+   For Unix:</br>
    Set the two environment variables as additional variables within e.g. ~/.profile or /etc/profile.
-   </TabItem>
-   <TabItem value="windows">
+   
+   For Windows:</br>
    Open the System Properties then select the Advanced tab, then click on the Environment Variables
    button and add the new parameters.
-   </TabItem>
-   </Tabs>
 
 3. Build and run the application
    ---
@@ -62,29 +53,17 @@ This is version `1.0.0` of the `java-stacks` project.
 
    Move to the `<PROJECT-NAME>/java` folder, then
 
-   <Tabs
-   groupId="operating-systems"
-   defaultValue="unix"
-   values={[
-   { label: 'Unix', value: 'unix', },
-   { label: 'Windows', value: 'windows', },
-   ]
-   }>
-   <TabItem value="unix">
+   For Unix:
 
     ```bash
     ./mvnw spring-boot:run
     ```
 
-    </TabItem>
-    <TabItem value="windows">
+    For Windows:
 
     ```bash
     mvnw.cmd spring-boot:run
     ```
-
-   </TabItem>
-   </Tabs>
 
    For instructions on how to customise the project for your company please look in the [Scaffolding](docs/workloads/azure/backend/java/scaffolding_java.md) section
 
@@ -101,29 +80,17 @@ This is version `1.0.0` of the `java-stacks` project.
    Set `AZURE_COSMOSDB_KEY` as an environment variable and set the value to be the primary key value on the emulator.
    <br />
 
-   <Tabs
-   groupId="operating-systems"
-   defaultValue="unix"
-   values={[
-   { label: 'Unix', value: 'unix', },
-   { label: 'Windows', value: 'windows', },
-   ]
-   }>
-   <TabItem value="unix">
+   For UNIX systems do:
 
     ```bash
     ./mvnw spring-boot:run -Dspring-boot.run.jvmArguments='-Djavax.net.ssl.trustStore="<Location of the root cosmos db certificate>" -Djavax.net.ssl.trustStorePassword="changeit"'
     ```
 
-    </TabItem>
-    <TabItem value="windows">
+    And for Windows:
 
     ```bash
     mvnw.cmd spring-boot:run -Dspring-boot.run.jvmArguments='-Djavax.net.ssl.trustStore="<Location of the root cosmos db certificate>" -Djavax.net.ssl.trustStorePassword="changeit"'
     ```
-
-    </TabItem>
-    </Tabs>
 
 5. Verify that the application has started
    ---
