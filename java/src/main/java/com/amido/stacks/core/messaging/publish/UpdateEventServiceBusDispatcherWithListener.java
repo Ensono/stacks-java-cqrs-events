@@ -49,7 +49,8 @@ public class UpdateEventServiceBusDispatcherWithListener
               error ->
                   logger.error(
                       "Error when sending message: Id = {}, error: {}",
-                      serviceBusMessage.getMessageId(), error),
+                      serviceBusMessage.getMessageId(),
+                      error),
               () -> logger.info("Message sent: Id = {}", serviceBusMessage.getMessageId()));
 
     } catch (JsonProcessingException e) {
