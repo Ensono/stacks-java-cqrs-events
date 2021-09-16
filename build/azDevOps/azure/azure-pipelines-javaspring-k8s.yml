@@ -49,95 +49,128 @@ resources:
       image: amidostacks/ci-tf:0.0.8
 
 variables:
-  company: amido
-  project: stacks
-  domain: java-api-cqrs-evnts
-  component: api
-  role: backend
+  - template: azuredevops-vars.yml
+
+  - name: component
+    value: api
+
+  - name: role
+    value: backend
   #
   # SelfConfig
   # If you haven't specified source_repo at cli runtime please ensure you replace it here
   # It is case sensitive for TFS based repos
-  self_repo: stacks-java-cqrs-events
-  self_remote_repo: "amido/$(self_repo)"
-  self_repo_src: java
-  self_post_deploy_test_src: "api-tests"
-  self_repo_dir: "$(Agent.BuildDirectory)/s/$(self_repo)"
-  self_project_dir: "$(self_repo_dir)/$(self_repo_src)"
-  self_functional_testproject_dir: "$(self_repo_dir)/$(self_post_deploy_test_src)"
-  self_repo_tf_src: deploy/azure/app/kube
-  self_repo_tf_dir: "$(self_repo_dir)/$(self_repo_tf_src)"
-  self_generic_name: $(project)-$(domain)
-  self_pipeline_repo: "$(Agent.BuildDirectory)/s/stacks-pipeline-templates"
-  self_pipeline_scripts_dir: "$(self_pipeline_repo)/scripts"
-  # TF STATE CONFIG
-  tf_state_rg: "Stacks-Ancillary-Resources"
-  tf_state_storage: "amidostackstfstate"
-  tf_state_container: "tfstate"
-  # Stacks operates Terraform states based on workspaces **IT IS VERY IMPORTANT** that you ensure a unique name for each application definition
-  # Furthermore **IT IS VERY IMPORTANT** that you change the name of a workspace for each deployment stage
-  # there are some best practices around this if you are going for feature based environments
-  # - we suggest you create a runtime variable that is dynamically set based on a branch currently running
-  # **`terraform_state_workspace: `**
-  # avoid running anything past dev that is not on main
-  # sample value: company-webapp
-  tf_state_key: "java-api-cqrs-events"
-  # Environment
-  # Name of the resource group for DNS
-  dns_zone_resource_group: "Stacks-Ancillary-Resources"
+
+  - name: self_remote_repo
+    value: "amido/$(self_repo)"
+  - name: self_repo_src
+    value: java
+  - name: self_post_deploy_test_src
+    value: "api-tests"
+  - name: self_repo_dir
+    value: "$(Agent.BuildDirectory)/s/$(self_repo)"
+  - name: self_project_dir
+    value: "$(self_repo_dir)/$(self_repo_src)"
+  - name: self_functional_testproject_dir
+    value: "$(self_repo_dir)/$(self_post_deploy_test_src)"
+  - name: self_repo_tf_src
+    value: deploy/azure/app/kube
+  - name: self_repo_tf_dir
+    value: "$(self_repo_dir)/$(self_repo_tf_src)"
+
+  - name: self_pipeline_repo
+    value: "$(Agent.BuildDirectory)/s/stacks-pipeline-templates"
+  - name: self_pipeline_scripts_dir
+    value: "$(self_pipeline_repo)/scripts"
+
   # Versioning
-  version_major: 0
-  version_minor: 0
-  version_revision: "$[counter(join(variables['version_major'], join('-', variables['version_minor'])), 0)]"
+  - name: version_major
+    value: 0
+  - name: version_minor
+    value: 0
+  - name: version_revision
+    value: "$[counter(join(variables['version_major'], join('-', variables['version_minor'])), 0)]"
+
   # PR / Branch vars
-  source_branch_ref: "$[coalesce(variables['System.PullRequest.SourceBranch'], variables['Build.SourceBranch'])]"
-  target_branch_ref: "$[coalesce(variables['System.PullRequest.TargetBranch'], '')]"
-  pullrequest_number: "$[coalesce(variables['System.PullRequest.PullRequestNumber'], variables['System.PullRequest.PullRequestId'], '')]"
+  - name: source_branch_ref
+    value: "$[coalesce(variables['System.PullRequest.SourceBranch'], variables['Build.SourceBranch'])]"
+  - name: target_branch_ref
+    value: "$[coalesce(variables['System.PullRequest.TargetBranch'], '')]"
+  - name: pullrequest_number
+    value: "$[coalesce(variables['System.PullRequest.PullRequestNumber'], variables['System.PullRequest.PullRequestId'], '')]"
+
   # Docker Config
-  docker_dockerfile_path: "."
-  docker_image_name: "$(self_generic_name)"
-  docker_image_tag: "${{ variables.version_major }}.${{ variables.version_minor }}.$(version_revision)-$(Build.SourceBranchName)"
-  docker_container_registry_name_nonprod: amidostacksnonprodeuwcore
-  docker_java_image: "azul_java"
-  k8s_docker_registry_nonprod: "${{ variables.docker_container_registry_name_nonprod }}.azurecr.io"
-  docker_container_registry_name_prod: amidostacksprodeuwcore
-  k8s_docker_registry_prod: "${{ variables.docker_container_registry_name_prod }}.azurecr.io"
-  resource_def_name: java-api-cqrs-evnts
+  - name: docker_dockerfile_path
+    value: "."
+  - name: docker_image_name
+    value: "$(self_generic_name)"
+  - name: docker_image_tag
+    value: "${{ variables.version_major }}.${{ variables.version_minor }}.$(version_revision)-$(Build.SourceBranchName)"
+  - name: docker_java_image
+    value: "azul_java"
+
+  - name: k8s_docker_registry_nonprod
+    value: "${{ variables.docker_container_registry_name_nonprod }}.azurecr.io"
+  - name: k8s_docker_registry_prod
+    value: "${{ variables.docker_container_registry_name_prod }}.azurecr.io"
+
   # BUILD ARTIFACTS across stages
-  build_artifact_deploy_path: "${{ variables.self_repo_dir }}/deploy/k8s/app"
-  build_artifact_deploy_name: "${{ variables.self_generic_name }}"
+  - name: build_artifact_deploy_path
+    value: "${{ variables.self_repo_dir }}/deploy/k8s/app"
+  - name: build_artifact_deploy_name
+    value: "${{ variables.self_generic_name }}"
+
   # DEFAULT IMAGE RUNNER
-  pool_vm_image: ubuntu-20.04
-  # Infra
-  region: "westeurope"
-  base_domain_nonprod: nonprod.amidostacks.com
-  base_domain_internal_nonprod: nonprod.amidostacks.internal
-  base_domain_prod: prod.amidostacks.com
-  base_domain_internal_prod: prod.amidostacks.internal
+  - name: pool_vm_image
+    value: ubuntu-20.04
+
   # Maven
-  maven_cache_directory: "./.m2"
-  maven_surefire_reports_dir: "target/surefire-reports"
-  maven_allowed_test_tags: "Unit | Component | Integration"
-  maven_allowed_post_deploy_test_tags: "@Functional or @Smoke or @Performance"
-  maven_ignored_post_deploy_test_tags: "@Ignore"
-  maven_post_deploy_html_report_directory: "target/site/serenity"
-  maven_post_deploy_failsafe_reports_directory: "target/failsafe-reports"
+  - name: maven_cache_directory
+    value: "./.m2"
+  - name: maven_surefire_reports_dir
+    value: "target/surefire-reports"
+  - name: maven_allowed_test_tags
+    value: "Unit | Component | Integration"
+  - name: maven_allowed_post_deploy_test_tags
+    value: "@Functional or @Smoke or @Performance"
+  - name: maven_ignored_post_deploy_test_tags
+    value: "@Ignore"
+  - name: maven_post_deploy_html_report_directory
+    value: "target/site/serenity"
+  - name: maven_post_deploy_failsafe_reports_directory
+    value: "target/failsafe-reports"
+
   # Vulnerability Scan
-  vulnerability_scan: true
-  vulnerability_scan_report: "target/dependency-check-report.html"
-  vulnerability_scan_fail_build_on_detection: false
+  - name: vulnerability_scan
+    value: true
+  - name: vulnerability_scan_report
+    value: "target/dependency-check-report.html"
+  - name: vulnerability_scan_fail_build_on_detection
+    value: false
+
   # Yamllint
-  yamllint_config_file: "${{ variables.self_repo_dir }}/yamllint.conf"
-  yamllint_scan_directory: "."
+  - name: yamllint_config_file
+    value: "${{ variables.self_repo_dir }}/yamllint.conf"
+  - name: yamllint_scan_directory
+    value: "."
+
   # Functional Tests
-  functional_test: true
-  functional_test_path: "${{ variables.self_functional_testproject_dir }}"
-  functional_test_artefact_path: "${{ variables.self_repo_dir }}/${{ variables.self_post_deploy_test_src }}"
-  functional_test_artefact_name: "post-deploy-test-artefact"
-  functional_test_artefact_download_location: "$(Pipeline.Workspace)/${{ variables.functional_test_artefact_name }}"
+  - name: functional_test
+    value: true
+  - name: functional_test_path
+    value: "${{ variables.self_functional_testproject_dir }}"
+  - name: functional_test_artefact_path
+    value: "${{ variables.self_repo_dir }}/${{ variables.self_post_deploy_test_src }}"
+  - name: functional_test_artefact_name
+    value: "post-deploy-test-artefact"
+  - name: functional_test_artefact_download_location
+    value: "$(Pipeline.Workspace)/${{ variables.functional_test_artefact_name }}"
+
   # Build Task Naming
-  java_project_type: "Java App"
-  functional_test_project_type: "Functional API Tests"
+  - name: java_project_type
+    value: "Java App"
+  - name: functional_test_project_type
+    value: "Functional API Tests"
 
 stages:
   - stage: Build
@@ -283,7 +316,7 @@ stages:
       - name: dns_name
         value: "$(Environment.ShortName)-$(domain)"
       - name: core_resource_group
-        value: "amido-stacks-nonprod-euw-core"
+        value: $(tf_core_resource_group_nonprod)
       - name: Environment.ShortName
         value: dev
     jobs:
@@ -300,7 +333,7 @@ stages:
           - name: resource_group_location
             value: "$(region)"
           - name: app_gateway_frontend_ip_name
-            value: "amido-stacks-nonprod-euw-core"
+            value: $(tf_app_gateway_frontend_ip_name_nonprod)
           - name: create_cosmosdb
             value: true
           - name: create_cache
@@ -318,7 +351,7 @@ stages:
           - name: cosmosdb_offer_type
             value: "Standard"
           - name: app_insights_name
-            value: "amido-stacks-nonprod-euw-core"
+            value: $(tf_app_insights_name_nonprod)
         strategy:
           runOnce:
             deploy:
@@ -409,7 +442,7 @@ stages:
           - name: aks_cluster_resourcegroup
             value: "${{ variables.core_resource_group }}"
           - name: aks_cluster_name
-            value: "amido-stacks-nonprod-euw-core"
+            value: $(kubernetes_clustername_nonprod)
           - name: app_name
             value: "java-api"
         strategy:
@@ -504,7 +537,7 @@ stages:
       - name: dns_name
         value: "$(Environment.ShortName)-$(domain)"
       - name: core_resource_group
-        value: "amido-stacks-prod-euw-core"
+        value: $(tf_core_resource_group_prod)
       - name: Environment.ShortName
         value: prod
     jobs:
@@ -515,9 +548,9 @@ stages:
         environment: ${{ variables.domain }}-prod
         variables:
           - name: app_insights_name
-            value: "amido-stacks-prod-euw-core"
+            value: $(tf_app_insights_name_prod)
           - name: app_gateway_frontend_ip_name
-            value: "amido-stacks-prod-euw-core"
+            value: $(tf_app_gateway_frontend_ip_name_prod)
           - name: attributes
             value: "[]"
           - name: tags
@@ -669,7 +702,7 @@ stages:
           - name: aks_cluster_resourcegroup
             value: "${{ variables.core_resource_group }}"
           - name: aks_cluster_name
-            value: "amido-stacks-prod-euw-core"
+            value: $(kubernetes_clustername_prod)
           - name: app_name
             value: "java-api"
         strategy:
