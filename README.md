@@ -4,7 +4,11 @@ The full documentation on Amido Stacks can be found [here](https://amido.github.
 
 ### Versioning
 
-This is version `1.0.0` of the `java-stacks` project.
+This is version `1.0.0` of the `java-stacks-cqrs-events` project.
+
+### Customised solution
+
+To customise the namespaces and create an application for your company please visit the full [documentation](https://stacks.amido.com/docs/)
 
 ### Running the application locally
 
