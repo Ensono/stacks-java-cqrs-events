@@ -2,10 +2,6 @@ The full documentation on Amido Stacks can be found [here](https://amido.github.
 
 ## Using the repository to build the Java Spring Boot Rest API application
 
-### Versioning
-
-This is version `1.0.0` of the `java-stacks-cqrs-events` project.
-
 ### Customised solution
 
 To customise the namespaces and create an application for your company please visit the full [documentation](https://stacks.amido.com/docs/)
