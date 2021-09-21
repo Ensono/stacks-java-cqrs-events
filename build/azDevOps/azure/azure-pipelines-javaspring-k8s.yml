@@ -114,6 +114,9 @@ variables:
   - name: k8s_docker_registry_prod
     value: "${{ variables.docker_container_registry_name_prod }}.azurecr.io"
 
+  - name: resource_def_name
+    value: java-api-cqrs-evnts
+
   # BUILD ARTIFACTS across stages
   - name: build_artifact_deploy_path
     value: "${{ variables.self_repo_dir }}/deploy/k8s/app"
@@ -445,6 +448,8 @@ stages:
             value: $(kubernetes_clustername_nonprod)
           - name: app_name
             value: "java-api"
+          - name: servicebus_connectionstring
+            value: $[ dependencies.AppInfraProd.outputs['AppInfraProd.tfoutputs.servicebus_connectionstring'] ]            
         strategy:
           runOnce:
             deploy:
@@ -526,6 +531,9 @@ stages:
                         OAUTH_TOKEN_URL: $(AUTH0_TOKEN_URL),
                         BASE_URL: "${{ variables.dns_pointer }}",
                       }
+                    service_config: {
+                      SERVICEBUS_CONNECTIONSTRING: "${{ variables.servicebus_conenctionstring }}"
+                    }
 
   - stage: Prod
     dependsOn: Build
