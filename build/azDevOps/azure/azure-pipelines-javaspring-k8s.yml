@@ -449,7 +449,7 @@ stages:
           - name: app_name
             value: "java-api"
           - name: servicebus_connectionstring
-            value: $[ dependencies.AppInfraProd.outputs['AppInfraProd.tfoutputs.servicebus_connectionstring'] ]            
+            value: $[ dependencies.AppInfraProd.outputs['AppInfraProd.tfoutputs.servicebus_connectionstring'] ]
         strategy:
           runOnce:
             deploy:
