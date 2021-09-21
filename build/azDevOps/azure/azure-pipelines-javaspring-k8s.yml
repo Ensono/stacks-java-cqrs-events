@@ -449,7 +449,7 @@ stages:
           - name: app_name
             value: "java-api"
           - name: servicebus_connectionstring
-            value: $[ dependencies.AppInfraProd.outputs['AppInfraProd.tfoutputs.servicebus_connectionstring'] ]
+            value: $[ dependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.servicebus_connectionstring'] ]
         strategy:
           runOnce:
             deploy:
@@ -713,6 +713,8 @@ stages:
             value: $(kubernetes_clustername_prod)
           - name: app_name
             value: "java-api"
+          - name: servicebus_connectionstring
+            value: $[ dependencies.AppInfraProd.outputs['AppInfraProd.tfoutputs.servicebus_connectionstring'] ]            
         strategy:
           runOnce:
             deploy:
