@@ -54,9 +54,9 @@ steps:
           arguments: >
             -a "${{ template.out }}"
         displayName: "Deploy: Kubectl Apply (${{ template.out }})"
-          env:
-            ${{ each var in parameters.servicebus_creds }}:
-              ${{ var.key }}: ${{ var.value }}
+        env:
+          ${{ each var in parameters.servicebus_creds }}:
+            ${{ var.key }}: ${{ var.value }}
 
   - ${{ each deployment in parameters.deployments }}:
       - task: Bash@3
