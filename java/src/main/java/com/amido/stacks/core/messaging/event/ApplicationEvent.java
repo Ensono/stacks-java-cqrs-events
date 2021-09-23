@@ -25,7 +25,7 @@ public abstract class ApplicationEvent extends OperationContext implements Seria
     this.creationDate = now();
   }
 
-  public ApplicationEvent(
+  protected ApplicationEvent(
       int operationCode, String correlationId, int eventCode, ZonedDateTime creationDate) {
     super(operationCode, correlationId);
     this.eventCode = eventCode;

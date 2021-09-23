@@ -4,6 +4,7 @@ import com.azure.messaging.servicebus.ServiceBusClientBuilder.ServiceBusProcesso
 import com.azure.messaging.servicebus.ServiceBusProcessorClient;
 import com.azure.messaging.servicebus.ServiceBusReceivedMessage;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Map;
 import org.slf4j.Logger;
@@ -37,7 +38,11 @@ public class ServiceBusListener implements ApplicationEventListener {
               try {
                 ServiceBusReceivedMessage message = context.getMessage();
 
-                Map event = new ObjectMapper().readValue(message.getBody().toString(), Map.class);
+                Map<String, Object> event =
+                    new ObjectMapper()
+                        .readValue(
+                            message.getBody().toString(),
+                            new TypeReference<Map<String, Object>>() {});
                 logger.info(
                     "Message received: \n\t\t\t\t\t\tMessageId = {},"
                         + " \n\t\t\t\t\t\tSequenceNumber = {},"
