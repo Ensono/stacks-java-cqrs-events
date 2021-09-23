@@ -493,6 +493,13 @@ stages:
                         OAUTH_TOKEN_URL: $(AUTH0_TOKEN_URL),
                         BASE_URL: "${{ variables.dns_pointer }}",
                       }
+                    servicebus_creds:
+                      {
+                        SB_ENABLED: $(SB_ENABLED)
+                        SB_TOPIC: $(SB_TOPIC)
+                        SB_SUBSCRIPTION: $(SB_SUBSCRIPTION)
+                        SB_CONNECTION_STRING: $(SB_CONNECTION_STRING)
+                      }
 
   - stage: Prod
     dependsOn: Build
@@ -751,4 +758,11 @@ stages:
                         GRANT_TYPE: client_credentials,
                         OAUTH_TOKEN_URL: $(AUTH0_TOKEN_URL),
                         BASE_URL: "${{ variables.dns_pointer }}",
+                      }
+                    servicebus_creds:
+                      {
+                        ENABLED: $(SB_ENABLED)
+                          TOPIC: $(SB_TOPIC)
+                          SUBSCRIPTION: $(SB_SUBSCRIPTION)
+                          CONNECTION_STRING: $(SB_CONNECTION_STRING)
                       }

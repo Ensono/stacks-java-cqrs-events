@@ -36,7 +36,7 @@ azure:
   cosmos:
     uri: http://localhost:8081
     database: Stacks
-    key: xxxx
+    key: ${COSMOSDB_KEY}
   application-insights:
     instrumentation-key: xxxxxx
     enabled: false
@@ -47,7 +47,7 @@ azure:
     client-key: xxxxxx
     tenant-id: xxxxxx
   servicebus:
-    connectionString: xxxx
-    topicName: sbt-menu-events
-    subscriptionName: sbs-menu-events
-    enabled: true
+    connectionString: ${SB_CONNECTION_STRING}
+    topicName: ${SB_TOPIC}
+    subscriptionName: ${SB_SUBSCRIPTION}
+    enabled: ${SB_ENABLED:false}
