@@ -450,6 +450,10 @@ stages:
             value: "java-api"
           - name: servicebus_connectionstring
             value: $[ dependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.servicebus_connectionstring'] ]
+          - name: servicebus_topic
+            value: $[ ependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.servicebus_topic_name'] ]
+          - name: servicebus_subscription
+            value: $[ ependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.servicebus_subscription_name'] ]
         strategy:
           runOnce:
             deploy:
@@ -533,10 +537,10 @@ stages:
                       }
                     servicebus_creds:
                       {
-                        SB_ENABLED: $(SB_ENABLED)
-                        SB_TOPIC: $(SB_TOPIC)
-                        SB_SUBSCRIPTION: $(SB_SUBSCRIPTION)
-                        SB_CONNECTION_STRING: $(SB_CONNECTION_STRING)
+                        SB_ENABLED: true,
+                        SB_TOPIC: servicebus_topic,
+                        SB_SUBSCRIPTION: servicebus_subscription,
+                        SB_CONNECTION_STRING: servicebus_connectionstring,
                       }
 
   - stage: Prod
