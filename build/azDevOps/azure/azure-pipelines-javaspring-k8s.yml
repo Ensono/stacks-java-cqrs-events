@@ -505,6 +505,13 @@ stages:
                     azure_subscription_id: "$(azure-subscription-id)"
                     aks_cluster_resourcegroup: "${{ variables.aks_cluster_resourcegroup }}"
                     aks_cluster_name: "${{ variables.aks_cluster_name }}"
+                    servicebus_creds:
+                      {
+                        SB_ENABLED: true,
+                        SB_TOPIC: servicebus_topic,
+                        SB_SUBSCRIPTION: servicebus_subscription,
+                        SB_CONNECTION_STRING: servicebus_connectionstring,
+                      }
                     # Used to do a `kubectl rollout status`
                     deployments: [
                       {
@@ -722,7 +729,11 @@ stages:
           - name: app_name
             value: "java-api"
           - name: servicebus_connectionstring
-            value: $[ dependencies.AppInfraProd.outputs['AppInfraProd.tfoutputs.servicebus_connectionstring'] ]
+            value: $[ dependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.servicebus_connectionstring'] ]
+          - name: servicebus_topic
+            value: $[ ependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.servicebus_topic_name'] ]
+          - name: servicebus_subscription
+            value: $[ ependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.servicebus_subscription_name'] ]
         strategy:
           runOnce:
             deploy:
@@ -781,6 +792,13 @@ stages:
                         timeout: "120s",
                       },
                     ]
+                    servicebus_creds:
+                      {
+                        SB_ENABLED: true,
+                        SB_TOPIC: servicebus_topic,
+                        SB_SUBSCRIPTION: servicebus_subscription,
+                        SB_CONNECTION_STRING: servicebus_connectionstring,
+                      }
 
                 - template: templates/steps/deploy/deploy-post-deploy-tests.yml
                   parameters:

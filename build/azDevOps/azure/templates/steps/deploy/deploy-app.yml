@@ -10,6 +10,7 @@ parameters:
   aks_cluster_resourcegroup: ""
   aks_cluster_name: ""
   deployments: []
+  servicebus_creds: {}
 steps:
   # Template Substitutions
   - ${{ each template in parameters.template_input }}:
@@ -53,6 +54,9 @@ steps:
           arguments: >
             -a "${{ template.out }}"
         displayName: "Deploy: Kubectl Apply (${{ template.out }})"
+          env:
+            ${{ each var in parameters.servicebus_creds }}:
+              ${{ var.key }}: ${{ var.value }}
 
   - ${{ each deployment in parameters.deployments }}:
       - task: Bash@3
