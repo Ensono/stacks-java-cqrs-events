@@ -805,8 +805,8 @@ stages:
                       }
                     servicebus_creds:
                       {
-                        ENABLED: $(SB_ENABLED)
-                          TOPIC: $(SB_TOPIC)
-                          SUBSCRIPTION: $(SB_SUBSCRIPTION)
-                          CONNECTION_STRING: $(SB_CONNECTION_STRING)
+                        SB_ENABLED: true,
+                        SB_TOPIC: servicebus_topic,
+                        SB_SUBSCRIPTION: servicebus_subscription,
+                        SB_CONNECTION_STRING: servicebus_connectionstring,
                       }
