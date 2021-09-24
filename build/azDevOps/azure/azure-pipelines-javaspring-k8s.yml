@@ -777,6 +777,10 @@ stages:
                           cosmosdb_key: "$(cosmosdb_primary_master_key)",
                           cosmosdb_endpoint: "$(cosmosdb_endpoint)",
                           cosmosdb_name: "$(cosmosdb_database_name)",
+                          sb_enabled: "$(servicebus_enabled)",
+                          sb_conn_string: "$(servicebus_connectionstring)",
+                          sb_topic: "$(servicebus_topic)",
+                          sb_subscription: "$(servicebus_subscription)"
                         },
                         additional_args: "-no-empty",
                       },
