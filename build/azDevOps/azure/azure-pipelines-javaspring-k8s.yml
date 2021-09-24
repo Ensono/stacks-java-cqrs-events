@@ -497,6 +497,7 @@ stages:
                           cosmosdb_key: "$(cosmosdb_primary_master_key)",
                           cosmosdb_endpoint: "$(cosmosdb_endpoint)",
                           cosmosdb_name: "$(cosmosdb_database_name)",
+                          servicebus_enabled: "$(servicebus_enabled)",
                         },
                         additional_args: "-no-empty",
                       },
