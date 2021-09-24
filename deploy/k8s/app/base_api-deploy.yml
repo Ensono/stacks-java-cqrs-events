@@ -207,6 +207,8 @@ spec:
                 secretKeyRef:
                   name: appsecrets
                   key: app_insights
+            - name: SB_ENABLED
+              value: ${servicebus_enabled}
 
           ports:
             - name: http
