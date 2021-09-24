@@ -731,9 +731,9 @@ stages:
           - name: servicebus_connectionstring
             value: $[ dependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.servicebus_connectionstring'] ]
           - name: servicebus_topic
-            value: $[ ependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.servicebus_topic_name'] ]
+            value: $[ dependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.servicebus_topic_name'] ]
           - name: servicebus_subscription
-            value: $[ ependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.servicebus_subscription_name'] ]
+            value: $[ dependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.servicebus_subscription_name'] ]
         strategy:
           runOnce:
             deploy:
