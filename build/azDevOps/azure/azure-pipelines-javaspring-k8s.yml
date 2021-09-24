@@ -448,6 +448,8 @@ stages:
             value: $(kubernetes_clustername_nonprod)
           - name: app_name
             value: "java-api"
+          - name: servicebus_enabled
+            value: "true"
           - name: servicebus_connectionstring
             value: $[ dependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.servicebus_connectionstring'] ]
           - name: servicebus_topic
