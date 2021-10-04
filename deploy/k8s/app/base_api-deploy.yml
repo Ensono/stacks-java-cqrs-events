@@ -208,13 +208,13 @@ spec:
                   name: appsecrets
                   key: app_insights
             - name: SB_ENABLED
-              value: ${sb_enabled}
+              value: "${sb_enabled}"
             - name: SB_CONNECTION_STRING
-              value: ${sb_conn_string}
+              value: "${sb_conn_string}"
             - name: SB_SUBSCRIPTION
-              value: ${sb_subscription}
+              value: "${sb_subscription}"
             - name: SB_TOPIC
-              value: ${sb_topic}
+              value: "${sb_topic}"
 
           ports:
             - name: http
