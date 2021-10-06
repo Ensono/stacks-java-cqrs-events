@@ -4,6 +4,9 @@ spring:
   data:
     rest:
       detection-strategy: annotated
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: false
 
 server:
   # Note: ONLY use this if you're behind a trusted Reverse Proxy, such as Application Gateway.
@@ -34,12 +37,12 @@ springdoc:
 
 azure:
   cosmos:
-    uri: http://localhost:8081
+    uri: xxxxxx
     database: Stacks
     key: ${COSMOSDB_KEY}
   application-insights:
     instrumentation-key: xxxxxx
-    enabled: false
+    enabled: true
   keyvault:
     enabled: false
     uri: https://amido-stacks-tmp.vault.azure.net/
