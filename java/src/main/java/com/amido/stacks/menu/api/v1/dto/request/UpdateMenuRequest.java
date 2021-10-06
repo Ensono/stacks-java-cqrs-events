@@ -1,7 +1,6 @@
 package com.amido.stacks.menu.api.v1.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.UUID;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -20,10 +19,6 @@ public class UpdateMenuRequest {
   @JsonProperty("description")
   @NotBlank
   private String description = null;
-
-  @JsonProperty("tenantId")
-  @NotNull
-  private UUID tenantId = null;
 
   @JsonProperty("enabled")
   @NotNull
