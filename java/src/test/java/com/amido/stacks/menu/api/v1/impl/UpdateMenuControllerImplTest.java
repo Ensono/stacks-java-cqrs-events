@@ -54,8 +54,7 @@ class UpdateMenuControllerImplTest {
     Menu menu = createMenu(0);
     when(menuRepository.findById(eq(menu.getId()))).thenReturn(Optional.of(menu));
 
-    UpdateMenuRequest request =
-        new UpdateMenuRequest("new name", "new description", randomUUID(), false);
+    UpdateMenuRequest request = new UpdateMenuRequest("new name", "new description", false);
 
     // When
     var response =
@@ -85,7 +84,7 @@ class UpdateMenuControllerImplTest {
     UUID menuId = randomUUID();
     when(menuRepository.findById(eq(menuId.toString()))).thenReturn(Optional.empty());
 
-    UpdateMenuRequest request = new UpdateMenuRequest("name", "description", randomUUID(), true);
+    UpdateMenuRequest request = new UpdateMenuRequest("name", "description", true);
 
     // When
     var response =
@@ -106,7 +105,7 @@ class UpdateMenuControllerImplTest {
     Menu menu = createMenu(0);
     when(menuRepository.findById(eq(menu.getId()))).thenReturn(Optional.of(menu));
 
-    UpdateMenuRequest request = new UpdateMenuRequest("", "new description", randomUUID(), false);
+    UpdateMenuRequest request = new UpdateMenuRequest("", "new description", false);
 
     // When
     var response =
@@ -128,7 +127,7 @@ class UpdateMenuControllerImplTest {
     Menu menu = createMenu(0);
     when(menuRepository.findById(eq(menu.getId()))).thenReturn(Optional.of(menu));
 
-    UpdateMenuRequest request = new UpdateMenuRequest("Updated Name", "", randomUUID(), false);
+    UpdateMenuRequest request = new UpdateMenuRequest("Updated Name", "", false);
 
     // When
     var response =
