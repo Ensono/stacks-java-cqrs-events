@@ -448,8 +448,14 @@ stages:
             value: $(kubernetes_clustername_nonprod)
           - name: app_name
             value: "java-api"
+          - name: servicebus_enabled
+            value: "true"
           - name: servicebus_connectionstring
             value: $[ dependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.servicebus_connectionstring'] ]
+          - name: servicebus_topic
+            value: $[ dependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.servicebus_topic_name'] ]
+          - name: servicebus_subscription
+            value: $[ dependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.servicebus_subscription_name'] ]
         strategy:
           runOnce:
             deploy:
@@ -491,6 +497,10 @@ stages:
                           cosmosdb_key: "$(cosmosdb_primary_master_key)",
                           cosmosdb_endpoint: "$(cosmosdb_endpoint)",
                           cosmosdb_name: "$(cosmosdb_database_name)",
+                          sb_enabled: "$(servicebus_enabled)",
+                          sb_conn_string: "$(servicebus_connectionstring)",
+                          sb_topic: "$(servicebus_topic)",
+                          sb_subscription: "$(servicebus_subscription)"
                         },
                         additional_args: "-no-empty",
                       },
@@ -501,6 +511,13 @@ stages:
                     azure_subscription_id: "$(azure-subscription-id)"
                     aks_cluster_resourcegroup: "${{ variables.aks_cluster_resourcegroup }}"
                     aks_cluster_name: "${{ variables.aks_cluster_name }}"
+                    servicebus_creds:
+                      {
+                        SB_ENABLED: true,
+                        SB_TOPIC: servicebus_topic,
+                        SB_SUBSCRIPTION: servicebus_subscription,
+                        SB_CONNECTION_STRING: servicebus_connectionstring,
+                      }
                     # Used to do a `kubectl rollout status`
                     deployments: [
                       {
@@ -531,9 +548,13 @@ stages:
                         OAUTH_TOKEN_URL: $(AUTH0_TOKEN_URL),
                         BASE_URL: "${{ variables.dns_pointer }}",
                       }
-                    service_config: {
-                      SERVICEBUS_CONNECTIONSTRING: "${{ variables.servicebus_conenctionstring }}"
-                    }
+                    servicebus_creds:
+                      {
+                        SB_ENABLED: true,
+                        SB_TOPIC: servicebus_topic,
+                        SB_SUBSCRIPTION: servicebus_subscription,
+                        SB_CONNECTION_STRING: servicebus_connectionstring,
+                      }
 
   - stage: Prod
     dependsOn: Build
@@ -714,7 +735,11 @@ stages:
           - name: app_name
             value: "java-api"
           - name: servicebus_connectionstring
-            value: $[ dependencies.AppInfraProd.outputs['AppInfraProd.tfoutputs.servicebus_connectionstring'] ]
+            value: $[ dependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.servicebus_connectionstring'] ]
+          - name: servicebus_topic
+            value: $[ dependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.servicebus_topic_name'] ]
+          - name: servicebus_subscription
+            value: $[ dependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.servicebus_subscription_name'] ]
         strategy:
           runOnce:
             deploy:
@@ -755,6 +780,10 @@ stages:
                           cosmosdb_key: "$(cosmosdb_primary_master_key)",
                           cosmosdb_endpoint: "$(cosmosdb_endpoint)",
                           cosmosdb_name: "$(cosmosdb_database_name)",
+                          sb_enabled: "$(servicebus_enabled)",
+                          sb_conn_string: "$(servicebus_connectionstring)",
+                          sb_topic: "$(servicebus_topic)",
+                          sb_subscription: "$(servicebus_subscription)"
                         },
                         additional_args: "-no-empty",
                       },
@@ -773,6 +802,13 @@ stages:
                         timeout: "120s",
                       },
                     ]
+                    servicebus_creds:
+                      {
+                        SB_ENABLED: true,
+                        SB_TOPIC: servicebus_topic,
+                        SB_SUBSCRIPTION: servicebus_subscription,
+                        SB_CONNECTION_STRING: servicebus_connectionstring,
+                      }
 
                 - template: templates/steps/deploy/deploy-post-deploy-tests.yml
                   parameters:
@@ -794,4 +830,11 @@ stages:
                         GRANT_TYPE: client_credentials,
                         OAUTH_TOKEN_URL: $(AUTH0_TOKEN_URL),
                         BASE_URL: "${{ variables.dns_pointer }}",
+                      }
+                    servicebus_creds:
+                      {
+                        SB_ENABLED: true,
+                        SB_TOPIC: servicebus_topic,
+                        SB_SUBSCRIPTION: servicebus_subscription,
+                        SB_CONNECTION_STRING: servicebus_connectionstring,
                       }

@@ -1,6 +1,8 @@
 package com.amido.stacks;
 
 import com.auth0.spring.security.api.JwtWebSecurityConfigurer;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Arrays;
 import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -50,6 +52,16 @@ public class ApplicationConfig extends WebSecurityConfigurerAdapter {
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", configuration);
     return source;
+  }
+
+  /**
+   * Provides a custom {@link ObjectMapper} that ignores extra fields.
+   *
+   * @return the modified implementation
+   */
+  @Bean
+  ObjectMapper objectMapper() {
+    return new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
   }
 
   /**

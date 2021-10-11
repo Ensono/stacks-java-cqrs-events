@@ -11,6 +11,7 @@ parameters:
   maven_post_deploy_failsafe_reports_directory: ""
   docker_java_container: ""
   auth0_credentials: {}
+  servicebus_creds: {}
 steps:
   - ${{ if eq(parameters.functional_test, true) }}:
       - download: current
@@ -44,6 +45,8 @@ steps:
         displayName: "Post-Deploy Test: Run Functional Tests"
         env:
           ${{ each var in parameters.auth0_credentials }}:
+            ${{ var.key }}: ${{ var.value }}
+          ${{ each var in parameters.servicebus_creds }}:
             ${{ var.key }}: ${{ var.value }}
 
       - task: PublishPipelineArtifact@1

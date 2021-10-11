@@ -1,6 +1,6 @@
 package com.amido.stacks.menu.handlers;
 
-import com.amido.stacks.core.messaging.publish.ApplicationEventPublisher;
+import com.amido.stacks.core.messaging.publish.ApplicationEventPublisherWithListener;
 import com.amido.stacks.menu.commands.CreateItemCommand;
 import com.amido.stacks.menu.domain.Category;
 import com.amido.stacks.menu.domain.Item;
@@ -23,7 +23,8 @@ import org.springframework.stereotype.Component;
 public class CreateItemHandler extends MenuBaseCommandHandler<CreateItemCommand> {
 
   public CreateItemHandler(
-      MenuRepository menuRepository, ApplicationEventPublisher applicationEventPublisher) {
+      MenuRepository menuRepository,
+      ApplicationEventPublisherWithListener applicationEventPublisher) {
     super(menuRepository, applicationEventPublisher);
   }
 
@@ -32,6 +33,7 @@ public class CreateItemHandler extends MenuBaseCommandHandler<CreateItemCommand>
     command.setItemId(UUID.randomUUID());
     Category category = addItem(getCategory(menu, command), command);
     menuRepository.save(menu.addOrUpdateCategory(category));
+    publishEvents(raiseApplicationEvents(menu, command));
     return Optional.of(command.getItemId());
   }
 
