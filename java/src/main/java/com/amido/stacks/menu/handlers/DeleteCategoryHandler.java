@@ -36,6 +36,7 @@ public class DeleteCategoryHandler extends MenuBaseCommandHandler<DeleteCategory
             .collect(Collectors.toList());
     menu.setCategories(!collect.isEmpty() ? collect : Collections.emptyList());
     menuRepository.save(menu);
+    publishEvents(raiseApplicationEvents(menu, command));
     return Optional.empty();
   }
 

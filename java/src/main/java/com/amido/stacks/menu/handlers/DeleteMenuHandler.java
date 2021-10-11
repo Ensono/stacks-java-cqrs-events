@@ -29,6 +29,7 @@ public class DeleteMenuHandler extends MenuBaseCommandHandler<DeleteMenuCommand>
   @Override
   Optional<UUID> handleCommand(Menu menu, DeleteMenuCommand command) {
     menuRepository.delete(menu);
+    publishEvents(raiseApplicationEvents(menu, command));
     return Optional.empty();
   }
 

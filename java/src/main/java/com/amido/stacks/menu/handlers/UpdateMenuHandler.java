@@ -27,6 +27,7 @@ public class UpdateMenuHandler extends MenuBaseCommandHandler<UpdateMenuCommand>
     menu.setDescription(command.getDescription());
     menu.setEnabled(command.getEnabled());
     menuRepository.save(menu);
+    publishEvents(raiseApplicationEvents(menu, command));
     return Optional.of(command.getMenuId());
   }
 
