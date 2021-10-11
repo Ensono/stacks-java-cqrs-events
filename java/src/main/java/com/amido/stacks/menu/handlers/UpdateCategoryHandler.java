@@ -29,6 +29,7 @@ public class UpdateCategoryHandler extends MenuBaseCommandHandler<UpdateCategory
   Optional<UUID> handleCommand(Menu menu, UpdateCategoryCommand command) {
     menu.addOrUpdateCategory(updateCategory(menu, command));
     menuRepository.save(menu);
+    publishEvents(raiseApplicationEvents(menu, command));
     return Optional.of(command.getCategoryId());
   }
 

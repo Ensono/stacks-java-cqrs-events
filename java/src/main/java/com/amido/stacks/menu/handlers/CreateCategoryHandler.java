@@ -30,6 +30,7 @@ public class CreateCategoryHandler extends MenuBaseCommandHandler<CreateCategory
     command.setCategoryId(UUID.randomUUID());
     menu.setCategories(addCategory(menu, command));
     menuRepository.save(menu);
+    publishEvents(raiseApplicationEvents(menu, command));
     return Optional.of(command.getCategoryId());
   }
 

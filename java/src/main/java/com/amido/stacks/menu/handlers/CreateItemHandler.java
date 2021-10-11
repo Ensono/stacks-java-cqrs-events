@@ -33,6 +33,7 @@ public class CreateItemHandler extends MenuBaseCommandHandler<CreateItemCommand>
     command.setItemId(UUID.randomUUID());
     Category category = addItem(getCategory(menu, command), command);
     menuRepository.save(menu.addOrUpdateCategory(category));
+    publishEvents(raiseApplicationEvents(menu, command));
     return Optional.of(command.getItemId());
   }
 

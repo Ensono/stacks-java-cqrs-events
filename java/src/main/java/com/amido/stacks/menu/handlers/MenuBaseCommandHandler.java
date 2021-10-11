@@ -41,7 +41,7 @@ public abstract class MenuBaseCommandHandler<T extends MenuCommand> implements C
     return result;
   }
 
-  private void publishEvents(List<MenuEvent> menuEvents) {
+  protected void publishEvents(List<MenuEvent> menuEvents) {
     menuEvents.forEach(applicationEventPublisher::publish);
   }
 

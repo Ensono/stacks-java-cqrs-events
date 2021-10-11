@@ -44,6 +44,8 @@ public class DeleteItemHandler extends MenuBaseCommandHandler<DeleteItemCommand>
 
     menuRepository.save(menu.addOrUpdateCategory(category));
 
+    publishEvents(raiseApplicationEvents(menu, command));
+
     return Optional.empty();
   }
 
