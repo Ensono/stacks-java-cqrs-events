@@ -4,9 +4,6 @@ spring:
   data:
     rest:
       detection-strategy: annotated
-  jackson:
-    deserialization:
-      fail-on-unknown-properties: false
 
 server:
   # Note: ONLY use this if you're behind a trusted Reverse Proxy, such as Application Gateway.
@@ -39,7 +36,7 @@ azure:
   cosmos:
     uri: xxxxxx
     database: Stacks
-    key: xxxxxx
+    key: ${COSMOSDB_KEY}
   application-insights:
     instrumentation-key: xxxxxx
     enabled: true
@@ -50,7 +47,7 @@ azure:
     client-key: xxxxxx
     tenant-id: xxxxxx
   servicebus:
-    connectionString: xxxxxx
-    topicName: menu-updates
-    subscriptionName: Subscription1
-    enabled: false
+    connectionString: ${SB_CONNECTION_STRING}
+    topicName: ${SB_TOPIC}
+    subscriptionName: ${SB_SUBSCRIPTION}
+    enabled: ${SB_ENABLED:false}
