@@ -58,6 +58,11 @@ variable "cosmosdb_lease_collection_name" {
 
 # Optional variables
 # These have default values that can be overriden as required
+variable "app-service-plan-name" {
+  type = string
+  default = "app-sp-events"
+}
+
 variable "function-publisher-name" {
   type    = string
   default = "function-publisher"

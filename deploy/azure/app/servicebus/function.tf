@@ -32,29 +32,16 @@ resource "azurerm_storage_account" "sa_listener" {
 }
 
 # The app plans for the functions
-resource "azurerm_app_service_plan" "app_sp_publisher" {
-  name                = "service-plan-${var.function-publisher-name}"
+resource "azurerm_app_service_plan" "app_sp" {
+  name                = var.app-service-plan-name
   resource_group_name = var.resource_group_name
   location            = var.resource_group_location
   kind                = "linux"
   reserved            = true
 
   sku {
-    tier = "ElasticPremium"
-    size = "EP1"
-  }
-}
-
-resource "azurerm_app_service_plan" "app_sp_listener" {
-  name                = "service-plan-${var.function-listener-name}"
-  resource_group_name = var.resource_group_name
-  location            = var.resource_group_location
-  kind                = "linux"
-  reserved            = true
-
-  sku {
-    tier = "ElasticPremium"
-    size = "EP1"
+    tier = "Standard"
+    size = "S1"
   }
 }
 
@@ -67,7 +54,7 @@ resource "azurerm_function_app" "function_publisher" {
     azurerm_servicebus_namespace.sb
   ]
 
-  app_service_plan_id        = azurerm_app_service_plan.app_sp_publisher.id
+  app_service_plan_id        = azurerm_app_service_plan.app_sp.id
   storage_account_name       = azurerm_storage_account.sa_publisher.name
   storage_account_access_key = azurerm_storage_account.sa_publisher.primary_access_key
 
@@ -90,7 +77,7 @@ resource "azurerm_function_app" "function_listener" {
     azurerm_servicebus_namespace.sb
   ]
 
-  app_service_plan_id        = azurerm_app_service_plan.app_sp_listener.id
+  app_service_plan_id        = azurerm_app_service_plan.app_sp.id
   storage_account_name       = azurerm_storage_account.sa_listener.name
   storage_account_access_key = azurerm_storage_account.sa_listener.primary_access_key
 
