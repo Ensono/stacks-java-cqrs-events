@@ -10,6 +10,7 @@
     </parent>
 
     <packaging>pom</packaging>
+
     <modules>
         <module>stacks-java-core-api</module>
         <module>sample-cqrs-events</module>

@@ -20,3 +20,6 @@ java/.settings/
 node_modules/
 /api-tests-karate/target/
 /.idea/
+target/
+
+java/emulatorcert.crt

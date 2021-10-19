@@ -10,7 +10,7 @@
 <!--  <appender class="com.microsoft.applicationinsights.logback.ApplicationInsightsAppender"-->
 <!--    name="aiAppender">-->
 <!--  </appender>-->
-  <root level="debug">
+  <root level="info">
     <appender-ref ref="console"/>
   </root>
 <!--  <root level="info">-->
