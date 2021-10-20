@@ -7,13 +7,13 @@
       </pattern>
     </encoder>
   </appender>
-<!--  <appender class="com.microsoft.applicationinsights.logback.ApplicationInsightsAppender"-->
-<!--    name="aiAppender">-->
-<!--  </appender>-->
+  <appender class="com.microsoft.applicationinsights.logback.ApplicationInsightsAppender"
+    name="aiAppender">
+  </appender>
   <root level="info">
     <appender-ref ref="console"/>
   </root>
-<!--  <root level="info">-->
-<!--    <appender-ref ref="aiAppender"/>-->
-<!--  </root>-->
+  <root level="info">
+    <appender-ref ref="aiAppender"/>
+  </root>
 </configuration>
