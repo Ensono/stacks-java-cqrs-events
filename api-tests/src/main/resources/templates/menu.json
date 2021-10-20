@@ -1,0 +1,6 @@
+{
+  "name": "<#if name??>${name}<#else></#if>",
+  "description": "<#if description??>${description}<#else></#if>",
+  "tenantId": "<#if tenantId??>${tenantId}<#else></#if>",
+  "enabled": "<#if enabled??>${enabled}<#else></#if>"
+}

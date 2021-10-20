@@ -4,6 +4,7 @@ import com.amido.stacks.core.api.OAuthConfigurations;
 import com.amido.stacks.core.api.WebServiceEndPoints;
 import java.util.HashMap;
 import java.util.Map;
+
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.environment.EnvironmentSpecificConfiguration;
 import net.serenitybdd.rest.SerenityRest;
