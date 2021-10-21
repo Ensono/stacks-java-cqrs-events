@@ -14,8 +14,9 @@
     <modules>
         <module>stacks-java-core-api</module>
         <module>stacks-java-core-operations</module>
-        <module>sample-cqrs-events</module>
         <module>stacks-java-core-cqrs</module>
+        <module>stacks-java-core-messaging</module>
+        <module>sample-cqrs-events</module>
     </modules>
 
     <groupId>com.amido</groupId>

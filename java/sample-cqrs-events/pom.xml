@@ -32,6 +32,11 @@
             <artifactId>stacks-java-core-cqrs</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.amido</groupId>
+            <artifactId>stacks-java-core-messaging</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
