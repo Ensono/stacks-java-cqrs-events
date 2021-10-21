@@ -1,6 +1,6 @@
 FROM azul/zulu-openjdk-alpine:11 as build
 WORKDIR /workspace/app
-
+ARG DEFAULT_MODULE=sample-cqrs-events
 # Copy the m2 directory if it exists to re-use an external cache.
 # The `mvnw` file is also copied so that if an `.m2` directory isn't present
 # the command won't fail.
@@ -10,23 +10,37 @@ COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
 COPY src src
-
-RUN ls -la /root/.m2/repository
+COPY stacks-java-core-api stacks-java-core-api
+COPY sample-cqrs-events sample-cqrs-events
 
 # RUN ./mvnw help:evaluate -Dexpression=settings.localRepository -q -DforceStdout
 
-RUN ./mvnw dependency:go-offline \
-	&& ./mvnw process-resources \
-	&& ./mvnw package -Dmaven.default-test.skip=true -Dmaven.test.skip=true -DskipTests --no-transfer-progress \
-	&& mkdir -p target/dependency && (cd target/dependency; ${JAVA_HOME}/bin/jar -xf ../*.jar)
+#RUN ./mvnw clean \
+#    && ./mvnw dependency:go-offline --quiet\
+#	&& ./mvnw install -Dmaven.default-test.skip=true -Dmaven.test.skip=true -DskipTests --no-transfer-progress --quiet -Plocal\
+#    && mkdir -p target/dependency && (cd target/dependency; ${JAVA_HOME}/bin/jar -xf /workspace/app/sample-cqrs-events/target/*.jar) \
+RUN ./mvnw clean \
+    && ./mvnw dependency:go-offline --quiet\
+	&& ./mvnw install -Dmaven.default-test.skip=true -Dmaven.test.skip=true -DskipTests --no-transfer-progress --quiet \
+    && mkdir -p target/dependency && (cd target/dependency; ${JAVA_HOME}/bin/jar -xf /workspace/app/${DEFAULT_MODULE}/target/*.jar)
 
 FROM azul/zulu-openjdk-alpine:11-jre
 
 VOLUME /tmp
 ARG DEPENDENCY=/workspace/app/target/dependency
+
 COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
+
+RUN if [ -e "/app/emulatorcert.crt" ]; then cd $JAVA_HOME/lib/security && keytool -importcert -cacerts -storepass changeit -noprompt -alias documentdbemulator -file /app/emulatorcert.crt; fi
+
+#RUN if [ "$AUTH_MS_PROFILE" = "test" ]; then mvn verify ; fi
+
+#RUN \
+#        cd $JAVA_HOME/lib/security \
+#        && keytool -importcert -cacerts -storepass changeit -noprompt -alias documentdbemulator -file /app/emulatorcert.crt
+
 ENTRYPOINT ["java","-cp","app:app/lib/*","com.amido.stacks.Application"]
 
 EXPOSE 9000

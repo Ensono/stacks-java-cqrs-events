@@ -8,12 +8,13 @@
         <version>2.5.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-
+    
     <packaging>pom</packaging>
 
     <modules>
         <module>stacks-java-core-api</module>
         <module>sample-cqrs-events</module>
+<!--        <module>stacks-sample-cqrs-events</module>-->
     </modules>
 
     <groupId>com.amido</groupId>
