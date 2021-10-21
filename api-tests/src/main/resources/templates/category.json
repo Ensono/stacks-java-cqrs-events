@@ -1,4 +1,0 @@
-{
-  "name": "<#if name??>${name}<#else></#if>",
-  "description": "<#if description??>${description}<#else></#if>"
-}
