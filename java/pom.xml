@@ -8,13 +8,12 @@
         <version>2.5.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    
+
     <packaging>pom</packaging>
 
     <modules>
         <module>stacks-java-core-api</module>
         <module>sample-cqrs-events</module>
-<!--        <module>stacks-sample-cqrs-events</module>-->
     </modules>
 
     <groupId>com.amido</groupId>
@@ -62,6 +61,7 @@
         <pact.api.protocol>http</pact.api.protocol>
         <pact.api.host>localhost</pact.api.host>
         <pact.api.port>9000</pact.api.port>
+        <maven.repo.local>/Users/guillermotamargo/development/stacks/stacks-java-cqrs-events/java/.m2</maven.repo.local>
     </properties>
 
     <dependencyManagement>
