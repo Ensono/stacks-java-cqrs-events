@@ -25,6 +25,11 @@
             <artifactId>stacks-java-core-api</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.amido</groupId>
+            <artifactId>stacks-java-core-operations</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
