@@ -88,12 +88,15 @@
             <id>local</id>
             <build>
                 <resources>
-                    <resource>
-                        <directory>src/main/resources</directory>
-                    </resource>
+<!--                    <resource>-->
+<!--                        <directory>src/main/resources</directory>-->
+<!--                    </resource>-->
                     <resource>
                         <directory>src/main/resources/local</directory>
                     </resource>
+                                        <resource>
+                                            <directory>src/main/resources</directory>
+                                        </resource>
                 </resources>
             </build>
         </profile>

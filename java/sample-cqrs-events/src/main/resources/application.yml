@@ -34,7 +34,7 @@ springdoc:
 
 azure:
   cosmos:
-    uri: https://192.168.50.169:8081
+    uri: https://localhost:8081
     database: Stacks
     key: ${COSMOSDB_KEY}
   application-insights:
