@@ -1,15 +1,14 @@
 package com.amido.stacks.core.messaging.event;
 
+import static java.time.ZonedDateTime.now;
+
 import com.amido.stacks.core.operations.OperationContext;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.ZonedDateTimeSerializer;
-
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.UUID;
-
-import static java.time.ZonedDateTime.now;
 
 public abstract class ApplicationEvent extends OperationContext implements Serializable {
 

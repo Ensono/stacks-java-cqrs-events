@@ -9,6 +9,12 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <groupId>com.amido</groupId>
+    <artifactId>stacks-api-cqrs-events</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>stacks-api-cqrs-events</name>
+    <description>Demo project for Java with CQRS and event messaging using Azure ServiceBus</description>
+
     <packaging>pom</packaging>
 
     <modules>
@@ -17,56 +23,48 @@
         <module>stacks-java-core-cqrs</module>
         <module>stacks-java-core-messaging</module>
         <module>sample-cqrs-events</module>
+        <module>stacks-java-core-servicebus</module>
     </modules>
 
-    <groupId>com.amido</groupId>
-    <artifactId>stacks-api-cqrs-events</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-
-    <name>stacks-api-cqrs-events</name>
-    <description>Demo project for Java with CQRS and event messaging using Azure ServiceBus</description>
-
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <java.version>11</java.version>
-        <org.projectlombok.version>1.18.0</org.projectlombok.version>
-        <org.springdoc-openapi.version>1.5.9</org.springdoc-openapi.version>
         <applicationinsights.version>2.6.3</applicationinsights.version>
-        <cosmosdb.version>3.6.0</cosmosdb.version>
+        <auth0-spring-security-api.version>1.4.1</auth0-spring-security-api.version>
         <azure.springboot.version>3.6.0</azure.springboot.version>
         <azure.messaging-servicebus.version>7.3.0</azure.messaging-servicebus.version>
-        <jackson.version>2.12.3</jackson.version>
-        <mockito.version>3.11.2</mockito.version>
-        <lombok.version>1.18.20</lombok.version>
-        <hamcrest.version>2.2</hamcrest.version>
-        <pitest.version>1.6.7</pitest.version>
-        <jacoco.version>0.8.7</jacoco.version>
-        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
-        <maven-surefire-phase>test</maven-surefire-phase>
-        <junit-jupiter.version>5.7.2</junit-jupiter.version>
+        <cosmosdb.version>3.6.0</cosmosdb.version>
         <equals-verifier.version>3.6.1</equals-verifier.version>
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <owasp-dependency-check-plugin.version>6.2.2</owasp-dependency-check-plugin.version>
-        <auth0-spring-security-api.version>1.4.1</auth0-spring-security-api.version>
-        <io-projectreactor-netty.version>1.0.8</io-projectreactor-netty.version>
-
+        <hamcrest.version>2.2</hamcrest.version>
         <fmt-maven-plugin.version>2.11</fmt-maven-plugin.version>
+        <io-projectreactor-netty.version>1.0.8</io-projectreactor-netty.version>
+        <jackson.version>2.12.3</jackson.version>
+        <jacoco.version>0.8.7</jacoco.version>
+        <java.version>11</java.version>
+        <junit-jupiter.version>5.7.2</junit-jupiter.version>
+        <lombok.version>1.18.20</lombok.version>
+        <main.basedir>${project.basedir}</main.basedir>
         <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
-        <puppycrawl-tools-checkstyle.version>8.44</puppycrawl-tools-checkstyle.version>
-        <spotbugs-maven-plugin.version>4.2.3</spotbugs-maven-plugin.version>
-        <spotbugs.version>4.2.3</spotbugs.version>
-
-        <pact.version>3.5.24</pact.version>
-
-        <!-- Set 'pact.broker.url' and 'pact.broker.token' -->
-        <pact.broker.url></pact.broker.url>
-        <pact.broker.token></pact.broker.token>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <maven-surefire-phase>test</maven-surefire-phase>
+        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+        <mockito.version>3.11.2</mockito.version>
+        <org.projectlombok.version>1.18.0</org.projectlombok.version>
+        <org.springdoc-openapi.version>1.5.9</org.springdoc-openapi.version>
+<!--        <owasp-dependency-check-plugin.version>6.2.2</owasp-dependency-check-plugin.version>-->
+        <owasp-dependency-check-plugin.version>6.4.1</owasp-dependency-check-plugin.version>
         <pact.api.name>JavaMenuAPI</pact.api.name>
         <pact.api.protocol>http</pact.api.protocol>
         <pact.api.host>localhost</pact.api.host>
         <pact.api.port>9000</pact.api.port>
-        <maven.repo.local>/Users/guillermotamargo/development/stacks/stacks-java-cqrs-events/java/.m2</maven.repo.local>
+        <pact.version>3.5.24</pact.version>
+        <!-- Set 'pact.broker.url' and 'pact.broker.token' -->
+        <pact.broker.url></pact.broker.url>
+        <pact.broker.token></pact.broker.token>
+        <pitest.version>1.6.7</pitest.version>
+        <puppycrawl-tools-checkstyle.version>8.44</puppycrawl-tools-checkstyle.version>
+        <spotbugs-maven-plugin.version>4.2.3</spotbugs-maven-plugin.version>
+        <spotbugs.version>4.2.3</spotbugs.version>
     </properties>
 
     <dependencyManagement>
@@ -343,8 +341,43 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <outputDirectory>${project.basedir}/reports/newsite</outputDirectory>
+                </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>${owasp-dependency-check-plugin.version}</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>aggregate</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <configuration>
+                    <xmlOutput>true</xmlOutput>
+                    <!-- Optional directory to put spotbugs xdoc xml report -->
+                    <xmlOutputDirectory>${project.basedir}/reports/spotbugs</xmlOutputDirectory>
+                </configuration>
+            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.jacoco</groupId>-->
+<!--                <artifactId>jacoco-maven-plugin</artifactId>-->
+<!--                <reportSets>-->
+<!--                    <reportSet>-->
+<!--                        <reports>-->
+<!--                            &lt;!&ndash; select non-aggregate reports &ndash;&gt;-->
+<!--                            <report>report</report>-->
+<!--                        </reports>-->
+<!--                    </reportSet>-->
+<!--                </reportSets>-->
+<!--            </plugin>-->
         </plugins>
     </reporting>
 
@@ -364,6 +397,9 @@
                                 </goals>
                             </execution>
                         </executions>
+                        <configuration>
+                            <outputDirectory>${project.basedir}/reports/owasp</outputDirectory>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
@@ -387,11 +423,16 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.7.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
@@ -415,13 +456,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--            <plugin>-->
-            <!--                <groupId>org.springframework.boot</groupId>-->
-            <!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
-            <!--                <configuration>-->
-            <!--                    <mainClass>com.amido.stacks.Application</mainClass>-->
-            <!--                </configuration>-->
-            <!--            </plugin>-->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -431,6 +465,10 @@
                         <exclude>**/AuthControllerImpl*</exclude>
                         <exclude>**/ApplicationConfig*</exclude>
                     </excludes>
+                    <outputDirectory>${project.basedir}/reports/jacoco</outputDirectory>
+<!--                    TO DO Review the configuration-->
+                    <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
+                    <dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
                 </configuration>
                 <executions>
                     <execution>
@@ -467,36 +505,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--            <plugin>-->
-            <!--                <groupId>au.com.dius.pact.provider</groupId>-->
-            <!--                <artifactId>maven</artifactId>-->
-            <!--                <version>4.2.7</version>-->
-            <!--                <configuration>-->
-            <!--                    <pactBrokerUrl>${pact.broker.url}</pactBrokerUrl>-->
-            <!--                    <pactBrokerToken>${pact.broker.token}</pactBrokerToken>-->
-            <!--                    <systemPropertyVariables>-->
-            <!--                        <pact.verifier.publishResults>true</pact.verifier.publishResults>-->
-            <!--                    </systemPropertyVariables>-->
-
-            <!--                    <serviceProviders>-->
-            <!--                        <serviceProvider>-->
-            <!--                            <name>${pact.api.name}</name>-->
-            <!--                            <protocol>${pact.api.protocol}</protocol>-->
-            <!--                            <host>${pact.api.host}</host>-->
-            <!--                            <port>${pact.api.port}</port>-->
-            <!--                        </serviceProvider>-->
-            <!--                    </serviceProviders>-->
-
-            <!--                </configuration>-->
-            <!--                <executions>-->
-            <!--                    <execution>-->
-            <!--                        <phase>integration-test</phase>-->
-            <!--                        <goals>-->
-            <!--                            <goal>verify</goal>-->
-            <!--                        </goals>-->
-            <!--                    </execution>-->
-            <!--                </executions>-->
-            <!--            </plugin>-->
             <plugin>
                 <groupId>com.coveo</groupId>
                 <artifactId>fmt-maven-plugin</artifactId>
@@ -550,40 +558,40 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            <!--            <plugin>-->
-            <!--                <groupId>org.pitest</groupId>-->
-            <!--                <artifactId>pitest-maven</artifactId>-->
-            <!--                <version>${pitest.version}</version>-->
-            <!--                <dependencies>-->
-            <!--                    <dependency>-->
-            <!--                        <groupId>org.pitest</groupId>-->
-            <!--                        <artifactId>pitest-junit5-plugin</artifactId>-->
-            <!--                        <version>0.14</version>-->
-            <!--                    </dependency>-->
-            <!--                </dependencies>-->
-            <!--                <executions>-->
-            <!--                    <execution>-->
-            <!--                        <id>pitest</id>-->
-            <!--                        <phase>verify</phase>-->
-            <!--                        <goals>-->
-            <!--                            <goal>mutationCoverage</goal>-->
-            <!--                        </goals>-->
-            <!--                    </execution>-->
-            <!--                </executions>-->
-            <!--                <configuration>-->
-            <!--                    <threads>15</threads>-->
-            <!--                    <historyInputFile>target/pitHistory.txt</historyInputFile>-->
-            <!--                    <historyOutputFile>target/pitHistory.txt</historyOutputFile>-->
-            <!--                    <timestampedReports>false</timestampedReports>-->
-            <!--                    <mutators>-->
-            <!--                        <value>STRONGER</value>-->
-            <!--                    </mutators>-->
-            <!--                    <outputFormats>-->
-            <!--                        <outputFormat>XML</outputFormat>-->
-            <!--                        <outputFormat>HTML</outputFormat>-->
-            <!--                    </outputFormats>-->
-            <!--                </configuration>-->
-            <!--            </plugin>-->
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>${pitest.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-junit5-plugin</artifactId>
+                        <version>0.14</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>pitest</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>mutationCoverage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <threads>15</threads>
+                    <historyInputFile>target/pitHistory.txt</historyInputFile>
+                    <historyOutputFile>target/pitHistory.txt</historyOutputFile>
+                    <timestampedReports>false</timestampedReports>
+                    <mutators>
+                        <value>STRONGER</value>
+                    </mutators>
+                    <outputFormats>
+                        <outputFormat>XML</outputFormat>
+                        <outputFormat>HTML</outputFormat>
+                    </outputFormats>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

@@ -21,6 +21,7 @@ node_modules/
 /api-tests-karate/target/
 /.idea/
 target/
+reports/
 
 java/emulatorcert.crt
 
