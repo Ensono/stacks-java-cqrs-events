@@ -2,15 +2,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <artifactId>stacks-api-cqrs-events</artifactId>
         <groupId>com.amido</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>stacks-java-core-servicebus</artifactId>
-
+    <artifactId>stacks-java-core-azure</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+    <name>stacks-java-core-azure</name>
+    <description>Core Azure components for the Java Stacks solution</description>
+
+    <packaging>jar</packaging>
 
 </project>

@@ -2,44 +2,78 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <artifactId>stacks-api-cqrs-events</artifactId>
         <groupId>com.amido</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <modelVersion>4.0.0</modelVersion>
+    <artifactId>sample-cqrs-events</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>stacks-api-cqrs-events</name>
+    <description>Sample Stacks application for Java with CQRS and event messaging using Azure ServiceBus</description>
 
     <packaging>jar</packaging>
 
-    <artifactId>sample-cqrs-events</artifactId>
-
-    <version>1.0.0-SNAPSHOT</version>
     <properties>
-        <main.basedir>${project.parent.basedir}</main.basedir>
+        <pact.api.name>JavaMenuAPI</pact.api.name>
+        <pact.api.protocol>http</pact.api.protocol>
+        <pact.api.host>localhost</pact.api.host>
+        <pact.api.port>9000</pact.api.port>
+        <pact.version>3.5.24</pact.version>
+        <!-- Set 'pact.broker.url' and 'pact.broker.token' -->
+        <pact.broker.url></pact.broker.url>
+        <pact.broker.token></pact.broker.token>
+        <pact.provider.spring.version>4.0.10</pact.provider.spring.version>
+        <pact.consumer.version>4.2.7</pact.consumer.version>
+        <stacks.java.core.api.version>1.0.0-SNAPSHOT</stacks.java.core.api.version>
+        <stacks.java.core.cqrs.version>1.0.0-SNAPSHOT</stacks.java.core.cqrs.version>
+        <stacks.java.core.messaging.version>1.0.0-SNAPSHOT</stacks.java.core.messaging.version>
+        <stacks.java.core.operations.version>1.0.0-SNAPSHOT</stacks.java.core.operations.version>
     </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>com.amido</groupId>
             <artifactId>stacks-java-core-api</artifactId>
-            <version>${project.version}</version>
+            <version>${stacks.java.core.api.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.amido</groupId>
             <artifactId>stacks-java-core-operations</artifactId>
-            <version>${project.version}</version>
+            <version>${stacks.java.core.operations.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.amido</groupId>
             <artifactId>stacks-java-core-cqrs</artifactId>
-            <version>${project.version}</version>
+            <version>${stacks.java.core.cqrs.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.amido</groupId>
             <artifactId>stacks-java-core-messaging</artifactId>
-            <version>${project.version}</version>
+            <version>${stacks.java.core.messaging.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>au.com.dius</groupId>
+            <artifactId>pact-jvm-provider-spring</artifactId>
+            <version>${pact.provider.spring.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>au.com.dius.pact</groupId>
+            <artifactId>consumer</artifactId>
+            <version>${pact.consumer.version}</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -51,6 +85,7 @@
                     <mainClass>com.amido.stacks.Application</mainClass>
                 </configuration>
             </plugin>
+
             <!--            <plugin>-->
             <!--                <groupId>au.com.dius.pact.provider</groupId>-->
             <!--                <artifactId>maven</artifactId>-->
@@ -83,20 +118,21 @@
             <!--            </plugin>-->
         </plugins>
     </build>
+
     <profiles>
         <profile>
             <id>local</id>
             <build>
                 <resources>
-<!--                    <resource>-->
-<!--                        <directory>src/main/resources</directory>-->
-<!--                    </resource>-->
+                    <!--                    <resource>-->
+                    <!--                        <directory>src/main/resources</directory>-->
+                    <!--                    </resource>-->
                     <resource>
                         <directory>src/main/resources/local</directory>
                     </resource>
-                                        <resource>
-                                            <directory>src/main/resources</directory>
-                                        </resource>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                    </resource>
                 </resources>
             </build>
         </profile>

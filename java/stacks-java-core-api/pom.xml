@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>com.amido</groupId>
@@ -9,22 +10,27 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <packaging>jar</packaging>
     <artifactId>stacks-java-core-api</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+    <name>stacks-java-core-api</name>
+    <description>Core API components for the Java Stacks solution</description>
+
+    <packaging>jar</packaging>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>5.3.8</version>
-            <scope>compile</scope>
-        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>org.springframework</groupId>-->
+<!--            <artifactId>spring-web</artifactId>-->
+<!--            <version>5.3.8</version>-->
+<!--            <scope>compile</scope>-->
+<!--        </dependency>-->
+
     </dependencies>
-    <modelVersion>4.0.0</modelVersion>
 
     <build>
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
@@ -38,6 +44,7 @@
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
     </build>
 

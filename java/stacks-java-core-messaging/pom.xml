@@ -2,29 +2,41 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <artifactId>stacks-api-cqrs-events</artifactId>
         <groupId>com.amido</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
     <artifactId>stacks-java-core-messaging</artifactId>
-
     <version>1.0.0-SNAPSHOT</version>
+    <name>stacks-java-core-messaging</name>
+    <description>Core messaging components for the Java Stacks solution</description>
+
+    <packaging>jar</packaging>
+
+    <properties>
+        <stacks.java.core.cqrs.version>1.0.0-SNAPSHOT</stacks.java.core.cqrs.version>
+        <stacks.java.core.operations.version>1.0.0-SNAPSHOT</stacks.java.core.operations.version>
+    </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>com.amido</groupId>
             <artifactId>stacks-java-core-operations</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>${stacks.java.core.operations.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.amido</groupId>
             <artifactId>stacks-java-core-cqrs</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>${stacks.java.core.cqrs.version}</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
 </project>

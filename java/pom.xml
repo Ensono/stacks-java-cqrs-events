@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -42,7 +43,6 @@
         <java.version>11</java.version>
         <junit-jupiter.version>5.7.2</junit-jupiter.version>
         <lombok.version>1.18.20</lombok.version>
-        <main.basedir>${project.basedir}</main.basedir>
         <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven.compiler.source>11</maven.compiler.source>
@@ -52,16 +52,7 @@
         <mockito.version>3.11.2</mockito.version>
         <org.projectlombok.version>1.18.0</org.projectlombok.version>
         <org.springdoc-openapi.version>1.5.9</org.springdoc-openapi.version>
-<!--        <owasp-dependency-check-plugin.version>6.2.2</owasp-dependency-check-plugin.version>-->
         <owasp-dependency-check-plugin.version>6.4.1</owasp-dependency-check-plugin.version>
-        <pact.api.name>JavaMenuAPI</pact.api.name>
-        <pact.api.protocol>http</pact.api.protocol>
-        <pact.api.host>localhost</pact.api.host>
-        <pact.api.port>9000</pact.api.port>
-        <pact.version>3.5.24</pact.version>
-        <!-- Set 'pact.broker.url' and 'pact.broker.token' -->
-        <pact.broker.url></pact.broker.url>
-        <pact.broker.token></pact.broker.token>
         <pitest.version>1.6.7</pitest.version>
         <puppycrawl-tools-checkstyle.version>8.44</puppycrawl-tools-checkstyle.version>
         <spotbugs-maven-plugin.version>4.2.3</spotbugs-maven-plugin.version>
@@ -290,20 +281,6 @@
         </dependency>
 
         <dependency>
-            <groupId>au.com.dius</groupId>
-            <artifactId>pact-jvm-provider-spring</artifactId>
-            <version>4.0.10</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>au.com.dius.pact</groupId>
-            <artifactId>consumer</artifactId>
-            <version>4.2.7</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.pitest</groupId>
             <artifactId>pitest-parent</artifactId>
             <version>${pitest.version}</version>
@@ -336,51 +313,6 @@
         </dependency>
 
     </dependencies>
-
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-                <configuration>
-                    <outputDirectory>${project.basedir}/reports/newsite</outputDirectory>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.owasp</groupId>
-                <artifactId>dependency-check-maven</artifactId>
-                <version>${owasp-dependency-check-plugin.version}</version>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>aggregate</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-            <plugin>
-                <groupId>com.github.spotbugs</groupId>
-                <artifactId>spotbugs-maven-plugin</artifactId>
-                <configuration>
-                    <xmlOutput>true</xmlOutput>
-                    <!-- Optional directory to put spotbugs xdoc xml report -->
-                    <xmlOutputDirectory>${project.basedir}/reports/spotbugs</xmlOutputDirectory>
-                </configuration>
-            </plugin>
-<!--            <plugin>-->
-<!--                <groupId>org.jacoco</groupId>-->
-<!--                <artifactId>jacoco-maven-plugin</artifactId>-->
-<!--                <reportSets>-->
-<!--                    <reportSet>-->
-<!--                        <reports>-->
-<!--                            &lt;!&ndash; select non-aggregate reports &ndash;&gt;-->
-<!--                            <report>report</report>-->
-<!--                        </reports>-->
-<!--                    </reportSet>-->
-<!--                </reportSets>-->
-<!--            </plugin>-->
-        </plugins>
-    </reporting>
 
     <profiles>
         <profile>
@@ -422,11 +354,13 @@
 
     <build>
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.7.1</version>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -444,6 +378,7 @@
                     <forceJavacCompilerUse>true</forceJavacCompilerUse>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -457,6 +392,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -506,6 +442,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>com.coveo</groupId>
                 <artifactId>fmt-maven-plugin</artifactId>
@@ -520,6 +457,7 @@
                     <style>google</style>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -546,6 +484,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
@@ -559,6 +498,7 @@
                     </dependency>
                 </dependencies>
             </plugin>
+
             <plugin>
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
@@ -593,7 +533,57 @@
                     </outputFormats>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
+
+    <reporting>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <configuration>
+                    <outputDirectory>${project.basedir}/reports/newsite</outputDirectory>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>${owasp-dependency-check-plugin.version}</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>aggregate</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <configuration>
+                    <xmlOutput>true</xmlOutput>
+                    <!-- Optional directory to put spotbugs xdoc xml report -->
+                    <xmlOutputDirectory>${project.basedir}/reports/spotbugs</xmlOutputDirectory>
+                </configuration>
+            </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>org.jacoco</groupId>-->
+            <!--                <artifactId>jacoco-maven-plugin</artifactId>-->
+            <!--                <reportSets>-->
+            <!--                    <reportSet>-->
+            <!--                        <reports>-->
+            <!--                            &lt;!&ndash; select non-aggregate reports &ndash;&gt;-->
+            <!--                            <report>report</report>-->
+            <!--                        </reports>-->
+            <!--                    </reportSet>-->
+            <!--                </reportSets>-->
+            <!--            </plugin>-->
+
+        </plugins>
+    </reporting>
 
 </project>
