@@ -1,12 +1,11 @@
 package com.amido.stacks.core.operations;
 
+import static org.assertj.core.api.BDDAssertions.then;
+
+import java.util.UUID;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
-import java.util.UUID;
-
-import static org.assertj.core.api.BDDAssertions.then;
 
 @Tag("Component")
 public class OperationContextTest {
