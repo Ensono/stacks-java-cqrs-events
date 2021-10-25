@@ -1,5 +1,7 @@
 package com.amido.stacks.core.azure.servicebus;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,23 +10,17 @@ import org.springframework.boot.test.context.ConfigDataApplicationContextInitial
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 @ExtendWith(SpringExtension.class)
 @EnableConfigurationProperties(value = ServiceBusProperties.class)
 @ContextConfiguration(initializers = ConfigDataApplicationContextInitializer.class)
 public class ServiceBusPropertiesYamlTest {
 
-        @Autowired
-        private ServiceBusProperties serviceBusProperties;
+  @Autowired private ServiceBusProperties serviceBusProperties;
 
-        @Test
-        void givenUserDefinedPOJO_whenBindingPropertiesFile_thenAllFieldsAreSet() {
-            assertEquals("Test_Connection_String", serviceBusProperties.getConnectionString());
-            assertEquals("Test_Topic_Name", serviceBusProperties.getTopicName());
-            assertEquals("Test_Subscription_Name", serviceBusProperties.getSubscriptionName());
-        }
-
-
-
+  @Test
+  void givenUserDefinedPOJO_whenBindingPropertiesFile_thenAllFieldsAreSet() {
+    assertEquals("Test_Connection_String", serviceBusProperties.getConnectionString());
+    assertEquals("Test_Topic_Name", serviceBusProperties.getTopicName());
+    assertEquals("Test_Subscription_Name", serviceBusProperties.getSubscriptionName());
+  }
 }
