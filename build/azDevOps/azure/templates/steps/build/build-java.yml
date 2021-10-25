@@ -149,7 +149,7 @@ steps:
       npm i
       ./node_modules/.bin/gulp inline-css-images
       ./node_modules/.bin/gulp inline-sources
-    workingDirectory: "${{ parameters.project_root_dir }}/target/site/"
+    workingDirectory: "${{ parameters.project_root_dir }}/sample-cqrs-events/target/site/"
     target:
       container: node
     displayName: "Gulp: Inline Jacoco report assets (${{ parameters.project_type }})"
