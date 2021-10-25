@@ -26,14 +26,11 @@ import org.junit.Assert;
 
 public class ItemStepDefinitions {
 
-  @Steps
-  ItemRequests itemRequest;
+  @Steps ItemRequests itemRequest;
 
-  @Steps
-  MenuRequests menuRequest;
+  @Steps MenuRequests menuRequest;
 
-  @Steps
-  MenuActions menuActions;
+  @Steps MenuActions menuActions;
 
   String menuId;
   String categoryId;
