@@ -735,11 +735,11 @@ stages:
           - name: app_name
             value: "java-api"
           - name: servicebus_connectionstring
-            value: $[ dependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.servicebus_connectionstring'] ]
+            value: $[ dependencies.AppInfraProd.outputs['AppInfraProd.tfoutputs.servicebus_connectionstring'] ]
           - name: servicebus_topic
-            value: $[ dependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.servicebus_topic_name'] ]
+            value: $[ dependencies.AppInfraProd.outputs['AppInfraProd.tfoutputs.servicebus_topic_name'] ]
           - name: servicebus_subscription
-            value: $[ dependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.servicebus_subscription_name'] ]
+            value: $[ dependencies.AppInfraProd.outputs['AppInfraProd.tfoutputs.servicebus_subscription_name'] ]
         strategy:
           runOnce:
             deploy:
