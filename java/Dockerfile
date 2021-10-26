@@ -9,8 +9,13 @@ COPY mvnw .m2* /root/.m2/repository/
 COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
-COPY src src
+#COPY src src
 COPY stacks-java-core-api stacks-java-core-api
+COPY stacks-java-core-azure stacks-java-core-azure
+COPY stacks-java-core-commons stacks-java-core-commons
+COPY stacks-java-core-cqrs stacks-java-core-cqrs
+COPY stacks-java-core-messaging stacks-java-core-messaging
+COPY stacks-java-core-operations stacks-java-core-operations
 COPY sample-cqrs-events sample-cqrs-events
 
 # RUN ./mvnw help:evaluate -Dexpression=settings.localRepository -q -DforceStdout
