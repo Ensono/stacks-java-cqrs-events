@@ -70,7 +70,7 @@ variables:
   - name: self_repo_dir
     value: "$(Agent.BuildDirectory)/s/$(self_repo)"
   - name: self_project_dir
-    value: "$(self_repo_dir)/$(self_repo_src)"
+    value: "$(self_repo_dir)/sample-cqrs-events/$(self_repo_src)"
   - name: self_functional_testproject_dir
     value: "$(self_repo_dir)/$(self_post_deploy_test_src)"
   - name: self_repo_tf_src
