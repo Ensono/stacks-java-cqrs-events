@@ -24,19 +24,14 @@ COPY sample-cqrs-events sample-cqrs-events
 #    && ./mvnw dependency:go-offline --quiet\
 #	&& ./mvnw install -Dmaven.default-test.skip=true -Dmaven.test.skip=true -DskipTests --no-transfer-progress --quiet -Plocal\
 #    && mkdir -p target/dependency && (cd target/dependency; ${JAVA_HOME}/bin/jar -xf /workspace/app/sample-cqrs-events/target/*.jar) \
-RUN ./mvnw clean \
-    && ./mvnw dependency:go-offline --quiet\
-	&& ./mvnw install -Dmaven.default-test.skip=true -Dmaven.test.skip=true -DskipTests --no-transfer-progress --quiet \
-    && mkdir -p target/dependency && (cd target/dependency; ${JAVA_HOME}/bin/jar -xf /workspace/app/${DEFAULT_MODULE}/target/*.jar)
+RUN ./mvnw clean
+RUN ./mvnw install -Dmaven.default-test.skip=true -Dmaven.test.skip=true -DskipTests --no-transfer-progress
 
 FROM azul/zulu-openjdk-alpine:11-jre
 
-VOLUME /tmp
-ARG DEPENDENCY=/workspace/app/target/dependency
+COPY --from=build /workspace/app/sample-cqrs-events/target/sample*.jar /app.jar
 
-COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
-COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
+VOLUME /tmp
 
 RUN if [ -e "/app/emulatorcert.crt" ]; then cd $JAVA_HOME/lib/security && keytool -importcert -cacerts -storepass changeit -noprompt -alias documentdbemulator -file /app/emulatorcert.crt; fi
 
@@ -46,6 +41,5 @@ RUN if [ -e "/app/emulatorcert.crt" ]; then cd $JAVA_HOME/lib/security && keytoo
 #        cd $JAVA_HOME/lib/security \
 #        && keytool -importcert -cacerts -storepass changeit -noprompt -alias documentdbemulator -file /app/emulatorcert.crt
 
-ENTRYPOINT ["java","-cp","app:app/lib/*","com.amido.stacks.Application"]
-
+ENTRYPOINT ["java","-jar","/app.jar"]
 EXPOSE 9000
