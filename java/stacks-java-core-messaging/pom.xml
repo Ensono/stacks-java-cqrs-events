@@ -30,13 +30,6 @@
             <version>${stacks.java.core.operations.version}</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>com.amido</groupId>-->
-<!--            <artifactId>stacks-java-core-cqrs</artifactId>-->
-<!--            <version>${stacks.java.core.cqrs.version}</version>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
-
     </dependencies>
 
 </project>

@@ -29,7 +29,8 @@ RUN ./mvnw install -Dmaven.default-test.skip=true -Dmaven.test.skip=true -DskipT
 
 FROM azul/zulu-openjdk-alpine:11-jre
 
-COPY --from=build /workspace/app/sample-cqrs-events/target/sample*.jar /app.jar
+WORKDIR /workspace/app
+COPY --from=build /workspace/app .
 
 VOLUME /tmp
 
@@ -41,5 +42,5 @@ RUN if [ -e "/app/emulatorcert.crt" ]; then cd $JAVA_HOME/lib/security && keytoo
 #        cd $JAVA_HOME/lib/security \
 #        && keytool -importcert -cacerts -storepass changeit -noprompt -alias documentdbemulator -file /app/emulatorcert.crt
 
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["./mvnw","spring-boot:run", "-pl","sample-cqrs-events"]
 EXPOSE 9000
