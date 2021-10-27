@@ -32,6 +32,8 @@
         <stacks.java.core.cqrs.version>1.0.0-SNAPSHOT</stacks.java.core.cqrs.version>
         <stacks.java.core.messaging.version>1.0.0-SNAPSHOT</stacks.java.core.messaging.version>
         <stacks.java.core.operations.version>1.0.0-SNAPSHOT</stacks.java.core.operations.version>
+        <stacks.java.core.azure.version>1.0.0-SNAPSHOT</stacks.java.core.azure.version>
+        <stacks.java.core.commons.version>1.0.0-SNAPSHOT</stacks.java.core.commons.version>
     </properties>
 
     <dependencies>
@@ -58,6 +60,18 @@
             <groupId>com.amido</groupId>
             <artifactId>stacks-java-core-messaging</artifactId>
             <version>${stacks.java.core.messaging.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.amido</groupId>
+            <artifactId>stacks-java-core-azure</artifactId>
+            <version>${stacks.java.core.azure.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.amido</groupId>
+            <artifactId>stacks-java-core-commons</artifactId>
+            <version>${stacks.java.core.commons.version}</version>
         </dependency>
 
         <dependency>
