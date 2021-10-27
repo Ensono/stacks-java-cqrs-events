@@ -1,1 +1,1 @@
-docker run -p 9000:9000 -e AZURE_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY -e COSMOSDB_KEY -v $(pwd)/sample-cqrs-events/src/main/resources/application.yml:/app/application.yml guillo/stacks-events:latest
+docker run -p 9000:9000 -e AZURE_APPLICATION_INSIGHTS_INSTRUMENTATION_KEY -e COSMOSDB_KEY -v $(pwd)/sample-cqrs-events/src/main/resources/local/application.yml:/app/application.yml guillo/stacks-events:latest
