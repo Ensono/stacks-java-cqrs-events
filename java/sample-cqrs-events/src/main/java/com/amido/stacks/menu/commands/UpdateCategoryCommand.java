@@ -1,13 +1,16 @@
 package com.amido.stacks.menu.commands;
 
-import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.UUID;
 
 /** @author ArathyKrishna */
 @Getter
 @Setter
 public class UpdateCategoryCommand extends MenuCommand {
+
+  private static final int OPERATION_CODE = 202;
 
   private String name;
   private String description;
@@ -15,9 +18,14 @@ public class UpdateCategoryCommand extends MenuCommand {
 
   public UpdateCategoryCommand(
       String correlationId, UUID menuId, UUID categoryId, String name, String description) {
-    super(OperationCode.UPDATE_CATEGORY, correlationId, menuId);
+    super(correlationId, menuId);
     this.name = name;
     this.description = description;
     this.categoryId = categoryId;
+  }
+
+  @Override
+  public int getOperationCode() {
+    return OPERATION_CODE;
   }
 }

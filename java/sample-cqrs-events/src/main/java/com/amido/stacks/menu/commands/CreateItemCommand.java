@@ -1,12 +1,15 @@
 package com.amido.stacks.menu.commands;
 
-import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.UUID;
 
 @Getter
 @Setter
 public class CreateItemCommand extends MenuCommand {
+
+  private static final int OPERATION_CODE = 301;
 
   private UUID categoryId;
   private String name;
@@ -23,11 +26,17 @@ public class CreateItemCommand extends MenuCommand {
       String description,
       Double price,
       Boolean available) {
-    super(OperationCode.CREATE_MENU_ITEM, correlationId, menuId);
+    super(correlationId, menuId);
     this.categoryId = categoryId;
     this.name = name;
     this.description = description;
     this.price = price;
     this.available = available;
+  }
+
+
+  @Override
+  public int getOperationCode() {
+    return OPERATION_CODE;
   }
 }

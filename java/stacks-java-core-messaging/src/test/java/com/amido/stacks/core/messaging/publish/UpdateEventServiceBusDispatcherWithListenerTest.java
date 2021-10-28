@@ -1,18 +1,19 @@
 package com.amido.stacks.core.messaging.publish;
 
-import static org.assertj.core.api.BDDAssertions.then;
-
 import com.amido.stacks.core.messaging.listen.DefaultEventListener;
 import com.azure.messaging.servicebus.ServiceBusMessage;
 import com.azure.messaging.servicebus.ServiceBusSenderAsyncClient;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import java.util.UUID;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.mock.mockito.MockBean;
+
+import java.util.UUID;
+
+import static org.assertj.core.api.BDDAssertions.then;
 
 @Tag("Component")
 @ExtendWith(MockitoExtension.class)
@@ -35,8 +36,9 @@ class UpdateEventServiceBusDispatcherWithListenerTest {
     UpdateEventServiceBusDispatcherWithListener d =
         new UpdateEventServiceBusDispatcherWithListener(
             topicAsyncSender, JsonMapper.builder().build(), new DefaultEventListener());
+    TestApplicationCommand testApplicationCommand = new TestApplicationCommand(uuid.toString());
     TestApplicationEvent testApplicationEvent =
-        new TestApplicationEvent(OPERATION_CODE, uuid.toString(), EVENT_CODE);
+        new TestApplicationEvent(testApplicationCommand, uuid.toString());
 
     // When
     ServiceBusMessage message = d.createServiceBusMessageFromEvent(testApplicationEvent);

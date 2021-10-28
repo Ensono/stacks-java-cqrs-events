@@ -6,8 +6,8 @@ import java.util.UUID;
 public abstract class MenuItemEvent extends CategoryEvent {
   private UUID itemId;
 
-  public MenuItemEvent(MenuCommand command, EventCode eventCode, UUID categoryId, UUID itemId) {
-    super(command, eventCode, categoryId);
+  public MenuItemEvent(MenuCommand command, UUID categoryId, UUID itemId) {
+    super(command, categoryId);
     this.itemId = itemId;
   }
 

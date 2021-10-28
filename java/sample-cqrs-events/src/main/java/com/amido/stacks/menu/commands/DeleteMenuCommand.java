@@ -1,8 +1,9 @@
 package com.amido.stacks.menu.commands;
 
-import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.UUID;
 
 /**
  * Command for deleting Menu
@@ -13,7 +14,14 @@ import lombok.Setter;
 @Setter
 public class DeleteMenuCommand extends MenuCommand {
 
+  private static final int OPERATION_CODE = 103;
+
   public DeleteMenuCommand(String correlationId, UUID menuId) {
-    super(OperationCode.DELETE_MENU, correlationId, menuId);
+    super(correlationId, menuId);
+  }
+
+  @Override
+  public int getOperationCode() {
+    return OPERATION_CODE;
   }
 }

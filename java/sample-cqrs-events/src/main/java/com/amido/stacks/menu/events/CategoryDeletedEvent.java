@@ -6,7 +6,13 @@ import java.util.UUID;
 /** @author ArathyKrishna */
 public class CategoryDeletedEvent extends CategoryEvent {
 
+  private static final int EVENT_CODE = 203;
+
   public CategoryDeletedEvent(MenuCommand command, UUID categoryId) {
-    super(command, EventCode.CATEGORY_DELETED, categoryId);
+    super(command, categoryId);
+  }
+  @Override
+  public int getEventCode() {
+    return EVENT_CODE;
   }
 }

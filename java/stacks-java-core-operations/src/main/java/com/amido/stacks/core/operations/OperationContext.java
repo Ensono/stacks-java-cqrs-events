@@ -2,20 +2,22 @@ package com.amido.stacks.core.operations;
 
 public abstract class OperationContext {
 
-  private int operationCode;
+//  private int operationCode;
   private String correlationId;
 
-  public OperationContext(int operationCode, String correlationId) {
-    this.operationCode = operationCode;
+  public OperationContext(String correlationId) {
+//    this.operationCode = operationCode;
     this.correlationId = correlationId;
   }
+
+  public abstract int getOperationCode();
 
   /** No arg constructor. */
   public OperationContext() {}
 
-  public int getOperationCode() {
-    return operationCode;
-  }
+//  public int getOperationCode() {
+//    return operationCode;
+//  }
 
   public String getCorrelationId() {
     return correlationId;
@@ -29,7 +31,7 @@ public abstract class OperationContext {
   public String toString() {
     return "OperationContext{"
         + "operationCode="
-        + operationCode
+        + getOperationCode()
         + ", correlationId="
         + correlationId
         + '}';

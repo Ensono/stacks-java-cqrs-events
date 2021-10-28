@@ -5,7 +5,13 @@ import java.util.UUID;
 
 public class CategoryUpdatedEvent extends CategoryEvent {
 
+  private static final int EVENT_CODE = 202;
+
   public CategoryUpdatedEvent(MenuCommand command, UUID categoryId) {
-    super(command, EventCode.CATEGORY_UPDATED, categoryId);
+    super(command, categoryId);
+  }
+  @Override
+  public int getEventCode() {
+    return EVENT_CODE;
   }
 }

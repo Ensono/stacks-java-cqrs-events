@@ -8,19 +8,21 @@ public abstract class MenuEvent extends ApplicationEvent {
 
   private UUID menuId;
 
-  public MenuEvent(final MenuCommand command, final EventCode eventCode, final UUID menuId) {
-    super(command.getOperationCode(), command.getCorrelationId(), eventCode.getCode());
+  public MenuEvent(final MenuCommand command, final UUID menuId) {
+    super(command, command.getCorrelationId());
     this.menuId = menuId;
   }
 
-  public MenuEvent(final MenuCommand command, final EventCode eventCode) {
-    super(command.getOperationCode(), command.getCorrelationId(), eventCode.getCode());
+  public MenuEvent(final MenuCommand command) {
+    super(command, command.getCorrelationId());
     this.menuId = command.getMenuId();
   }
 
   public UUID getMenuId() {
     return menuId;
   }
+
+  public abstract int getEventCode();
 
   @Override
   public String toString() {

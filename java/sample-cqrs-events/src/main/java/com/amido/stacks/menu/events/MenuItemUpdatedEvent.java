@@ -6,7 +6,14 @@ import java.util.UUID;
 /** @author ArathyKrishna */
 public class MenuItemUpdatedEvent extends MenuItemEvent {
 
+  private static final int EVENT_CODE = 302;
+
   public MenuItemUpdatedEvent(MenuCommand command, UUID categoryId, UUID itemId) {
-    super(command, EventCode.MENU_ITEM_UPDATED, categoryId, itemId);
+    super(command, categoryId, itemId);
+  }
+
+  @Override
+  public int getEventCode() {
+    return EVENT_CODE;
   }
 }
