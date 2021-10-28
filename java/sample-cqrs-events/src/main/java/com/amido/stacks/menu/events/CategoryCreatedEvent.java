@@ -15,5 +15,4 @@ public class CategoryCreatedEvent extends CategoryEvent {
   public int getEventCode() {
     return 0;
   }
-
 }

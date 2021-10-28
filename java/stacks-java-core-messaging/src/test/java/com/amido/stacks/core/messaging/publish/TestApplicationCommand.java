@@ -4,12 +4,12 @@ import com.amido.stacks.core.cqrs.command.ApplicationCommand;
 
 public class TestApplicationCommand extends ApplicationCommand {
 
-    public TestApplicationCommand(String correlationId) {
-        super(correlationId);
-    }
+  public TestApplicationCommand(String correlationId) {
+    super(correlationId);
+  }
 
-    @Override
-    public int getOperationCode() {
-        return 1000;
-    }
+  @Override
+  public int getOperationCode() {
+    return 1000;
+  }
 }

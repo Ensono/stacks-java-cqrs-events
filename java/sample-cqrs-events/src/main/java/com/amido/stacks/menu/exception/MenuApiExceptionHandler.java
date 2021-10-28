@@ -17,10 +17,7 @@ public class MenuApiExceptionHandler {
   @ResponseStatus(HttpStatus.CONFLICT)
   ErrorResponse menuAlreadyExistsExceptionHandler(MenuAlreadyExistsException ex) {
     return new ErrorResponse(
-        ex.getExceptionCode(),
-        ex.getOperationCode(),
-        ex.getCorrelationId(),
-        ex.getMessage());
+        ex.getExceptionCode(), ex.getOperationCode(), ex.getCorrelationId(), ex.getMessage());
   }
 
   @ResponseBody
@@ -28,10 +25,7 @@ public class MenuApiExceptionHandler {
   @ResponseStatus(HttpStatus.NOT_FOUND)
   ErrorResponse menuNotFoundExceptionHandler(MenuNotFoundException ex) {
     return new ErrorResponse(
-        ex.getExceptionCode(),
-        ex.getOperationCode(),
-        ex.getCorrelationId(),
-        ex.getMessage());
+        ex.getExceptionCode(), ex.getOperationCode(), ex.getCorrelationId(), ex.getMessage());
   }
 
   @ResponseBody
@@ -39,10 +33,7 @@ public class MenuApiExceptionHandler {
   @ResponseStatus(HttpStatus.CONFLICT)
   ErrorResponse categoryAlreadyExistsExceptionHandler(CategoryAlreadyExistsException ex) {
     return new ErrorResponse(
-        ex.getExceptionCode(),
-        ex.getOperationCode(),
-        ex.getCorrelationId(),
-        ex.getMessage());
+        ex.getExceptionCode(), ex.getOperationCode(), ex.getCorrelationId(), ex.getMessage());
   }
 
   @ResponseBody
@@ -50,10 +41,7 @@ public class MenuApiExceptionHandler {
   @ResponseStatus(HttpStatus.NOT_FOUND)
   ErrorResponse categoryNotFoundExceptionHandler(CategoryDoesNotExistException ex) {
     return new ErrorResponse(
-        ex.getExceptionCode(),
-        ex.getOperationCode(),
-        ex.getCorrelationId(),
-        ex.getMessage());
+        ex.getExceptionCode(), ex.getOperationCode(), ex.getCorrelationId(), ex.getMessage());
   }
 
   @ResponseBody
@@ -61,10 +49,7 @@ public class MenuApiExceptionHandler {
   @ResponseStatus(HttpStatus.CONFLICT)
   ErrorResponse itemAlreadyExistsExceptionHandler(ItemAlreadyExistsException ex) {
     return new ErrorResponse(
-        ex.getExceptionCode(),
-        ex.getOperationCode(),
-        ex.getCorrelationId(),
-        ex.getMessage());
+        ex.getExceptionCode(), ex.getOperationCode(), ex.getCorrelationId(), ex.getMessage());
   }
 
   @ResponseBody
@@ -72,9 +57,6 @@ public class MenuApiExceptionHandler {
   @ResponseStatus(HttpStatus.NOT_FOUND)
   ErrorResponse itemDontNotExistsExceptionHandler(ItemDoesNotExistsException ex) {
     return new ErrorResponse(
-        ex.getExceptionCode(),
-        ex.getOperationCode(),
-        ex.getCorrelationId(),
-        ex.getMessage());
+        ex.getExceptionCode(), ex.getOperationCode(), ex.getCorrelationId(), ex.getMessage());
   }
 }

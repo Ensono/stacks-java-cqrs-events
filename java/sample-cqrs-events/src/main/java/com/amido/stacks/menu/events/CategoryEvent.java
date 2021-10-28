@@ -1,10 +1,9 @@
 package com.amido.stacks.menu.events;
 
 import com.amido.stacks.menu.commands.MenuCommand;
+import java.util.UUID;
 import lombok.Getter;
 import lombok.ToString;
-
-import java.util.UUID;
 
 @Getter
 @ToString

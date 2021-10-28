@@ -1,6 +1,7 @@
 package com.amido.stacks.core.operations;
 
 import static org.assertj.core.api.BDDAssertions.then;
+import static org.mockito.Mockito.when;
 
 import java.util.UUID;
 import org.junit.jupiter.api.Tag;
@@ -21,8 +22,9 @@ public class OperationContextTest {
         Mockito.mock(
             OperationContext.class,
             Mockito.withSettings()
-                .useConstructor(OPERATION_CODE, uuid.toString())
+                .useConstructor(uuid.toString())
                 .defaultAnswer(Mockito.CALLS_REAL_METHODS));
+    when(operationContext.getOperationCode()).thenReturn(OPERATION_CODE);
 
     then(operationContext.getOperationCode()).isEqualTo(OPERATION_CODE);
     then(operationContext.getCorrelationId()).isEqualTo(uuid.toString());

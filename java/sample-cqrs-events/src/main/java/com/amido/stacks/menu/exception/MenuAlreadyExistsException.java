@@ -14,6 +14,7 @@ public class MenuAlreadyExistsException extends MenuApiException {
             name, restaurantId),
         command);
   }
+
   @Override
   public int getExceptionCode() {
     return EXCEPTION_CODE;

@@ -15,6 +15,7 @@ public class ItemDoesNotExistsException extends MenuApiException {
             itemId, categoryId, command.getMenuId()),
         command);
   }
+
   @Override
   public int getExceptionCode() {
     return EXCEPTION_CODE;

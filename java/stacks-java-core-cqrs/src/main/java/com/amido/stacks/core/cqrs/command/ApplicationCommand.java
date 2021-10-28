@@ -6,5 +6,4 @@ public abstract class ApplicationCommand extends OperationContext {
   public ApplicationCommand(String correlationId) {
     super(correlationId);
   }
-
 }

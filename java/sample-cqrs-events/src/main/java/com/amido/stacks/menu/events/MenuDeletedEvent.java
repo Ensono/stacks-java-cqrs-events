@@ -6,6 +6,7 @@ import com.amido.stacks.menu.commands.MenuCommand;
 public class MenuDeletedEvent extends MenuEvent {
 
   private static final int EVENT_CODE = 103;
+
   public MenuDeletedEvent(MenuCommand command) {
     super(command);
   }

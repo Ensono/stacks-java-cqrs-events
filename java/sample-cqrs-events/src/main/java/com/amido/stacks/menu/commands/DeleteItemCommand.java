@@ -1,9 +1,8 @@
 package com.amido.stacks.menu.commands;
 
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.UUID;
 
 /** @author ArathyKrishna */
 @Getter
@@ -20,7 +19,6 @@ public class DeleteItemCommand extends MenuCommand {
     this.categoryId = categoryId;
     this.itemId = itemId;
   }
-
 
   @Override
   public int getOperationCode() {

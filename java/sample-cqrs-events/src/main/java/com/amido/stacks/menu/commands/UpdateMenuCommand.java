@@ -1,9 +1,8 @@
 package com.amido.stacks.menu.commands;
 
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -22,6 +21,7 @@ public class UpdateMenuCommand extends MenuCommand {
     this.description = description;
     this.enabled = enabled;
   }
+
   @Override
   public int getOperationCode() {
     return OPERATION_CODE;

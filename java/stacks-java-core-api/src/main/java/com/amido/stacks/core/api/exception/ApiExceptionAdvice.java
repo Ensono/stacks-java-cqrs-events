@@ -1,4 +1,4 @@
-package com.amido.stacks.menu.api.exception;
+package com.amido.stacks.core.api.exception;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.web.context.request.RequestAttributes.SCOPE_REQUEST;

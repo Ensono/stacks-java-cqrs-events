@@ -10,6 +10,7 @@ public class CategoryUpdatedEvent extends CategoryEvent {
   public CategoryUpdatedEvent(MenuCommand command, UUID categoryId) {
     super(command, categoryId);
   }
+
   @Override
   public int getEventCode() {
     return EVENT_CODE;

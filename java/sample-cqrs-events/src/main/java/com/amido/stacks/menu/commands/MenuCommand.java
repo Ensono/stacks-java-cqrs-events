@@ -1,10 +1,9 @@
 package com.amido.stacks.menu.commands;
 
 import com.amido.stacks.core.cqrs.command.ApplicationCommand;
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.UUID;
 
 @Getter
 @Setter

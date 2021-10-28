@@ -11,6 +11,7 @@ public class CategoryDeletedEvent extends CategoryEvent {
   public CategoryDeletedEvent(MenuCommand command, UUID categoryId) {
     super(command, categoryId);
   }
+
   @Override
   public int getEventCode() {
     return EVENT_CODE;

@@ -1,9 +1,8 @@
 package com.amido.stacks.menu.commands;
 
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.UUID;
 
 /** @author ArathyKrishna */
 @Getter
@@ -36,6 +35,7 @@ public class UpdateItemCommand extends MenuCommand {
     this.price = price;
     this.available = available;
   }
+
   @Override
   public int getOperationCode() {
     return OPERATION_CODE;

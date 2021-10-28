@@ -15,6 +15,7 @@ public class ItemAlreadyExistsException extends MenuApiException {
             name, categoryId, command.getMenuId()),
         command);
   }
+
   @Override
   public int getExceptionCode() {
     return EXCEPTION_CODE;
