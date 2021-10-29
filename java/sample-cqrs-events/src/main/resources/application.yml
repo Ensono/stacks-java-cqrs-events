@@ -53,14 +53,14 @@ azure:
     enabled: ${SB_ENABLED:false}
 
 auth:
-  #Config switch to enable (true) or disable(false) Auth0.Provide either true or false to enable or disable
+  # Config switch to enable (true) or disable(false) Auth0.Provide either true or false to enable or disable
   isEnabled: false
   resource:
     url: https://amidostacks.eu.auth0.com/oauth/token
   token:
     url: /v1/token
-  #The issuer of the JWT Token. Typically, this is your Auth0 domain with an https://
+  # The issuer of the JWT Token. Typically, this is your Auth0 domain with an https://
   issuer:
     https: //amidostacks.eu.auth0.com/
-  #The unique identifier for your API
+  # The unique identifier for your API
   apiAudience: https://amidostacks.eu.auth0.com/api/v2/
