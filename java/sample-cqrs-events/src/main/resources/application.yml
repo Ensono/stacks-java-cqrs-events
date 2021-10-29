@@ -54,7 +54,7 @@ azure:
 
 auth:
   #Config switch to enable (true) or disable(false) Auth0.Provide either true or false to enable or disable
-  isEnabled: true
+  isEnabled: false
   resource:
     url: https://amidostacks.eu.auth0.com/oauth/token
   token:
@@ -70,7 +70,7 @@ api:
     v1:
       url: /v1/menu/**
       endpoint: /v1/menu
-      privateEndpoint: true
+      privateEndpoint: false
 
     v2:
       url: /v2/menu/**
