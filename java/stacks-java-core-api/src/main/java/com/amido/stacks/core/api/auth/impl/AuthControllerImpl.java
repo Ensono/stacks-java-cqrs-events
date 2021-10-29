@@ -3,12 +3,11 @@ package com.amido.stacks.core.api.auth.impl;
 import com.amido.stacks.core.api.auth.AuthController;
 import com.amido.stacks.core.api.dto.request.GenerateTokenRequest;
 import com.amido.stacks.core.api.dto.response.GenerateTokenResponse;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
-import javax.validation.Valid;
 
 @RestController
 public class AuthControllerImpl implements AuthController {

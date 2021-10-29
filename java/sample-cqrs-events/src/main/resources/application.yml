@@ -65,14 +65,3 @@ auth:
   #The unique identifier for your API
   apiAudience: https://amidostacks.eu.auth0.com/api/v2/
 
-api:
-  endpoints:
-    v1:
-      url: /v1/menu/**
-      endpoint: /v1/menu
-      privateEndpoint: false
-
-    v2:
-      url: /v2/menu/**
-      endpoint: /v2/menu
-      privateEndpoint: false
