@@ -76,3 +76,4 @@ api:
       url: /v2/menu/**
       endpoint: /v2/menu
       privateEndpoint: true
+      
