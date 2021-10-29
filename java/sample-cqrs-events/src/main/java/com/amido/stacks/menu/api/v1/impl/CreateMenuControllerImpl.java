@@ -2,9 +2,9 @@ package com.amido.stacks.menu.api.v1.impl;
 
 import static com.amido.stacks.menu.mappers.RequestToCommandMapper.map;
 
+import com.amido.stacks.core.api.dto.response.ResourceCreatedResponse;
 import com.amido.stacks.menu.api.v1.CreateMenuController;
 import com.amido.stacks.menu.api.v1.dto.request.CreateMenuRequest;
-import com.amido.stacks.menu.api.v1.dto.response.ResourceCreatedResponse;
 import com.amido.stacks.menu.handlers.CreateMenuHandler;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;

@@ -1,20 +1,21 @@
-package com.amido.stacks.menu.api.v1;
+package com.amido.stacks.core.api.auth;
 
 import com.amido.stacks.core.api.dto.ErrorResponse;
-import com.amido.stacks.menu.api.v1.dto.request.GenerateTokenRequest;
-import com.amido.stacks.menu.api.v1.dto.response.GenerateTokenResponse;
-import com.amido.stacks.menu.api.v1.dto.response.ResourceCreatedResponse;
+import com.amido.stacks.core.api.dto.request.GenerateTokenRequest;
+import com.amido.stacks.core.api.dto.response.GenerateTokenResponse;
+import com.amido.stacks.core.api.dto.response.ResourceCreatedResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping("/v1/token")
+import javax.validation.Valid;
+
+@RequestMapping("${auth.token.url}")
 public interface AuthController {
 
   @PostMapping(consumes = "application/json", produces = "application/json; charset=utf-8")

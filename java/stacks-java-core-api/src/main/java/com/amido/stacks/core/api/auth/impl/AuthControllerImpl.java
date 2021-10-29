@@ -1,21 +1,20 @@
-package com.amido.stacks.menu.api.v1.impl;
+package com.amido.stacks.core.api.auth.impl;
 
-import com.amido.stacks.menu.api.v1.AuthController;
-import com.amido.stacks.menu.api.v1.dto.request.GenerateTokenRequest;
-import com.amido.stacks.menu.api.v1.dto.response.GenerateTokenResponse;
-import javax.validation.Valid;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import com.amido.stacks.core.api.auth.AuthController;
+import com.amido.stacks.core.api.dto.request.GenerateTokenRequest;
+import com.amido.stacks.core.api.dto.response.GenerateTokenResponse;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
+import javax.validation.Valid;
 
 @RestController
 public class AuthControllerImpl implements AuthController {
 
-  private static final String RESOURCE_URL = "https://amidostacks.eu.auth0.com/oauth/token";
+  @Value("${auth.resource.url}")
+  private String resourceUrl;
 
   private final RestTemplate restTemplate;
 
@@ -38,7 +37,7 @@ public class AuthControllerImpl implements AuthController {
     HttpEntity<GenerateTokenRequest> requestEntity = new HttpEntity<>(requestBody, requestHeaders);
     ResponseEntity<GenerateTokenResponse> responseEntity =
         restTemplate.exchange(
-            RESOURCE_URL, HttpMethod.POST, requestEntity, GenerateTokenResponse.class);
+            resourceUrl, HttpMethod.POST, requestEntity, GenerateTokenResponse.class);
 
     GenerateTokenResponse generateTokenResponse = responseEntity.getBody();
 

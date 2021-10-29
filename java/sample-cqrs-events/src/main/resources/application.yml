@@ -25,7 +25,7 @@ springdoc:
     display-operation-id: true
     # TODO: Swagger keeps redirecting, it'd be good to stop it if possible
     path: /swagger/index.html
-  packagesToScan: com.amido.stacks.menu.api
+  packagesToScan: com.amido.stacks
   api-docs:
     groups:
       enabled: true
@@ -51,3 +51,28 @@ azure:
     topicName: ${SB_TOPIC}
     subscriptionName: ${SB_SUBSCRIPTION}
     enabled: ${SB_ENABLED:false}
+
+auth:
+  #Config switch to enable (true) or disable(false) Auth0.Provide either true or false to enable or disable
+  isEnabled: true
+  resource:
+    url: https://amidostacks.eu.auth0.com/oauth/token
+  token:
+    url: /v1/token
+  #The issuer of the JWT Token. Typically, this is your Auth0 domain with an https://
+  issuer:
+    https: //amidostacks.eu.auth0.com/
+  #The unique identifier for your API
+  apiAudience: https://amidostacks.eu.auth0.com/api/v2/
+
+api:
+  endpoints:
+    v1:
+      url: /v1/menu/**
+      endpoint: /v1/menu
+      privateEndpoint: true
+
+    v2:
+      url: /v2/menu/**
+      endpoint: /v2/menu
+      privateEndpoint: false

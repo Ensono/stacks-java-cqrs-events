@@ -2,9 +2,9 @@ package com.amido.stacks.menu.api.v1.impl;
 
 import static com.amido.stacks.menu.mappers.RequestToCommandMapper.map;
 
+import com.amido.stacks.core.api.dto.response.ResourceCreatedResponse;
 import com.amido.stacks.menu.api.v1.CreateItemController;
 import com.amido.stacks.menu.api.v1.dto.request.CreateItemRequest;
-import com.amido.stacks.menu.api.v1.dto.response.ResourceCreatedResponse;
 import com.amido.stacks.menu.handlers.CreateItemHandler;
 import java.util.UUID;
 import javax.validation.Valid;

@@ -1,4 +1,4 @@
-package com.amido.stacks.menu.api.v1.dto.request;
+package com.amido.stacks.core.api.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotBlank;

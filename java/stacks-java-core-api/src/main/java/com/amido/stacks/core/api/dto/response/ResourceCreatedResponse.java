@@ -1,4 +1,4 @@
-package com.amido.stacks.menu.api.v1.dto.response;
+package com.amido.stacks.core.api.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.UUID;
