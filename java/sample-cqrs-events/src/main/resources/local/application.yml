@@ -64,3 +64,4 @@ auth:
     https: //amidostacks.eu.auth0.com/Local
   #The unique identifier for your API
   apiAudience: https://amidostacks.eu.auth0.com/api/v2/Local
+
