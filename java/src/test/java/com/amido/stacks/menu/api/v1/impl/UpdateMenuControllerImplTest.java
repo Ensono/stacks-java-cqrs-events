@@ -10,6 +10,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.amido.stacks.app.Application;
 import com.amido.stacks.core.api.dto.ErrorResponse;
 import com.amido.stacks.menu.api.v1.dto.request.UpdateMenuRequest;
 import com.amido.stacks.menu.api.v1.dto.response.ResourceUpdatedResponse;
@@ -33,7 +34,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(
+    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+    classes = Application.class)
 @EnableAutoConfiguration(
     exclude = {CosmosRepositoriesAutoConfiguration.class, CosmosAutoConfiguration.class})
 @Tag("Integration")
