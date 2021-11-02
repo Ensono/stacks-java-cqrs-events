@@ -16,6 +16,7 @@ import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 
+import com.amido.stacks.app.Application;
 import com.amido.stacks.core.api.dto.ErrorResponse;
 import com.amido.stacks.menu.api.v1.dto.request.UpdateCategoryRequest;
 import com.amido.stacks.menu.api.v1.dto.response.ResourceUpdatedResponse;
@@ -41,7 +42,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(
+    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+    classes = Application.class)
 @EnableAutoConfiguration(
     exclude = {CosmosRepositoriesAutoConfiguration.class, CosmosAutoConfiguration.class})
 @Tag("Integration")
