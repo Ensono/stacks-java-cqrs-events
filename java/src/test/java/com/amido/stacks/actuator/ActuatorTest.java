@@ -3,7 +3,7 @@ package com.amido.stacks.actuator;
 import static com.amido.stacks.util.TestHelper.getBaseURL;
 import static org.assertj.core.api.BDDAssertions.then;
 
-import com.amido.stacks.app.Application;
+import com.amido.stacks.Application;
 import com.amido.stacks.menu.repository.MenuRepository;
 import com.azure.spring.autoconfigure.cosmos.CosmosAutoConfiguration;
 import com.azure.spring.autoconfigure.cosmos.CosmosRepositoriesAutoConfiguration;

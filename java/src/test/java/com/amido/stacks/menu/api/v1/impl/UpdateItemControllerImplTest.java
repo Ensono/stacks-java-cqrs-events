@@ -15,7 +15,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 
-import com.amido.stacks.app.Application;
+import com.amido.stacks.Application;
 import com.amido.stacks.core.api.dto.ErrorResponse;
 import com.amido.stacks.menu.api.v1.dto.request.UpdateItemRequest;
 import com.amido.stacks.menu.api.v1.dto.response.ResourceUpdatedResponse;

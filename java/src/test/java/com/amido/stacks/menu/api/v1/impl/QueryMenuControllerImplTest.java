@@ -14,7 +14,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.amido.stacks.app.Application;
+import com.amido.stacks.Application;
 import com.amido.stacks.menu.api.v1.dto.response.MenuDTO;
 import com.amido.stacks.menu.api.v1.dto.response.SearchMenuResult;
 import com.amido.stacks.menu.api.v1.dto.response.SearchMenuResultItem;

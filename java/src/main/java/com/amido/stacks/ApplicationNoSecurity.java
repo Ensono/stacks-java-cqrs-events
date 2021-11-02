@@ -1,4 +1,4 @@
-package com.amido.stacks.app;
+package com.amido.stacks;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
