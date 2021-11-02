@@ -10,7 +10,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.amido.stacks.app.Application;
+import com.amido.stacks.Application;
 import com.amido.stacks.core.api.dto.ErrorResponse;
 import com.amido.stacks.menu.api.v1.dto.request.UpdateMenuRequest;
 import com.amido.stacks.menu.api.v1.dto.response.ResourceUpdatedResponse;

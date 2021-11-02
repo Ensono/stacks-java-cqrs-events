@@ -16,7 +16,7 @@ import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 
-import com.amido.stacks.app.Application;
+import com.amido.stacks.Application;
 import com.amido.stacks.core.api.dto.ErrorResponse;
 import com.amido.stacks.menu.api.v1.dto.request.UpdateCategoryRequest;
 import com.amido.stacks.menu.api.v1.dto.response.ResourceUpdatedResponse;
