@@ -1,4 +1,4 @@
-package com.amido.stacks;
+package com.amido.stacks.app;
 
 import com.auth0.spring.security.api.JwtWebSecurityConfigurer;
 import com.fasterxml.jackson.databind.DeserializationFeature;

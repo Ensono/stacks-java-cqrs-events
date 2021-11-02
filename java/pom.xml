@@ -17,6 +17,8 @@
     <description>Demo project for Java with CQRS and event messaging using Azure ServiceBus</description>
 
     <properties>
+        <starter-class>com.amido.stacks.app.Application</starter-class>
+
         <java.version>11</java.version>
         <org.projectlombok.version>1.18.0</org.projectlombok.version>
         <org.springdoc-openapi.version>1.5.9</org.springdoc-openapi.version>
@@ -402,9 +404,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>com.amido.stacks.Application</mainClass>
-                </configuration>
+<!--                <configuration>-->
+<!--                    <mainClass>com.amido.stacks.app.Application</mainClass>-->
+<!--                </configuration>-->
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>

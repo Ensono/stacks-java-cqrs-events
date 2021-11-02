@@ -1,4 +1,4 @@
-package com.amido.stacks;
+package com.amido.stacks.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
