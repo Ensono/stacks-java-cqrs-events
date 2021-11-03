@@ -11,7 +11,7 @@
 
     <groupId>com.amido</groupId>
     <artifactId>stacks-api-cqrs-events</artifactId>
-    <version>1.0.9-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
 
     <name>stacks-api-cqrs-events</name>
     <description>Demo project for Java with CQRS and event messaging using Azure ServiceBus</description>
@@ -23,13 +23,6 @@
             <name>Amido</name>
         </developer>
     </developers>
-
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
-        </license>
-    </licenses>
 
     <scm>
         <url>https://amido.com</url>
@@ -388,19 +381,6 @@
     </profiles>
 
     <build>
-
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-archetype-plugin</artifactId>
-                    <version>3.2.0</version>
-                    <configuration>
-                        <outputDirectory>${project.basedir}/archetype</outputDirectory>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
 
         <plugins>
             <plugin>
