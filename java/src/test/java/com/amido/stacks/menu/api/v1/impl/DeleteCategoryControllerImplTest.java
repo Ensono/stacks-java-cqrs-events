@@ -14,6 +14,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 
+import com.amido.stacks.Application;
 import com.amido.stacks.core.api.dto.ErrorResponse;
 import com.amido.stacks.menu.domain.Category;
 import com.amido.stacks.menu.domain.Menu;
@@ -35,7 +36,9 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.test.context.ActiveProfiles;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(
+    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+    classes = Application.class)
 @EnableAutoConfiguration(
     exclude = {CosmosRepositoriesAutoConfiguration.class, CosmosAutoConfiguration.class})
 @Tag("Integration")
