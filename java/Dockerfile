@@ -33,8 +33,11 @@ VOLUME /tmp
 ARG DEPENDENCY=/workspace/app/extracted
 
 COPY --from=build ${DEPENDENCY}/dependencies/ ./
+RUN true
 COPY --from=build ${DEPENDENCY}/spring-boot-loader/ ./
+RUN true
 COPY --from=build ${DEPENDENCY}/snapshot-dependencies/ ./
+RUN true
 COPY --from=build ${DEPENDENCY}/application/ ./
 
 RUN if [ -e "/app/emulatorcert.crt" ]; then cd $JAVA_HOME/lib/security && keytool -importcert -cacerts -storepass changeit -noprompt -alias documentdbemulator -file /app/emulatorcert.crt; fi
