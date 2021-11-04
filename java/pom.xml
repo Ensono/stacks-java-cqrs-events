@@ -18,15 +18,15 @@
 
     <packaging>pom</packaging>
 
-<!--    <modules>-->
-<!--        <module>stacks-java-core-api</module>-->
-<!--        <module>stacks-java-core-operations</module>-->
-<!--        <module>stacks-java-core-cqrs</module>-->
-<!--        <module>stacks-java-core-messaging</module>-->
-<!--        <module>stacks-java-core-azure</module>-->
-<!--        <module>stacks-java-core-commons</module>-->
-<!--        <module>sample-cqrs-events</module>-->
-<!--    </modules>-->
+    <modules>
+        <module>stacks-java-core-api</module>
+        <module>stacks-java-core-operations</module>
+        <module>stacks-java-core-cqrs</module>
+        <module>stacks-java-core-messaging</module>
+        <module>stacks-java-core-azure</module>
+        <module>stacks-java-core-commons</module>
+        <module>sample-cqrs-events</module>
+    </modules>
 
     <properties>
         <applicationinsights.version>2.6.3</applicationinsights.version>

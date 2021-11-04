@@ -145,7 +145,7 @@ variables:
 
   # Vulnerability Scan
   - name: vulnerability_scan
-    value: false
+    value: true
   - name: vulnerability_scan_report
     value: "target/dependency-check-report.html"
   - name: vulnerability_scan_fail_build_on_detection

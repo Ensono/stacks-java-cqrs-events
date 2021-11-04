@@ -9,7 +9,7 @@ parameters:
   # Docker Config
   docker_build_container: ""
   # Vulnerability Scanning
-  vulnerability_scan: true
+  vulnerability_scan: false
   vulnerability_scan_fail_build_on_detection: true
   project_type: ""
 
@@ -33,17 +33,6 @@ steps:
     target:
       container: ${{ parameters.docker_build_container }}
     displayName: "Maven: Update version (${{ parameters.project_type }})"
-
-  - task: Bash@3
-    inputs:
-      filePath: "${{ parameters.pipeline_scripts_directory }}/build-maven-deploy.bash"
-      arguments: >
-        -Z "${{ parameters.maven_cache_directory }}"
-        -S "./.mvn/settings.xml"
-      workingDirectory: "${{ parameters.project_root_dir }}"
-    target:
-      container: ${{ parameters.docker_build_container }}
-    displayName: "Maven: Deploy Application (${{ parameters.project_type }}) to Artifactory"
 
   - task: Bash@3
     inputs:
@@ -181,7 +170,7 @@ steps:
       filePath: "${{ parameters.pipeline_scripts_directory }}/build-maven-deploy.bash"
       arguments: >
         -Z "${{ parameters.maven_cache_directory }}"
-        -s "./.mvn/settings.xml"
+        -S "./.mvn/settings.xml"
       workingDirectory: "${{ parameters.project_root_dir }}"
     target:
       container: ${{ parameters.docker_build_container }}
