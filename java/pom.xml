@@ -64,6 +64,14 @@
             <id>www.yourcompany.com</id>
             <url>file:////${project.basedir}/reports/</url>
         </site>
+            <repository>
+                <id>stacks.releases</id>
+                <url>http://localhost:8081/artifactory/stacksrelease</url>
+            </repository>
+            <snapshotRepository>
+                <id>stacks.snapshots</id>
+                <url>http://localhost:8082/artifactory/stacks-snapshots</url>
+            </snapshotRepository>
     </distributionManagement>
 
     <dependencyManagement>
@@ -75,7 +83,10 @@
                 <type>pom</type>
             </dependency>
         </dependencies>
+
     </dependencyManagement>
+
+
 
     <dependencies>
 
