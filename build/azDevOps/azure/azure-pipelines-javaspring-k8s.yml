@@ -15,8 +15,7 @@ pr:
 trigger:
   branches:
     include:
-      - 'main'
-      - 'feature'
+      - '*'
   paths:
     include:
       - '*'
