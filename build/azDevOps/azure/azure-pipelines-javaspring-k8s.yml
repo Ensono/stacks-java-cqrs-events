@@ -204,13 +204,6 @@ stages:
               container: "k8s_deploy"
               yamllint_config_file: "${{ variables.yamllint_config_file }}"
               yamllint_scan_directory: "${{ variables.yamllint_scan_directory }}"
-#
-#          # Runs a terraform fomatting check and a validation check
-#          - template: templates/steps/build/test-validate-terraform.yml
-#            parameters:
-#              pipeline_scripts_directory: "${{ variables.self_pipeline_scripts_dir }}"
-#              terraform_container: "terraform_custom"
-#              terraform_directory: "${{ variables.self_repo_tf_dir }}"
 
           # Builds the Java app and runs tests
           - template: templates/steps/build/build-java.yml
@@ -228,27 +221,6 @@ stages:
               vulnerability_scan: "${{ variables.vulnerability_scan }}"
               vulnerability_scan_fail_build_on_detection: "${{ variables.vulnerability_scan_fail_build_on_detection }}"
               project_type: "${{ variables.java_project_type }}"
-
-          # Builds the Java API Tests
-#          - template: templates/steps/build/build-api-tests.yml
-#            parameters:
-#              repo_root_dir: "${{ variables.self_repo_dir }}"
-#              functional_test_project_root_dir: "${{ variables.self_functional_testproject_dir }}"
-#              functional_test_artefact_path: "${{ variables.functional_test_artefact_path }}"
-#              pipeline_scripts_directory: "${{ variables.self_pipeline_scripts_dir }}"
-#              # Maven
-#              maven_untagged_test_check: true
-#              maven_cache_directory: "${{ variables.maven_cache_directory }}"
-#              maven_allowed_post_deploy_test_tags: "${{ variables.maven_allowed_post_deploy_test_tags }}"
-#              maven_ignored_post_deploy_test_tags: "${{ variables.maven_ignored_post_deploy_test_tags }}"
-#              maven_post_deploy_html_report_directory: "${{ variables.maven_post_deploy_html_report_directory }}"
-#              maven_post_deploy_failsafe_reports_directory: "${{ variables.maven_post_deploy_failsafe_reports_directory }}"
-#              # Docker
-#              docker_build_container: "${{ variables.docker_java_image }}"
-#              # Vulnerability Scan
-#              vulnerability_scan: "${{ variables.vulnerability_scan }}"
-#              vulnerability_scan_fail_build_on_detection: "${{ variables.vulnerability_scan_fail_build_on_detection }}"
-#              project_type: "${{ variables.functional_test_project_type }}"
 
           # Performs stati code analysis, such as Sonar Cloud
           - template: templates/steps/build/test-static-code-analysis.yml
@@ -273,22 +245,6 @@ stages:
               sonar_command: "sonar-scanner"
               # Docker
               docker_image_tag: "${{ variables.docker_image_tag }}"
-
-#          # Builds the Docker image and pushes it to an ACR
-#          - template: templates/steps/build/build-docker-image.yml
-#            parameters:
-#              project_root_dir: "${{ variables.self_project_dir }}"
-#              pipeline_scripts_directory: "${{ variables.self_pipeline_scripts_dir }}"
-#              docker_k8s_container: "k8s_deploy"
-#              docker_build_additional_args: "."
-#              docker_image_name: "${{ variables.docker_image_name }}"
-#              docker_image_tag: "${{ variables.docker_image_tag }}"
-#              docker_container_registry_name: "${{ variables.docker_container_registry_name_nonprod }}"
-#              # Azure
-#              azure_client_id: "$(azure-client-id)"
-#              azure_client_secret: "$(azure-client-secret)"
-#              azure_tenant_id: "$(azure-tenant-id)"
-#              azure_subscription_id: "$(azure-subscription-id)"
 
           # Post build tasks, such as Test and Coverage upload, and publishing artefacts
           - template: templates/steps/build/post-build-tasks.yml
