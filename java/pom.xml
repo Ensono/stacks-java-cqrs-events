@@ -66,11 +66,11 @@
         </site>
             <repository>
                 <id>stacks.releases</id>
-                <url>http://localhost:8081/artifactory/stacksrelease</url>
+                <url>https://amidostacks.jfrog.io/artifactory/default-maven-local</url>
             </repository>
             <snapshotRepository>
                 <id>stacks.snapshots</id>
-                <url>http://localhost:8082/artifactory/stacks-snapshots</url>
+                <url>https://amidostacks.jfrog.io/artifactory/default-maven-local</url>
             </snapshotRepository>
     </distributionManagement>
 
