@@ -155,12 +155,12 @@ steps:
     displayName: "Gulp: Inline Jacoco report assets (${{ parameters.project_type }})"
 
   - task: Bash@3
-      inputs:
-        filePath: "${{ parameters.pipeline_scripts_directory }}/build-maven-deploy.bash"
-        arguments: >
-          -Z "${{ parameters.maven_cache_directory }}"
-          -S "./.mvn/settings.xml"
-        workingDirectory: "${{ parameters.project_root_dir }}"
-      target:
-        container: ${{ parameters.docker_build_container }}
-      displayName: "Maven: Deploy Application (${{ parameters.project_type }}) to Artifactory"
+    inputs:
+      filePath: "${{ parameters.pipeline_scripts_directory }}/build-maven-deploy.bash"
+      arguments: >
+        -Z "${{ parameters.maven_cache_directory }}"
+        -S "./.mvn/settings.xml"
+      workingDirectory: "${{ parameters.project_root_dir }}"
+    target:
+      container: ${{ parameters.docker_build_container }}
+    displayName: "Maven: Deploy Application (${{ parameters.project_type }}) to Artifactory"
