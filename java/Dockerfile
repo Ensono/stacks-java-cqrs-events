@@ -17,6 +17,7 @@ COPY stacks-java-core-commons stacks-java-core-commons
 COPY stacks-java-core-cqrs stacks-java-core-cqrs
 COPY stacks-java-core-messaging stacks-java-core-messaging
 COPY stacks-java-core-operations stacks-java-core-operations
+COPY stacks-java-cosmos stacks-java-cosmos
 COPY sample-cqrs-events sample-cqrs-events
 
 RUN ./mvnw clean\
