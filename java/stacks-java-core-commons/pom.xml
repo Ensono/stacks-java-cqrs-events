@@ -17,4 +17,9 @@
 
     <packaging>jar</packaging>
 
+    <properties>
+        <stacks.java.core.operations.version>1.0.0-SNAPSHOT</stacks.java.core.operations.version>
+        <stacks.java.core.cqrs.version>1.0.0-SNAPSHOT</stacks.java.core.cqrs.version>
+    </properties>
+
 </project>

@@ -12,7 +12,7 @@ COPY pom.xml .
 
 
 COPY stacks-java-core-api stacks-java-core-api
-COPY stacks-java-core-azure stacks-java-core-azure
+COPY stacks-java-core-azure-servicebus stacks-java-core-azure-servicebus
 COPY stacks-java-core-commons stacks-java-core-commons
 COPY stacks-java-core-cqrs stacks-java-core-cqrs
 COPY stacks-java-core-messaging stacks-java-core-messaging

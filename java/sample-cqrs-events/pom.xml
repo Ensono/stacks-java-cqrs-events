@@ -12,7 +12,7 @@
 
     <artifactId>sample-cqrs-events</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>stacks-api-cqrs-events</name>
+    <name>stacks-java-sample-api-cqrs-events</name>
     <description>Sample Stacks application for Java with CQRS and event messaging using Azure ServiceBus</description>
 
     <packaging>jar</packaging>
@@ -32,7 +32,7 @@
         <stacks.java.core.cqrs.version>1.0.0-SNAPSHOT</stacks.java.core.cqrs.version>
         <stacks.java.core.messaging.version>1.0.0-SNAPSHOT</stacks.java.core.messaging.version>
         <stacks.java.core.operations.version>1.0.0-SNAPSHOT</stacks.java.core.operations.version>
-        <stacks.java.core.azure.version>1.0.0-SNAPSHOT</stacks.java.core.azure.version>
+        <stacks.java.core.azure-servicebus.version>1.0.0-SNAPSHOT</stacks.java.core.azure-servicebus.version>
         <stacks.java.core.commons.version>1.0.0-SNAPSHOT</stacks.java.core.commons.version>
     </properties>
 
@@ -64,8 +64,8 @@
 
         <dependency>
             <groupId>com.amido</groupId>
-            <artifactId>stacks-java-core-azure</artifactId>
-            <version>${stacks.java.core.azure.version}</version>
+            <artifactId>stacks-java-core-azure-servicebus</artifactId>
+            <version>${stacks.java.core.azure-servicebus.version}</version>
         </dependency>
 
         <dependency>
@@ -87,6 +87,12 @@
             <version>${pact.consumer.version}</version>
             <scope>test</scope>
         </dependency>
+
+      <dependency>
+        <groupId>com.amido</groupId>
+        <artifactId>stacks-java-cosmos</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+      </dependency>
 
     </dependencies>
 

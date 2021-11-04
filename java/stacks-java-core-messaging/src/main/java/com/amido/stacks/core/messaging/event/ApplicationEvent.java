@@ -2,7 +2,6 @@ package com.amido.stacks.core.messaging.event;
 
 import static java.time.ZonedDateTime.now;
 
-import com.amido.stacks.core.cqrs.command.ApplicationCommand;
 import com.amido.stacks.core.operations.OperationContext;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -14,16 +13,14 @@ import java.util.UUID;
 public abstract class ApplicationEvent extends OperationContext implements Serializable {
 
   private final UUID id;
-  //  private final int eventCode;
-  private final ApplicationCommand applicationCommand;
+  private final int operationCode;
 
   @JsonSerialize(using = ZonedDateTimeSerializer.class)
   private final ZonedDateTime creationDate;
 
-  public ApplicationEvent(ApplicationCommand command, String correlationId) {
+  public ApplicationEvent(int operationCode, String correlationId) {
     super(correlationId);
-    //    this.eventCode = eventCode;
-    this.applicationCommand = command;
+    this.operationCode = operationCode;
     this.id = UUID.randomUUID();
     this.creationDate = now();
   }
@@ -37,12 +34,8 @@ public abstract class ApplicationEvent extends OperationContext implements Seria
     return creationDate;
   }
 
-  //  public int getEventCode() {
-  //    return eventCode;
-  //  }
-
   public int getOperationCode() {
-    return this.applicationCommand.getOperationCode();
+    return this.operationCode;
   }
 
   public abstract int getEventCode();

@@ -9,12 +9,12 @@ public abstract class MenuEvent extends ApplicationEvent {
   private UUID menuId;
 
   public MenuEvent(final MenuCommand command, final UUID menuId) {
-    super(command, command.getCorrelationId());
+    super(command.getOperationCode(), command.getCorrelationId());
     this.menuId = menuId;
   }
 
   public MenuEvent(final MenuCommand command) {
-    super(command, command.getCorrelationId());
+    super(command.getOperationCode(), command.getCorrelationId());
     this.menuId = command.getMenuId();
   }
 
