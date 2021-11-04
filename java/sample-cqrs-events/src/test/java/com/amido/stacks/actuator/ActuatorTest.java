@@ -3,6 +3,7 @@ package com.amido.stacks.actuator;
 import static com.amido.stacks.util.TestHelper.getBaseURL;
 import static org.assertj.core.api.BDDAssertions.then;
 
+import com.amido.stacks.Application;
 import com.amido.stacks.menu.repository.MenuRepository;
 import com.azure.spring.autoconfigure.cosmos.CosmosAutoConfiguration;
 import com.azure.spring.autoconfigure.cosmos.CosmosRepositoriesAutoConfiguration;
@@ -18,7 +19,9 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.TestPropertySource;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(
+    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+    classes = Application.class)
 @TestPropertySource(properties = {"management.port=0"})
 @EnableAutoConfiguration(
     exclude = {CosmosRepositoriesAutoConfiguration.class, CosmosAutoConfiguration.class})
