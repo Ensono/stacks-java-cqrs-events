@@ -15,7 +15,7 @@ pr:
 trigger:
   branches:
     include:
-      - '*'
+      - 'main'
   paths:
     include:
       - '*'
@@ -142,6 +142,12 @@ variables:
     value: "target/site/serenity"
   - name: maven_post_deploy_failsafe_reports_directory
     value: "target/failsafe-reports"
+  - name: maven_archetype_pom_file
+    value: "target/generated-sources/archetype/pom.xml"
+  - name: maven_archetype_properties_file
+    value: "archetype.properties"
+  - name: maven_settings_file
+    value: "./.mvn/settings.xml"
 
   # Vulnerability Scan
   - name: vulnerability_scan
@@ -216,6 +222,7 @@ stages:
               maven_surefire_reports_dir: "${{ variables.maven_surefire_reports_dir }}"
               maven_allowed_test_tags: "${{ variables.maven_allowed_test_tags}}"
               maven_package_version: "${{ variables.docker_image_tag }}"
+              maven_settings_file: "${{ variables.maven_settings_file }}"
               # Artifactory
               artifactory_username: "$(artifactory-username)"
               artifactory_password: "$(artifactory-password)"
@@ -226,7 +233,32 @@ stages:
               vulnerability_scan_fail_build_on_detection: "${{ variables.vulnerability_scan_fail_build_on_detection }}"
               project_type: "${{ variables.java_project_type }}"
 
-          # Performs stati code analysis, such as Sonar Cloud
+          # Builds the Java archetype
+          - template: templates/steps/build/build-java-archetype.yml
+            parameters:
+              repo_root_dir: "${{ variables.self_repo_dir }}"
+              project_root_dir: "${{ variables.self_project_dir }}"
+              pipeline_scripts_directory: "${{ variables.self_pipeline_scripts_dir }}"
+              # Maven
+              maven_cache_directory: "${{ variables.maven_cache_directory }}"
+              maven_surefire_reports_dir: "${{ variables.maven_surefire_reports_dir }}"
+              maven_allowed_test_tags: "${{ variables.maven_allowed_test_tags}}"
+              maven_package_version: "${{ variables.docker_image_tag }}"
+              maven_archetype_pom_file: "${{ variables.maven_archetype_pom_file }}"
+              maven_archetype_properties_file: "${{ variables.maven_archetype_properties_file }}"
+              maven_settings_file: "${{ variables.maven_settings_file }}"
+              # Artifactory
+              artifactory_username: "$(artifactory-username)"
+              artifactory_password: "$(artifactory-password)"
+              # Docker
+              docker_build_container: "${{ variables.docker_java_image }}"
+              # Vulnerability Scanning
+              vulnerability_scan: "${{ variables.vulnerability_scan }}"
+              vulnerability_scan_fail_build_on_detection: "${{ variables.vulnerability_scan_fail_build_on_detection }}"
+              project_type: "${{ variables.java_project_type }}"
+
+
+          # Performs static code analysis, such as Sonar Cloud
           - template: templates/steps/build/test-static-code-analysis.yml
             parameters:
               project_root_dir: "${{ variables.self_project_dir }}"
