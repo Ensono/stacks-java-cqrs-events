@@ -10,16 +10,23 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>stacks-java-core-commons</artifactId>
+    <artifactId>stacks-azure-servicebus</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>stacks-java-core-commons</name>
-    <description>Common components for the Java Stacks solution</description>
+    <name>stacks-azure-servicebus</name>
+    <description>Core Azure Service Bus components for the Java Stacks solution</description>
 
     <packaging>jar</packaging>
 
     <properties>
-        <stacks.java.core.operations.version>1.0.0-SNAPSHOT</stacks.java.core.operations.version>
-        <stacks.java.core.cqrs.version>1.0.0-SNAPSHOT</stacks.java.core.cqrs.version>
+        <com.amido.stacks-core-messaging.version>1.0.0-SNAPSHOT</com.amido.stacks-core-messaging.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.amido</groupId>
+            <artifactId>stacks-core-messaging</artifactId>
+            <version>${com.amido.stacks-core-messaging.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>

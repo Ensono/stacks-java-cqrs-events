@@ -12,7 +12,7 @@
 
     <artifactId>sample-cqrs-events</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>stacks-java-sample-api-cqrs-events</name>
+    <name>stacks-sample-api-cqrs-events</name>
     <description>Sample Stacks application for Java with CQRS and event messaging using Azure ServiceBus</description>
 
     <packaging>jar</packaging>
@@ -28,50 +28,50 @@
         <pact.broker.token></pact.broker.token>
         <pact.provider.spring.version>4.0.10</pact.provider.spring.version>
         <pact.consumer.version>4.2.7</pact.consumer.version>
-        <stacks.java.core.api.version>1.0.0-SNAPSHOT</stacks.java.core.api.version>
-        <stacks.java.core.cqrs.version>1.0.0-SNAPSHOT</stacks.java.core.cqrs.version>
-        <stacks.java.core.messaging.version>1.0.0-SNAPSHOT</stacks.java.core.messaging.version>
-        <stacks.java.core.operations.version>1.0.0-SNAPSHOT</stacks.java.core.operations.version>
-        <stacks.java.core.azure-servicebus.version>1.0.0-SNAPSHOT</stacks.java.core.azure-servicebus.version>
-        <stacks.java.core.commons.version>1.0.0-SNAPSHOT</stacks.java.core.commons.version>
+        <stacks.core.api.version>1.0.0-SNAPSHOT</stacks.core.api.version>
+        <stacks.core.cqrs.version>1.0.0-SNAPSHOT</stacks.core.cqrs.version>
+        <stacks.core.messaging.version>1.0.0-SNAPSHOT</stacks.core.messaging.version>
+        <stacks.azure-servicebus.version>1.0.0-SNAPSHOT</stacks.azure-servicebus.version>
+        <stacks.core.commons.version>1.0.0-SNAPSHOT</stacks.core.commons.version>
+        <stacks.azure.cosmos.version>1.0.0-SNAPSHOT</stacks.azure.cosmos.version>
     </properties>
 
     <dependencies>
 
         <dependency>
             <groupId>com.amido</groupId>
-            <artifactId>stacks-java-core-api</artifactId>
-            <version>${stacks.java.core.api.version}</version>
+            <artifactId>stacks-core-api</artifactId>
+            <version>${stacks.core.api.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.amido</groupId>
-            <artifactId>stacks-java-core-operations</artifactId>
-            <version>${stacks.java.core.operations.version}</version>
+            <artifactId>stacks-core-cqrs</artifactId>
+            <version>${stacks.core.cqrs.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.amido</groupId>
-            <artifactId>stacks-java-core-cqrs</artifactId>
-            <version>${stacks.java.core.cqrs.version}</version>
+            <artifactId>stacks-core-messaging</artifactId>
+            <version>${stacks.core.messaging.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.amido</groupId>
-            <artifactId>stacks-java-core-messaging</artifactId>
-            <version>${stacks.java.core.messaging.version}</version>
+            <artifactId>stacks-azure-servicebus</artifactId>
+            <version>${stacks.azure-servicebus.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.amido</groupId>
-            <artifactId>stacks-java-core-azure-servicebus</artifactId>
-            <version>${stacks.java.core.azure-servicebus.version}</version>
+            <artifactId>stacks-core-commons</artifactId>
+            <version>${stacks.core.commons.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.amido</groupId>
-            <artifactId>stacks-java-core-commons</artifactId>
-            <version>${stacks.java.core.commons.version}</version>
+            <artifactId>stacks-azure-cosmos</artifactId>
+            <version>${stacks.azure.cosmos.version}</version>
         </dependency>
 
         <dependency>
@@ -87,12 +87,6 @@
             <version>${pact.consumer.version}</version>
             <scope>test</scope>
         </dependency>
-
-      <dependency>
-        <groupId>com.amido</groupId>
-        <artifactId>stacks-java-cosmos</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
-      </dependency>
 
     </dependencies>
 

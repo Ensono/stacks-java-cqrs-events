@@ -10,11 +10,25 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
+    <artifactId>stacks-core-messaging</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <artifactId>stacks-java-core-operations</artifactId>
-    <name>stacks-java-core-operations</name>
-    <description>Operations components for the Java Stacks solution</description>
+    <name>stacks-core-messaging</name>
+    <description>Core messaging components for the Java Stacks solution</description>
 
     <packaging>jar</packaging>
+
+    <properties>
+        <stacks.core.commons.version>1.0.0-SNAPSHOT</stacks.core.commons.version>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.amido</groupId>
+            <artifactId>stacks-core-commons</artifactId>
+            <version>${stacks.core.commons.version}</version>
+        </dependency>
+
+    </dependencies>
 
 </project>

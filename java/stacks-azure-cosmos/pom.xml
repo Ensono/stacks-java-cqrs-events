@@ -9,22 +9,22 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>stacks-java-cosmos</artifactId>
+  <artifactId>stacks-azure-cosmos</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <description>Core Azure Cosmos components for the Java Stacks solution</description>
 
   <properties>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
-    <stacks.java.core.commons.version>1.0.0-SNAPSHOT</stacks.java.core.commons.version>
+    <stacks.core.commons.version>1.0.0-SNAPSHOT</stacks.core.commons.version>
   </properties>
 
   <dependencies>
 
     <dependency>
       <groupId>com.amido</groupId>
-      <artifactId>stacks-java-core-commons</artifactId>
-      <version>${stacks.java.core.commons.version}</version>
+      <artifactId>stacks-core-commons</artifactId>
+      <version>${stacks.core.commons.version}</version>
     </dependency>
 
   </dependencies>

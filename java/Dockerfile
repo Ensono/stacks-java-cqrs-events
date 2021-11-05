@@ -11,13 +11,12 @@ COPY .mvn .mvn
 COPY pom.xml .
 
 
-COPY stacks-java-core-api stacks-java-core-api
-COPY stacks-java-core-azure-servicebus stacks-java-core-azure-servicebus
-COPY stacks-java-core-commons stacks-java-core-commons
-COPY stacks-java-core-cqrs stacks-java-core-cqrs
-COPY stacks-java-core-messaging stacks-java-core-messaging
-COPY stacks-java-core-operations stacks-java-core-operations
-COPY stacks-java-cosmos stacks-java-cosmos
+COPY stacks-core-api stacks-core-api
+COPY stacks-azure-servicebus stacks-azure-servicebus
+COPY stacks-core-commons stacks-core-commons
+COPY stacks-core-cqrs stacks-core-cqrs
+COPY stacks-core-messaging stacks-core-messaging
+COPY stacks-azure-cosmos stacks-azure-cosmos
 COPY sample-cqrs-events sample-cqrs-events
 
 RUN ./mvnw clean\
