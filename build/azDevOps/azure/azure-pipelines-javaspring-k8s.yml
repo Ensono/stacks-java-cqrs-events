@@ -217,8 +217,8 @@ stages:
               maven_allowed_test_tags: "${{ variables.maven_allowed_test_tags}}"
               maven_package_version: "${{ variables.docker_image_tag }}"
               # Artifactory
-              artifactory_username: "$(azure-tenant-id)"
-              artifactory_password: "$(azure-tenant-id)"
+              artifactory_username: "$(artifactory-username)"
+              artifactory_password: "$(artifactory-password)"
               # Docker
               docker_build_container: "${{ variables.docker_java_image }}"
               # Vulnerability Scanning
