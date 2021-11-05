@@ -56,4 +56,4 @@ steps:
       workingDirectory: "${{ parameters.project_root_dir }}"
     target:
       container: ${{ parameters.docker_build_container }}
-    displayName: "Maven: Deploy Application (${{ parameters.project_type }}) to Artifactory"
+    displayName: "Maven: Deploy Archetype (${{ parameters.project_type }}) to Artifactory"

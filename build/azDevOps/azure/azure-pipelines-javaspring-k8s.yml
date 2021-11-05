@@ -44,9 +44,7 @@ resources:
     # Container for Kubernetes Deployment
     - container: k8s_deploy
       image: amidostacks/ci-k8s:0.0.12
-    # Container for Terraform deployments
-    - container: terraform_custom
-      image: amidostacks/ci-tf:0.0.8
+
 
 variables:
   - template: azuredevops-vars.yml
@@ -109,11 +107,6 @@ variables:
   - name: docker_java_image
     value: "azul_java"
 
-  - name: k8s_docker_registry_nonprod
-    value: "${{ variables.docker_container_registry_name_nonprod }}.azurecr.io"
-  - name: k8s_docker_registry_prod
-    value: "${{ variables.docker_container_registry_name_prod }}.azurecr.io"
-
   - name: resource_def_name
     value: java-api-cqrs-evnts
 
@@ -162,18 +155,6 @@ variables:
     value: "${{ variables.self_repo_dir }}/yamllint.conf"
   - name: yamllint_scan_directory
     value: "."
-
-  # Functional Tests
-  - name: functional_test
-    value: true
-  - name: functional_test_path
-    value: "${{ variables.self_functional_testproject_dir }}"
-  - name: functional_test_artefact_path
-    value: "${{ variables.self_repo_dir }}/${{ variables.self_post_deploy_test_src }}"
-  - name: functional_test_artefact_name
-    value: "post-deploy-test-artefact"
-  - name: functional_test_artefact_download_location
-    value: "$(Pipeline.Workspace)/${{ variables.functional_test_artefact_name }}"
 
   # Build Task Naming
   - name: java_project_type
@@ -244,7 +225,7 @@ stages:
               maven_surefire_reports_dir: "${{ variables.maven_surefire_reports_dir }}"
               maven_allowed_test_tags: "${{ variables.maven_allowed_test_tags}}"
               maven_package_version: "${{ variables.docker_image_tag }}"
-              maven_archetype_pom_file: "${{ variables.maven_archetype_pom_file }}"
+              maven_pom_file: "${{ variables.maven_archetype_pom_file }}"
               maven_archetype_properties_file: "${{ variables.maven_archetype_properties_file }}"
               maven_settings_file: "${{ variables.maven_settings_file }}"
               # Artifactory
