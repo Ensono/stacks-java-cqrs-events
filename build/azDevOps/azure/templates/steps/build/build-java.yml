@@ -6,6 +6,9 @@ parameters:
   maven_cache_directory: ""
   maven_surefire_reports_dir: ""
   maven_allowed_test_tags: ""
+  # Artifactory
+  artifactory_username: ""
+  artifactory_password: ""
   # Docker Config
   docker_build_container: ""
   # Vulnerability Scanning
@@ -18,8 +21,8 @@ steps:
     inputs:
       filePath: "${{ parameters.pipeline_scripts_directory }}/build-maven-deploy.bash"
       arguments: >
-        -u "${{ parameters.azure_client_id }}"
-        -p "${{ parameters.azure_client_id }}"
+        -u "${{ parameters.artifactory_username }}"
+        -p "${{ parameters.artifactory_password }}"
         -Z "${{ parameters.maven_cache_directory }}"
         -S "./.mvn/settings.xml"
       workingDirectory: "${{ parameters.project_root_dir }}"
