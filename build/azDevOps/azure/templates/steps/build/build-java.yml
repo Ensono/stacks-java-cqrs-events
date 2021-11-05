@@ -14,6 +14,19 @@ parameters:
   project_type: ""
 
 steps:
+ - task: Bash@3
+    inputs:
+      filePath: "${{ parameters.pipeline_scripts_directory }}/build-maven-deploy.bash"
+      arguments: >
+        -u "${{ parameters.azure_client_id }}"
+        -p "${{ parameters.azure_client_id }}"
+        -Z "${{ parameters.maven_cache_directory }}"
+        -S "./.mvn/settings.xml"
+      workingDirectory: "${{ parameters.project_root_dir }}"
+    target:
+      container: ${{ parameters.docker_build_container }}
+    displayName: "Maven: Deploy Application (${{ parameters.project_type }}) to Artifactory"
+
   - task: Cache@2
     inputs:
       key: 'maven | "$(Agent.OS)" | ${{ parameters.project_root_dir }}/pom.xml'
