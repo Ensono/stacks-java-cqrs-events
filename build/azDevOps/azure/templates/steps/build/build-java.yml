@@ -14,7 +14,7 @@ parameters:
   project_type: ""
 
 steps:
- -  task: Bash@3
+  - task: Bash@3
     inputs:
       filePath: "${{ parameters.pipeline_scripts_directory }}/build-maven-deploy.bash"
       arguments: >
