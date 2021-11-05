@@ -37,6 +37,7 @@ steps:
       filePath: "${{ parameters.pipeline_scripts_directory }}/build-maven-archetype.bash"
       arguments: >
         -A "${{ parameters.maven_archetype_properties_file }}"
+        -S "${{ parameters.maven_settings_file }}"
         -Z "${{ parameters.maven_cache_directory }}"
       workingDirectory: "${{ parameters.project_root_dir }}"
     target:
