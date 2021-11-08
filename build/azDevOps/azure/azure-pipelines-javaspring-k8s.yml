@@ -45,7 +45,6 @@ resources:
     - container: k8s_deploy
       image: amidostacks/ci-k8s:0.0.12
 
-
 variables:
   - template: azuredevops-vars.yml
 
@@ -127,14 +126,6 @@ variables:
     value: "target/surefire-reports"
   - name: maven_allowed_test_tags
     value: "Unit | Component | Integration"
-  - name: maven_allowed_post_deploy_test_tags
-    value: "@Functional or @Smoke or @Performance"
-  - name: maven_ignored_post_deploy_test_tags
-    value: "@Ignore"
-  - name: maven_post_deploy_html_report_directory
-    value: "target/site/serenity"
-  - name: maven_post_deploy_failsafe_reports_directory
-    value: "target/failsafe-reports"
   - name: maven_archetype_pom_file
     value: "target/generated-sources/archetype/pom.xml"
   - name: maven_archetype_properties_file
@@ -194,7 +185,29 @@ stages:
               yamllint_config_file: "${{ variables.yamllint_config_file }}"
               yamllint_scan_directory: "${{ variables.yamllint_scan_directory }}"
 
-          # Builds the Java archetype
+          # Builds the Java app, runs tests and deploy to the artifact repository
+          - template: templates/steps/build/build-java.yml
+            parameters:
+              repo_root_dir: "${{ variables.self_repo_dir }}"
+              project_root_dir: "${{ variables.self_project_dir }}"
+              pipeline_scripts_directory: "${{ variables.self_pipeline_scripts_dir }}"
+              # Maven
+              maven_cache_directory: "${{ variables.maven_cache_directory }}"
+              maven_surefire_reports_dir: "${{ variables.maven_surefire_reports_dir }}"
+              maven_allowed_test_tags: "${{ variables.maven_allowed_test_tags}}"
+              maven_package_version: "${{ variables.docker_image_tag }}"
+              maven_settings_file: "${{ variables.maven_settings_file }}"
+              # Artifactory
+              artifactory_username: "$(artifactory-username)"
+              artifactory_password: "$(artifactory-password)"
+              # Docker
+              docker_build_container: "${{ variables.docker_java_image }}"
+              # Vulnerability Scanning
+              vulnerability_scan: "${{ variables.vulnerability_scan }}"
+              vulnerability_scan_fail_build_on_detection: "${{ variables.vulnerability_scan_fail_build_on_detection }}"
+              project_type: "${{ variables.java_project_type }}"
+
+          # Builds the Java archetype and deploy to the artifact repository
           - template: templates/steps/build/build-java-archetype.yml
             parameters:
               repo_root_dir: "${{ variables.self_repo_dir }}"
@@ -218,7 +231,6 @@ stages:
               vulnerability_scan: "${{ variables.vulnerability_scan }}"
               vulnerability_scan_fail_build_on_detection: "${{ variables.vulnerability_scan_fail_build_on_detection }}"
               project_type: "${{ variables.java_project_type }}"
-
 
           # Performs static code analysis, such as Sonar Cloud
           - template: templates/steps/build/test-static-code-analysis.yml
