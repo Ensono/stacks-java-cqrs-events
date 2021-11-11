@@ -19,7 +19,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>stacks-core-api</module>
+<!--        <module>stacks-core-api</module>-->
         <module>stacks-core-cqrs</module>
         <module>stacks-core-messaging</module>
         <module>stacks-azure-servicebus</module>
