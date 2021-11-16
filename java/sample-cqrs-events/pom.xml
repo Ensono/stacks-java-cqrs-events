@@ -28,12 +28,12 @@
         <pact.broker.token></pact.broker.token>
         <pact.provider.spring.version>4.0.10</pact.provider.spring.version>
         <pact.consumer.version>4.2.7</pact.consumer.version>
-        <stacks.core.api.version>1.0.0-SNAPSHOT</stacks.core.api.version>
-        <stacks.core.cqrs.version>1.0.0-SNAPSHOT</stacks.core.cqrs.version>
-        <stacks.core.messaging.version>1.0.0-SNAPSHOT</stacks.core.messaging.version>
-        <stacks.azure-servicebus.version>1.0.0-SNAPSHOT</stacks.azure-servicebus.version>
-        <stacks.core.commons.version>1.0.0-SNAPSHOT</stacks.core.commons.version>
-        <stacks.azure.cosmos.version>1.0.0-SNAPSHOT</stacks.azure.cosmos.version>
+        <stacks.core.api.version>0.0.9-main</stacks.core.api.version>
+        <stacks.core.cqrs.version>0.0.11-main</stacks.core.cqrs.version>
+        <stacks.core.messaging.version>0.0.68-main</stacks.core.messaging.version>
+        <stacks.azure-servicebus.version>0.0.6-main</stacks.azure-servicebus.version>
+        <stacks.core.commons.version>0.0.7-main</stacks.core.commons.version>
+        <stacks.azure.cosmos.version>0.0.7-main</stacks.azure.cosmos.version>
     </properties>
 
     <dependencies>
