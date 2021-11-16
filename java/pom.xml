@@ -19,13 +19,7 @@
     <packaging>pom</packaging>
 
     <modules>
-<!--        <module>stacks-core-api</module>-->
-        <module>stacks-core-cqrs</module>
-        <module>stacks-core-messaging</module>
-        <module>stacks-azure-servicebus</module>
-        <module>stacks-core-commons</module>
         <module>sample-cqrs-events</module>
-        <module>stacks-azure-cosmos</module>
     </modules>
 
     <properties>

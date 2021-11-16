@@ -31,7 +31,7 @@ public class ApplicationConfig extends WebSecurityConfigurerAdapter {
   @Value(value = "${auth.apiAudience}")
   private String apiAudience;
 
-  @Value(value = "${auth.issuer.https}")
+  @Value(value = "${auth.issuer}")
   private String issuer;
 
   @Value(value = "${auth.isEnabled}")
