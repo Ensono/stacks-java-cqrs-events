@@ -1,6 +1,0 @@
-azure:
-  servicebus:
-    connectionString: Test_Connection_String
-    topicName: Test_Topic_Name
-    subscriptionName: Test_Subscription_Name
-    enabled: ${SB_ENABLED:false}

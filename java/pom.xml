@@ -22,6 +22,15 @@
         <module>sample-cqrs-events</module>
     </modules>
 
+    <repositories>
+        <repository>
+            <snapshots />
+            <id>snapshots</id>
+            <name>default-maven-virtual</name>
+            <url>https://amidostacks.jfrog.io/artifactory/default-maven-virtual</url>
+        </repository>
+    </repositories>
+
     <properties>
         <applicationinsights.version>2.6.3</applicationinsights.version>
         <auth0-spring-security-api.version>1.4.1</auth0-spring-security-api.version>
