@@ -1,5 +1,6 @@
 package com.amido.stacks.menu.domain;
 
+import com.amido.workloads.menu.domain.Item;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

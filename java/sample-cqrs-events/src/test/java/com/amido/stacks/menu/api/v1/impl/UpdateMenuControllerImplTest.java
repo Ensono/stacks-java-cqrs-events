@@ -10,12 +10,12 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.amido.stacks.Application;
+import com.amido.workloads.Application;
 import com.amido.stacks.core.api.dto.ErrorResponse;
-import com.amido.stacks.menu.api.v1.dto.request.UpdateMenuRequest;
-import com.amido.stacks.menu.api.v1.dto.response.ResourceUpdatedResponse;
-import com.amido.stacks.menu.domain.Menu;
-import com.amido.stacks.menu.repository.MenuRepository;
+import com.amido.workloads.menu.api.v1.dto.request.UpdateMenuRequest;
+import com.amido.workloads.menu.api.v1.dto.response.ResourceUpdatedResponse;
+import com.amido.workloads.menu.domain.Menu;
+import com.amido.workloads.menu.repository.MenuRepository;
 import com.azure.spring.autoconfigure.cosmos.CosmosAutoConfiguration;
 import com.azure.spring.autoconfigure.cosmos.CosmosRepositoriesAutoConfiguration;
 import java.util.Optional;

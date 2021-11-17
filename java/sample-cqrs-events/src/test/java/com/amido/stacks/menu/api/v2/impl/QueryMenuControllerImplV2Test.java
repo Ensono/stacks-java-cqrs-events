@@ -7,11 +7,11 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
-import com.amido.stacks.Application;
-import com.amido.stacks.menu.api.v1.dto.response.MenuDTO;
-import com.amido.stacks.menu.domain.Menu;
-import com.amido.stacks.menu.mappers.DomainToDtoMapper;
-import com.amido.stacks.menu.repository.MenuRepository;
+import com.amido.workloads.Application;
+import com.amido.workloads.menu.api.v1.dto.response.MenuDTO;
+import com.amido.workloads.menu.domain.Menu;
+import com.amido.workloads.menu.mappers.DomainToDtoMapper;
+import com.amido.workloads.menu.repository.MenuRepository;
 import com.azure.spring.autoconfigure.cosmos.CosmosAutoConfiguration;
 import com.azure.spring.autoconfigure.cosmos.CosmosRepositoriesAutoConfiguration;
 import java.util.Optional;
