@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @PropertySource("classpath:auth.properties")
-@ComponentScan(basePackages = "com.amido.workloads")
+@ComponentScan(basePackages = {"com.amido.workloads", "com.amido.stacks"})
 public class Application {
   public static void main(String[] args) {
     SpringApplication.run(Application.class, args);
