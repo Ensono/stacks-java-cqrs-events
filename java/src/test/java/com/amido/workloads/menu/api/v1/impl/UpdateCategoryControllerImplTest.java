@@ -13,8 +13,8 @@ import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 
-import com.amido.workloads.Application;
 import com.amido.stacks.core.api.dto.ErrorResponse;
+import com.amido.workloads.Application;
 import com.amido.workloads.menu.api.v1.dto.request.UpdateCategoryRequest;
 import com.amido.workloads.menu.api.v1.dto.response.ResourceUpdatedResponse;
 import com.amido.workloads.menu.domain.Category;
@@ -105,7 +105,8 @@ class UpdateCategoryControllerImplTest {
     UpdateCategoryRequest request = new UpdateCategoryRequest("new Category", "new Description");
 
     // When
-    String requestUrl = String.format(UPDATE_CATEGORY, TestHelper.getBaseURL(port), menuId, randomUUID());
+    String requestUrl =
+        String.format(UPDATE_CATEGORY, TestHelper.getBaseURL(port), menuId, randomUUID());
     var response =
         this.testRestTemplate.exchange(
             requestUrl,
@@ -130,7 +131,10 @@ class UpdateCategoryControllerImplTest {
     // When
     String requestUrl =
         String.format(
-            UPDATE_CATEGORY, TestHelper.getBaseURL(port), fromString(menu.getId()), UUID.randomUUID());
+            UPDATE_CATEGORY,
+            TestHelper.getBaseURL(port),
+            fromString(menu.getId()),
+            UUID.randomUUID());
 
     var response =
         this.testRestTemplate.exchange(
@@ -187,7 +191,8 @@ class UpdateCategoryControllerImplTest {
 
     // When
     String requestUrl =
-        String.format(UPDATE_CATEGORY, TestHelper.getBaseURL(port), menu.getId(), categories.get(0).getId());
+        String.format(
+            UPDATE_CATEGORY, TestHelper.getBaseURL(port), menu.getId(), categories.get(0).getId());
 
     var response =
         this.testRestTemplate.exchange(

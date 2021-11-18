@@ -9,8 +9,8 @@ import static org.mockito.Mockito.when;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 
-import com.amido.workloads.Application;
 import com.amido.stacks.core.api.dto.ErrorResponse;
+import com.amido.workloads.Application;
 import com.amido.workloads.menu.domain.Category;
 import com.amido.workloads.menu.domain.Item;
 import com.amido.workloads.menu.domain.Menu;
@@ -70,7 +70,8 @@ class DeleteItemControllerImplTest {
 
     // When
     String requestUrl =
-        String.format(DELETE_ITEM, TestHelper.getBaseURL(port), menu.getId(), category.getId(), item.getId());
+        String.format(
+            DELETE_ITEM, TestHelper.getBaseURL(port), menu.getId(), category.getId(), item.getId());
 
     var response =
         this.testRestTemplate.exchange(
@@ -100,7 +101,8 @@ class DeleteItemControllerImplTest {
 
     // When
     String requestUrl =
-        String.format(DELETE_ITEM, TestHelper.getBaseURL(port), menu.getId(), item.getId(), item.getId());
+        String.format(
+            DELETE_ITEM, TestHelper.getBaseURL(port), menu.getId(), item.getId(), item.getId());
 
     var response =
         this.testRestTemplate.exchange(
@@ -127,7 +129,11 @@ class DeleteItemControllerImplTest {
     // When
     String requestUrl =
         String.format(
-            DELETE_ITEM, TestHelper.getBaseURL(port), menu.getId(), category.getId(), UUID.randomUUID());
+            DELETE_ITEM,
+            TestHelper.getBaseURL(port),
+            menu.getId(),
+            category.getId(),
+            UUID.randomUUID());
 
     var response =
         this.testRestTemplate.exchange(

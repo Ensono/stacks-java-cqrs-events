@@ -10,7 +10,6 @@ import com.amido.workloads.menu.domain.Menu;
 import com.amido.workloads.menu.domain.MenuHelper;
 import com.amido.workloads.menu.repository.MenuRepository;
 import com.amido.workloads.menu.service.MenuQueryService;
-
 import java.util.List;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

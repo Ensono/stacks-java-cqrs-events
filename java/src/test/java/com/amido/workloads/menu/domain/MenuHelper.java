@@ -1,7 +1,5 @@
 package com.amido.workloads.menu.domain;
 
-import com.amido.workloads.menu.domain.Category;
-import com.amido.workloads.menu.domain.Menu;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

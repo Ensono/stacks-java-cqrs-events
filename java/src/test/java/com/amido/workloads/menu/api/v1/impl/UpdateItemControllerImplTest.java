@@ -12,8 +12,8 @@ import static org.mockito.Mockito.when;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 
-import com.amido.workloads.Application;
 import com.amido.stacks.core.api.dto.ErrorResponse;
+import com.amido.workloads.Application;
 import com.amido.workloads.menu.api.v1.dto.request.UpdateItemRequest;
 import com.amido.workloads.menu.api.v1.dto.response.ResourceUpdatedResponse;
 import com.amido.workloads.menu.domain.Category;
@@ -73,7 +73,8 @@ class UpdateItemControllerImplTest {
 
     // When
     String requestUrl =
-        String.format(UPDATE_ITEM, TestHelper.getBaseURL(port), menu.getId(), category.getId(), item.getId());
+        String.format(
+            UPDATE_ITEM, TestHelper.getBaseURL(port), menu.getId(), category.getId(), item.getId());
 
     var response =
         this.testRestTemplate.exchange(
@@ -116,7 +117,11 @@ class UpdateItemControllerImplTest {
     // When
     String requestUrl =
         String.format(
-            UPDATE_ITEM, TestHelper.getBaseURL(port), menu.getId(), category.getId(), items.get(0).getId());
+            UPDATE_ITEM,
+            TestHelper.getBaseURL(port),
+            menu.getId(),
+            category.getId(),
+            items.get(0).getId());
 
     var response =
         this.testRestTemplate.exchange(
@@ -162,7 +167,8 @@ class UpdateItemControllerImplTest {
 
     // When
     String requestUrl =
-        String.format(UPDATE_ITEM, TestHelper.getBaseURL(port), menu.getId(), randomUUID(), item.getId());
+        String.format(
+            UPDATE_ITEM, TestHelper.getBaseURL(port), menu.getId(), randomUUID(), item.getId());
 
     var response =
         this.testRestTemplate.exchange(
@@ -194,7 +200,8 @@ class UpdateItemControllerImplTest {
 
     // When
     String requestUrl =
-        String.format(UPDATE_ITEM, TestHelper.getBaseURL(port), menu.getId(), category.getId(), randomUUID());
+        String.format(
+            UPDATE_ITEM, TestHelper.getBaseURL(port), menu.getId(), category.getId(), randomUUID());
 
     var response =
         this.testRestTemplate.exchange(
@@ -225,7 +232,8 @@ class UpdateItemControllerImplTest {
 
     // When
     String requestUrl =
-        String.format(UPDATE_ITEM, TestHelper.getBaseURL(port), menu.getId(), category.getId(), randomUUID());
+        String.format(
+            UPDATE_ITEM, TestHelper.getBaseURL(port), menu.getId(), category.getId(), randomUUID());
 
     var response =
         this.testRestTemplate.exchange(
@@ -254,7 +262,8 @@ class UpdateItemControllerImplTest {
 
     // When
     String requestUrl =
-        String.format(UPDATE_ITEM, TestHelper.getBaseURL(port), menu.getId(), category.getId(), randomUUID());
+        String.format(
+            UPDATE_ITEM, TestHelper.getBaseURL(port), menu.getId(), category.getId(), randomUUID());
 
     var response =
         this.testRestTemplate.exchange(
@@ -283,7 +292,8 @@ class UpdateItemControllerImplTest {
 
     // When
     String requestUrl =
-        String.format(UPDATE_ITEM, TestHelper.getBaseURL(port), menu.getId(), category.getId(), randomUUID());
+        String.format(
+            UPDATE_ITEM, TestHelper.getBaseURL(port), menu.getId(), category.getId(), randomUUID());
 
     var response =
         this.testRestTemplate.exchange(

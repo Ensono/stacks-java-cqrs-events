@@ -10,7 +10,6 @@ import com.amido.workloads.menu.api.v1.dto.response.SearchMenuResultItem;
 import com.amido.workloads.menu.domain.Category;
 import com.amido.workloads.menu.domain.Item;
 import com.amido.workloads.menu.domain.Menu;
-import com.amido.workloads.menu.mappers.DomainToDtoMapper;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.UUID;

@@ -12,8 +12,8 @@ import static org.mockito.Mockito.when;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 
-import com.amido.workloads.Application;
 import com.amido.stacks.core.api.dto.ErrorResponse;
+import com.amido.workloads.Application;
 import com.amido.workloads.menu.domain.Category;
 import com.amido.workloads.menu.domain.Menu;
 import com.amido.workloads.menu.repository.MenuRepository;
@@ -139,7 +139,8 @@ class DeleteCategoryControllerImplTest {
 
     // When
     String requestUrl =
-        String.format(DELETE_CATEGORY, TestHelper.getBaseURL(port), menu.getId(), categories.get(0).getId());
+        String.format(
+            DELETE_CATEGORY, TestHelper.getBaseURL(port), menu.getId(), categories.get(0).getId());
     var response =
         this.testRestTemplate.exchange(
             requestUrl,

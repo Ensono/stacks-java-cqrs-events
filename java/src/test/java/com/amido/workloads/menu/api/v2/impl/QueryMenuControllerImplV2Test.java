@@ -54,7 +54,8 @@ class QueryMenuControllerImplV2Test {
     // When
     var response =
         this.testRestTemplate.getForEntity(
-            String.format(GET_MENU_BY_ID, TestHelper.getBaseURL(port), menu.getId()), MenuDTO.class);
+            String.format(GET_MENU_BY_ID, TestHelper.getBaseURL(port), menu.getId()),
+            MenuDTO.class);
 
     // Then
     then(response.getBody()).isEqualTo(expectedResponse);
@@ -70,7 +71,8 @@ class QueryMenuControllerImplV2Test {
     // When
     var response =
         this.testRestTemplate.getForEntity(
-            String.format(GET_MENU_BY_ID, TestHelper.getBaseURL(port), UUID.randomUUID()), MenuDTO.class);
+            String.format(GET_MENU_BY_ID, TestHelper.getBaseURL(port), UUID.randomUUID()),
+            MenuDTO.class);
 
     // Then
     then(response.getStatusCode()).isEqualTo(NOT_FOUND);

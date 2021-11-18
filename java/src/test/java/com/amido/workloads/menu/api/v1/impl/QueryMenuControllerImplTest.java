@@ -134,7 +134,8 @@ public class QueryMenuControllerImplTest {
     // When
     this.testRestTemplate.getForEntity(
         String.format(
-            "%s/v1/menu?restaurantId=%s&searchTerm=%s", TestHelper.getBaseURL(port), restaurantId, searchTerm),
+            "%s/v1/menu?restaurantId=%s&searchTerm=%s",
+            TestHelper.getBaseURL(port), restaurantId, searchTerm),
         SearchMenuResult.class);
     // Then
     verify(menuRepository, times(1))
@@ -175,7 +176,8 @@ public class QueryMenuControllerImplTest {
     // When
     var response =
         this.testRestTemplate.getForEntity(
-            String.format("%s/v1/menu/%s", TestHelper.getBaseURL(port), menu.getId()), MenuDTO.class);
+            String.format("%s/v1/menu/%s", TestHelper.getBaseURL(port), menu.getId()),
+            MenuDTO.class);
 
     // Then
     then(response.getBody()).isEqualTo(expectedResponse);
@@ -188,7 +190,8 @@ public class QueryMenuControllerImplTest {
 
     // When
     var response =
-        this.testRestTemplate.getForEntity(TestHelper.getBaseURL(port) + "/v1/menu", SearchMenuResult.class);
+        this.testRestTemplate.getForEntity(
+            TestHelper.getBaseURL(port) + "/v1/menu", SearchMenuResult.class);
 
     // Then
     then(response.getBody()).isInstanceOf(SearchMenuResult.class);

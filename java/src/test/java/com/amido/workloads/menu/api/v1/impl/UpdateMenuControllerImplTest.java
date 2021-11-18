@@ -7,8 +7,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.amido.workloads.Application;
 import com.amido.stacks.core.api.dto.ErrorResponse;
+import com.amido.workloads.Application;
 import com.amido.workloads.menu.api.v1.dto.request.UpdateMenuRequest;
 import com.amido.workloads.menu.api.v1.dto.response.ResourceUpdatedResponse;
 import com.amido.workloads.menu.domain.Menu;

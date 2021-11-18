@@ -9,9 +9,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
-import com.amido.workloads.Application;
 import com.amido.stacks.core.api.dto.ErrorResponse;
 import com.amido.stacks.core.api.dto.response.ResourceCreatedResponse;
+import com.amido.workloads.Application;
 import com.amido.workloads.menu.api.v1.dto.request.CreateCategoryRequest;
 import com.amido.workloads.menu.domain.Category;
 import com.amido.workloads.menu.domain.Menu;
@@ -64,7 +64,9 @@ class CreateCategoryControllerImplTest {
     // When
     var response =
         this.testRestTemplate.postForEntity(
-            String.format(CREATE_CATEGORY, TestHelper.getBaseURL(port), menuId), request, ErrorResponse.class);
+            String.format(CREATE_CATEGORY, TestHelper.getBaseURL(port), menuId),
+            request,
+            ErrorResponse.class);
 
     // Then
     then(response).isNotNull();
