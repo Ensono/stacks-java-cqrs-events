@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -10,607 +11,163 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.amido.stacks.workloads</groupId>
-    <artifactId>stacks-api-cqrs-events</artifactId>
+    <artifactId>sample-cqrs-events</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>stacks-api-cqrs-events</name>
-    <description>Demo project for Java with CQRS and event messaging using Azure ServiceBus</description>
+    <name>stacks-sample-api-cqrs-events</name>
+    <description>Sample Stacks application for Java with CQRS and event messaging using Azure ServiceBus</description>
 
-    <packaging>pom</packaging>
+    <properties>
+        <!-- General -->
+        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
 
-    <modules>
-        <module>sample-cqrs-events</module>
-    </modules>
+        <!-- Pact -->
+        <pact.api.name>JavaMenuAPI</pact.api.name>
+        <pact.api.protocol>http</pact.api.protocol>
+        <pact.api.host>localhost</pact.api.host>
+        <pact.api.port>9000</pact.api.port>
+        <pact.version>3.5.24</pact.version>
+        <!-- TODO: Set 'pact.broker.url' and 'pact.broker.token' -->
+        <pact.broker.url/>
+        <pact.broker.token/>
+        <pact.provider.spring.version>4.0.10</pact.provider.spring.version>
+        <pact.consumer.version>4.2.7</pact.consumer.version>
+
+        <!-- Stacks versions -->
+        <stacks.core.commons.version>0.0.24-main</stacks.core.commons.version>
+        <stacks.core.api.version>0.0.18-main</stacks.core.api.version>
+        <stacks.azure.cosmos.version>0.0.16-main</stacks.azure.cosmos.version>
+        <stacks.core.cqrs.version>0.0.22-main</stacks.core.cqrs.version>
+        <stacks.azure-servicebus.version>0.0.16-main</stacks.azure-servicebus.version>
+        <stacks.core.messaging.version>0.0.78-main</stacks.core.messaging.version>
+
+        <!-- Other versions -->
+        <equals-verifier.version>3.6.1</equals-verifier.version>
+        <auth0-spring-security-api.version>1.4.1</auth0-spring-security-api.version>
+    </properties>
 
     <repositories>
         <repository>
-            <snapshots />
+            <snapshots/>
             <id>snapshots</id>
             <name>default-maven-virtual</name>
             <url>https://amidostacks.jfrog.io/artifactory/default-maven-virtual</url>
         </repository>
     </repositories>
 
-    <properties>
-        <applicationinsights.version>2.6.3</applicationinsights.version>
-        <auth0-spring-security-api.version>1.4.1</auth0-spring-security-api.version>
-        <azure.springboot.version>3.6.0</azure.springboot.version>
-        <azure.messaging-servicebus.version>7.3.0</azure.messaging-servicebus.version>
-        <cosmosdb.version>3.6.0</cosmosdb.version>
-        <equals-verifier.version>3.6.1</equals-verifier.version>
-        <hamcrest.version>2.2</hamcrest.version>
-        <fmt-maven-plugin.version>2.11</fmt-maven-plugin.version>
-        <io-projectreactor-netty.version>1.0.8</io-projectreactor-netty.version>
-        <jackson.version>2.12.3</jackson.version>
-        <jacoco.version>0.8.7</jacoco.version>
-        <java.version>11</java.version>
-        <junit-jupiter.version>5.7.2</junit-jupiter.version>
-        <lombok.version>1.18.20</lombok.version>
-        <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <maven-surefire-phase>test</maven-surefire-phase>
-        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
-        <mockito.version>3.11.2</mockito.version>
-        <org.projectlombok.version>1.18.0</org.projectlombok.version>
-        <org.springdoc-openapi.version>1.5.9</org.springdoc-openapi.version>
-        <owasp-dependency-check-plugin.version>6.4.1</owasp-dependency-check-plugin.version>
-        <pitest.version>1.6.7</pitest.version>
-        <puppycrawl-tools-checkstyle.version>8.44</puppycrawl-tools-checkstyle.version>
-        <spotbugs-maven-plugin.version>4.2.3</spotbugs-maven-plugin.version>
-        <spotbugs.version>4.2.3</spotbugs.version>
-    </properties>
-
-    <distributionManagement>
-        <site>
-            <id>www.yourcompany.com</id>
-            <url>file:////${project.basedir}/reports/</url>
-        </site>
-    </distributionManagement>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>io.projectreactor</groupId>
-                <artifactId>reactor-bom</artifactId>
-                <version>2020.0.8</version>
-                <type>pom</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
-
+        <!-- STACKS dependencies -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
+            <groupId>com.amido.stacks.modules</groupId>
+            <artifactId>stacks-core-commons</artifactId>
+            <version>${stacks.core.commons.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amido.stacks.modules</groupId>
+            <artifactId>stacks-azure-cosmos</artifactId>
+            <version>${stacks.azure.cosmos.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amido.stacks.modules</groupId>
+            <artifactId>stacks-core-api</artifactId>
+            <version>${stacks.core.api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amido.stacks.modules</groupId>
+            <artifactId>stacks-core-cqrs</artifactId>
+            <version>${stacks.core.cqrs.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amido.stacks.modules</groupId>
+            <artifactId>stacks-azure-servicebus</artifactId>
+            <version>${stacks.azure-servicebus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amido.stacks.modules</groupId>
+            <artifactId>stacks-core-messaging</artifactId>
+            <version>${stacks.core.messaging.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <version>${org.springdoc-openapi.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-data-rest</artifactId>
-            <version>${org.springdoc-openapi.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>net.minidev</groupId>
-                    <artifactId>json-smart</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jsr310</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.azure.spring</groupId>
-            <artifactId>azure-spring-boot</artifactId>
-            <version>${azure.springboot.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>net.minidev</groupId>
-                    <artifactId>json-smart</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>com.azure.spring</groupId>
-            <artifactId>azure-spring-boot-starter-cosmos</artifactId>
-            <version>${cosmosdb.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>net.minidev</groupId>
-                    <artifactId>json-smart</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>io.netty</groupId>
-                    <artifactId>netty-codec-http</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>com.microsoft.azure</groupId>
-            <artifactId>applicationinsights-spring-boot-starter</artifactId>
-            <version>${applicationinsights.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.azure</groupId>
-            <artifactId>azure-messaging-servicebus</artifactId>
-            <version>${azure.messaging-servicebus.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.nimbusds</groupId>
-                    <artifactId>oauth2-oidc-sdk</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>net.minidev</groupId>
-                    <artifactId>json-smart</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>io.netty</groupId>
-                    <artifactId>netty-codec-http</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.beust</groupId>
-                    <artifactId>jcommander</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>com.microsoft.azure</groupId>
-            <artifactId>applicationinsights-logging-logback</artifactId>
-            <version>${applicationinsights.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>io.projectreactor.netty</groupId>
-            <artifactId>reactor-netty-core</artifactId>
-            <version>${io-projectreactor-netty.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>io.netty</groupId>
-                    <artifactId>netty-codec-http</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <!--
-        <dependency>
-            <groupId>com.microsoft.azure</groupId>
-            <artifactId>azure-keyvault-secrets-spring-boot-starter</artifactId>
-            <version>${azure.springboot.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        -->
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>junit</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.vaadin.external.google</groupId>
-                    <artifactId>android-json</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit-jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit-jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-junit-jupiter</artifactId>
-            <version>${mockito.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest</artifactId>
-            <version>${hamcrest.version}</version>
-            <scope>test</scope>
-        </dependency>
-
+        <!-- Other dependencies -->
+        <!-- TODO: to be moved to a common workloads parent -->
         <dependency>
             <groupId>nl.jqno.equalsverifier</groupId>
             <artifactId>equalsverifier</artifactId>
             <version>${equals-verifier.version}</version>
             <scope>test</scope>
         </dependency>
-
-        <!-- Registering the Auth0 Dependency-->
         <dependency>
-            <groupId>com.auth0</groupId>
-            <artifactId>auth0-spring-security-api</artifactId>
-            <version>${auth0-spring-security-api.version}</version>
+            <groupId>au.com.dius</groupId>
+            <artifactId>pact-jvm-provider-spring</artifactId>
+            <version>${pact.provider.spring.version}</version>
+            <scope>test</scope>
         </dependency>
-
         <dependency>
-            <groupId>org.pitest</groupId>
-            <artifactId>pitest-parent</artifactId>
-            <version>${pitest.version}</version>
-            <type>pom</type>
+            <groupId>au.com.dius.pact</groupId>
+            <artifactId>consumer</artifactId>
+            <version>${pact.consumer.version}</version>
+            <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>com.nimbusds</groupId>
-            <artifactId>oauth2-oidc-sdk</artifactId>
-            <version>9.9</version>
-            <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>net.minidev</groupId>
-            <artifactId>json-smart</artifactId>
-            <version>2.4.7</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-codec-http</artifactId>
-            <version>4.1.65.Final</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.beust</groupId>
-            <artifactId>jcommander</artifactId>
-            <version>1.81</version>
-        </dependency>
-
     </dependencies>
-
-    <profiles>
-        <profile>
-            <id>owasp-dependency-check</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.owasp</groupId>
-                        <artifactId>dependency-check-maven</artifactId>
-                        <version>${owasp-dependency-check-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>check</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <!--                            <outputDirectory>${project.basedir}/reports/owasp</outputDirectory>-->
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>test</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-                <property>
-                    <name>spring.profiles.active</name>
-                    <value>test</value>
-                </property>
-            </activation>
-        </profile>
-
-        <profile>
-            <id>local</id>
-        </profile>
-
-    </profiles>
 
     <build>
         <plugins>
-
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <version>3.7.1</version>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                            <version>${lombok.version}</version>
-                        </path>
-                    </annotationProcessorPaths>
-                    <forceJavacCompilerUse>true</forceJavacCompilerUse>
+                    <mainClass>com.amido.workloads.Application</mainClass>
                 </configuration>
             </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>default-test</id>
-                        <!-- Only run tests in the `test` phase, avoid running
-                        in the `package` phase. -->
-                        <phase>${maven-surefire-phase}</phase>
-                    </execution>
-                </executions>
-            </plugin>
+            <!-- FIXME: why this is commented out? either uncomment or remove -->
+            <!--            <plugin>-->
+            <!--                <groupId>au.com.dius.pact.provider</groupId>-->
+            <!--                <artifactId>maven</artifactId>-->
+            <!--                <version>4.2.7</version>-->
+            <!--                <configuration>-->
+            <!--                    <pactBrokerUrl>${pact.broker.url}</pactBrokerUrl>-->
+            <!--                    <pactBrokerToken>${pact.broker.token}</pactBrokerToken>-->
+            <!--                    <systemPropertyVariables>-->
+            <!--                        <pact.verifier.publishResults>true</pact.verifier.publishResults>-->
+            <!--                    </systemPropertyVariables>-->
 
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco.version}</version>
-                <configuration>
-                    <excludes>
-                        <exclude>**/AuthControllerImpl*</exclude>
-                        <exclude>**/ApplicationConfig*</exclude>
-                    </excludes>
-                    <!--                    <outputDirectory>${project.basedir}/reports/jacoco</outputDirectory>-->
-                    <!--                    TO DO Review the configuration-->
-                    <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
-                    <dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>default-check</id>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <rule>
-                                    <element>BUNDLE</element>
-                                    <limits>
-                                        <limit>
-                                            <counter>COMPLEXITY</counter>
-                                            <value>COVEREDRATIO</value>
-                                            <minimum>0.00</minimum>
-                                        </limit>
-                                    </limits>
-                                </rule>
-                            </rules>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--                    <serviceProviders>-->
+            <!--                        <serviceProvider>-->
+            <!--                            <name>${pact.api.name}</name>-->
+            <!--                            <protocol>${pact.api.protocol}</protocol>-->
+            <!--                            <host>${pact.api.host}</host>-->
+            <!--                            <port>${pact.api.port}</port>-->
+            <!--                        </serviceProvider>-->
+            <!--                    </serviceProviders>-->
 
-            <plugin>
-                <groupId>com.coveo</groupId>
-                <artifactId>fmt-maven-plugin</artifactId>
-                <version>${fmt-maven-plugin.version}</version>
-                <configuration>
-                    <displayFiles>true</displayFiles>
-                    <verbose>true</verbose>
-                    <filesNamePattern>.*\.java</filesNamePattern>
-                    <additionalSourceDirectories/>
-                    <skip>false</skip>
-                    <skipSortingImports>false</skipSortingImports>
-                    <style>google</style>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${maven-checkstyle-plugin.version}</version>
-                <dependencies>
-                    <!--Specify Dependent checkstyle Edition-->
-                    <dependency>
-                        <groupId>com.puppycrawl.tools</groupId>
-                        <artifactId>checkstyle</artifactId>
-                        <version>${puppycrawl-tools-checkstyle.version}</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                    <configLocation>google_checks.xml</configLocation>
-                    <encoding>UTF-8</encoding>
-                    <consoleOutput>true</consoleOutput>
-                    <failsOnError>true</failsOnError>
-                    <linkXRef>false</linkXRef>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>validate</id>
-                        <phase>validate</phase>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>com.github.spotbugs</groupId>
-                <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>${spotbugs-maven-plugin.version}</version>
-                <dependencies>
-                    <!-- overwrite dependency on spotbugs if you want to specify the version of spotbugs -->
-                    <dependency>
-                        <groupId>com.github.spotbugs</groupId>
-                        <artifactId>spotbugs</artifactId>
-                        <version>${spotbugs.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-
-<!--            <plugin>-->
-<!--                <groupId>org.pitest</groupId>-->
-<!--                <artifactId>pitest-maven</artifactId>-->
-<!--                <version>${pitest.version}</version>-->
-<!--                <dependencies>-->
-<!--                    <dependency>-->
-<!--                        <groupId>org.pitest</groupId>-->
-<!--                        <artifactId>pitest-junit5-plugin</artifactId>-->
-<!--                        <version>0.14</version>-->
-<!--                    </dependency>-->
-<!--                </dependencies>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>pitest</id>-->
-<!--                        <phase>verify</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>mutationCoverage</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--                <configuration>-->
-<!--                    <threads>15</threads>-->
-<!--                    <historyInputFile>target/pitHistory.txt</historyInputFile>-->
-<!--                    <historyOutputFile>target/pitHistory.txt</historyOutputFile>-->
-<!--                    <timestampedReports>false</timestampedReports>-->
-<!--                    <mutators>-->
-<!--                        <value>STRONGER</value>-->
-<!--                    </mutators>-->
-<!--                    <outputFormats>-->
-<!--                        <outputFormat>XML</outputFormat>-->
-<!--                        <outputFormat>HTML</outputFormat>-->
-<!--                    </outputFormats>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
-
+            <!--                </configuration>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <phase>integration-test</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>verify</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
         </plugins>
     </build>
 
-    <reporting>
-        <plugins>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-                <configuration>
-                    <!--                    <outputDirectory>${project.basedir}/reports/newsite</outputDirectory>-->
-                </configuration>
-                <!--                <reportSets>-->
-                <!--                    <reportSet>-->
-                <!--                        <reports>-->
-                <!--                            <report>aggregate</report>-->
-                <!--                        </reports>-->
-                <!--                    </reportSet>-->
-                <!--                </reportSets>-->
-            </plugin>
-
-            <plugin>
-                <groupId>org.owasp</groupId>
-                <artifactId>dependency-check-maven</artifactId>
-                <version>${owasp-dependency-check-plugin.version}</version>
-                <!--                <reportSets>-->
-                <!--                    <reportSet>-->
-                <!--                        <reports>-->
-                <!--                            <report>aggregate</report>-->
-                <!--                        </reports>-->
-                <!--                    </reportSet>-->
-                <!--                </reportSets>-->
-            </plugin>
-
-            <plugin>
-                <groupId>com.github.spotbugs</groupId>
-                <artifactId>spotbugs-maven-plugin</artifactId>
-                <configuration>
-                    <xmlOutput>true</xmlOutput>
-                    <!-- Optional directory to put spotbugs xdoc xml report -->
-                    <!--                    <xmlOutputDirectory>${project.basedir}/reports/spotbugs</xmlOutputDirectory>-->
-                </configuration>
-                <!--                <reportSets>-->
-                <!--                    <reportSet>-->
-                <!--                        <reports>-->
-                <!--                            <report>aggregate</report>-->
-                <!--                        </reports>-->
-                <!--                    </reportSet>-->
-                <!--                </reportSets>-->
-            </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <!-- select non-aggregate reports -->
-                            <report>report</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-
-        </plugins>
-    </reporting>
+    <profiles>
+        <profile>
+            <id>local</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources/local</directory>
+                    </resource>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
