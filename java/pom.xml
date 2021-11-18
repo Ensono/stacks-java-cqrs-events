@@ -54,16 +54,14 @@
         <spotbugs-maven-plugin.version>4.2.3</spotbugs-maven-plugin.version>
         <spotbugs.version>4.2.3</spotbugs.version>
 
-        <pact.version>3.5.24</pact.version>
-
-        <!-- TODO: Set 'pact.broker.url' and 'pact.broker.token' -->
-        <pact.broker.url/>
-        <pact.broker.token/>
-        <pact.api.name>JavaMenuAPI</pact.api.name>
-        <pact.api.protocol>http</pact.api.protocol>
-        <pact.api.host>localhost</pact.api.host>
-        <pact.api.port>9000</pact.api.port>
-        <pact.version>3.5.24</pact.version>
+        <!-- Set 'pact.broker.url' and 'pact.broker.token' -->
+<!--        <pact.broker.url></pact.broker.url>-->
+<!--        <pact.broker.token></pact.broker.token>-->
+<!--        <pact.api.name>JavaMenuAPI</pact.api.name>-->
+<!--        <pact.api.protocol>http</pact.api.protocol>-->
+<!--        <pact.api.host>localhost</pact.api.host>-->
+<!--        <pact.api.port>9000</pact.api.port>-->
+<!--        <pact.version>3.5.24</pact.version>-->
         <pact.provider.spring.version>4.0.10</pact.provider.spring.version>
         <pact.consumer.version>4.2.7</pact.consumer.version>
     </properties>
@@ -233,36 +231,36 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>au.com.dius.pact.provider</groupId>
-                <artifactId>maven</artifactId>
-                <version>4.2.7</version>
-                <configuration>
-                    <pactBrokerUrl>${pact.broker.url}</pactBrokerUrl>
-                    <pactBrokerToken>${pact.broker.token}</pactBrokerToken>
-                    <systemPropertyVariables>
-                        <pact.verifier.publishResults>true</pact.verifier.publishResults>
-                    </systemPropertyVariables>
+<!--            <plugin>-->
+<!--                <groupId>au.com.dius.pact.provider</groupId>-->
+<!--                <artifactId>maven</artifactId>-->
+<!--                <version>4.2.7</version>-->
+<!--                <configuration>-->
+<!--                    <pactBrokerUrl>${pact.broker.url}</pactBrokerUrl>-->
+<!--                    <pactBrokerToken>${pact.broker.token}</pactBrokerToken>-->
+<!--                    <systemPropertyVariables>-->
+<!--                        <pact.verifier.publishResults>true</pact.verifier.publishResults>-->
+<!--                    </systemPropertyVariables>-->
 
-                    <serviceProviders>
-                        <serviceProvider>
-                            <name>${pact.api.name}</name>
-                            <protocol>${pact.api.protocol}</protocol>
-                            <host>${pact.api.host}</host>
-                            <port>${pact.api.port}</port>
-                        </serviceProvider>
-                    </serviceProviders>
+<!--                    <serviceProviders>-->
+<!--                        <serviceProvider>-->
+<!--                            <name>${pact.api.name}</name>-->
+<!--                            <protocol>${pact.api.protocol}</protocol>-->
+<!--                            <host>${pact.api.host}</host>-->
+<!--                            <port>${pact.api.port}</port>-->
+<!--                        </serviceProvider>-->
+<!--                    </serviceProviders>-->
 
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>integration-test</phase>
-                        <goals>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>integration-test</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>verify</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
             <plugin>
                 <groupId>com.coveo</groupId>
                 <artifactId>fmt-maven-plugin</artifactId>
