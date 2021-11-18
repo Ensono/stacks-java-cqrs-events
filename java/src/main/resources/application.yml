@@ -25,7 +25,7 @@ springdoc:
     display-operation-id: true
     # TODO: Swagger keeps redirecting, it'd be good to stop it if possible
     path: /swagger/index.html
-  packagesToScan: com.amido.stacks
+  packagesToScan: com.amido.workloads
   api-docs:
     groups:
       enabled: true
