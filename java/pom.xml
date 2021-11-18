@@ -41,9 +41,13 @@
         <stacks.azure-servicebus.version>0.0.16-main</stacks.azure-servicebus.version>
         <stacks.core.messaging.version>0.0.78-main</stacks.core.messaging.version>
 
+        <!-- Spring versions -->
+        <spring.boot.starter.actuator>2.5.2</spring.boot.starter.actuator>
+
         <!-- Other versions -->
         <equals-verifier.version>3.6.1</equals-verifier.version>
         <auth0-spring-security-api.version>1.4.1</auth0-spring-security-api.version>
+
     </properties>
 
     <repositories>
@@ -56,6 +60,7 @@
     </repositories>
 
     <dependencies>
+
         <!-- STACKS dependencies -->
         <dependency>
             <groupId>com.amido.stacks.modules</groupId>
@@ -86,6 +91,14 @@
             <groupId>com.amido.stacks.modules</groupId>
             <artifactId>stacks-core-messaging</artifactId>
             <version>${stacks.core.messaging.version}</version>
+        </dependency>
+
+        <!-- Spring dependencies -->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+            <version>${spring.boot.starter.actuator}</version>
         </dependency>
 
         <!-- Other dependencies -->

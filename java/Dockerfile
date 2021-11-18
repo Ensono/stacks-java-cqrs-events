@@ -9,15 +9,7 @@ COPY mvnw .m2* /root/.m2/repository/
 COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
-
-
-COPY stacks-core-api stacks-core-api
-COPY stacks-azure-servicebus stacks-azure-servicebus
-COPY stacks-core-commons stacks-core-commons
-COPY stacks-core-cqrs stacks-core-cqrs
-COPY stacks-core-messaging stacks-core-messaging
-COPY stacks-azure-cosmos stacks-azure-cosmos
-COPY sample-cqrs-events sample-cqrs-events
+COPY src src
 
 RUN ./mvnw clean\
   && ./mvnw dependency:go-offline --quiet\
