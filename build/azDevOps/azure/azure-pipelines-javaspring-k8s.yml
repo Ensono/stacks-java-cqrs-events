@@ -24,8 +24,8 @@ resources:
   repositories:
     - repository: templates
       type: github
-      name: feature/cycle4
-      ref: maven-install-for-modules
+      name: amido/stacks-pipeline-templates
+      ref: feature/cycle4
       # EXCHANGE THIS FOR YOUR OWN ENDPOINT CONNECTION TO GITHUB
       # REPOSITORY IS PUBLIC
       endpoint: amidostacks
