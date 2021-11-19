@@ -16,7 +16,7 @@
         <cucumber.reporting.version>5.5.3</cucumber.reporting.version>
         <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
         <puppycrawl-tools-checkstyle.version>8.44</puppycrawl-tools-checkstyle.version>
-        <spotbugs-maven-plugin.version>4.2.3</spotbugs-maven-plugin.version>
+        <spotbugs-maven-plugin.version>4.5.0.0</spotbugs-maven-plugin.version>
         <spotbugs.version>4.2.3</spotbugs.version>
     </properties>
 
