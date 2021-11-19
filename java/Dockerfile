@@ -14,7 +14,7 @@ COPY src src
 RUN ./mvnw clean\
   && ./mvnw dependency:go-offline --quiet\
 	&& ./mvnw install -Dmaven.default-test.skip=true -Dmaven.test.skip=true -DskipTests --no-transfer-progress --quiet \
-  && mkdir -p extracted && java -Djarmode=layertools -jar ${DEFAULT_MODULE}/target/*.jar extract --destination extracted
+  && mkdir -p extracted && java -Djarmode=layertools -jar target/*.jar extract --destination extracted
 
 RUN ls -lrt extracted
 
@@ -31,8 +31,8 @@ RUN true
 COPY --from=build ${DEPENDENCY}/snapshot-dependencies/ ./
 RUN true
 COPY --from=build ${DEPENDENCY}/application/ ./
-
-RUN if [ -e "/app/emulatorcert.crt" ]; then cd $JAVA_HOME/lib/security && keytool -importcert -cacerts -storepass changeit -noprompt -alias documentdbemulator -file /app/emulatorcert.crt; fi
+RUN ls -lrt /BOOT-INF
+RUN if [ -e "/BOOT-INF/classes/emulatorcert.crt" ]; then cd $JAVA_HOME/lib/security && keytool -importcert -cacerts -storepass changeit -noprompt -alias documentdbemulator -file /BOOT-INF/classes/emulatorcert.crt; fi
 
 ENTRYPOINT ["java","org.springframework.boot.loader.JarLauncher"]
 
