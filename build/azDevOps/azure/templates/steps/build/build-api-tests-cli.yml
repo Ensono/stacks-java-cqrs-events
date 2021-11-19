@@ -30,7 +30,7 @@ steps:
 
   - task: Bash@3
     inputs:
-      filePath: "${{ parameters.pipeline_scripts_directory }}/build-maven-install-tests.bash"
+      filePath: "${{ parameters.pipeline_scripts_directory }}/build-maven-install.bash"
       arguments: >
         -Z "${{ parameters.maven_cache_directory }}"
       workingDirectory: "${{ parameters.functional_test_project_root_dir }}"
