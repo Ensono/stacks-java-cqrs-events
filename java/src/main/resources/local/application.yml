@@ -25,7 +25,7 @@ springdoc:
     display-operation-id: true
     # TODO: Swagger keeps redirecting, it'd be good to stop it if possible
     path: /swagger/index.html
-  packagesToScan: com.amido.stacks
+  packagesToScan: com.amido.workloads.menu.api
   api-docs:
     groups:
       enabled: true
@@ -42,7 +42,7 @@ azure:
     enabled: true
   keyvault:
     enabled: false
-    uri: https://amido-com.amido.stacks-tmp.vault.azure.net/
+    uri: https://amido-stacks-tmp.vault.azure.net/
     client-id: xxxxxx
     client-key: xxxxxx
     tenant-id: xxxxxx
