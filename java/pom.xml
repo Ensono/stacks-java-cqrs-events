@@ -182,9 +182,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>com.amido.workloads.Application</mainClass>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
