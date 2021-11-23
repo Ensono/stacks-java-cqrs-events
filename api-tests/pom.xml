@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.amido</groupId>
+
+    <groupId>com.amido.stacks.tests</groupId>
     <artifactId>stacks-api-tests</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -16,19 +18,46 @@
         <cucumber.version>6.10.4</cucumber.version>
         <logback.version>1.2.3</logback.version>
         <encoding>UTF-8</encoding>
-        <tags></tags>
         <parallel.tests>4</parallel.tests>
-        <webdriver.base.url>http://localhost:9090</webdriver.base.url>
+        <webdriver.base.url/>
         <jackson.version>2.12.3</jackson.version>
+
         <!-- Set 'pact.broker.url' and 'pact.broker.token' -->
-        <pact.broker.url></pact.broker.url>
-        <pact.broker.token></pact.broker.token>
+        <pact.broker.url/>
+        <pact.broker.token/>
+        <pact.jvm.consumer.junit.2.11.version>3.5.24</pact.jvm.consumer.junit.2.11.version>
+        <pact.jvm.consumer.junit.version>4.0.10</pact.jvm.consumer.junit.version>
+        <pact.jvm.consumer.version>4.0.10</pact.jvm.consumer.version>
+        <pact.jvm.provider.junit.version>4.0.10</pact.jvm.provider.junit.version>
+        <spotbugs.version>4.2.3</spotbugs.version>
+        <puppycrawl-tools-checkstyle.version>8.44</puppycrawl-tools-checkstyle.version>
+        <junit.version>4.13.2</junit.version>
+        <assertj.core.version>3.20.2</assertj.core.version>
+        <hamcrest.all.version>1.3</hamcrest.all.version>
+        <byte.buddy.version>1.11.5</byte.buddy.version>
+        <springfox.swagger2.version>3.0.0</springfox.swagger2.version>
+        <springfox.swagger-ui.version>3.0.0</springfox.swagger-ui.version>
+        <json.version>20210307</json.version>
+        <netty.codec.http.version>4.1.68.Final</netty.codec.http.version>
+        <netty.codec.http2.version>4.1.68.Final</netty.codec.http2.version>
+        <netty.transport.native.epoll.version>4.1.65.Final</netty.transport.native.epoll.version>
+        <guava.version>30.1.1-jre</guava.version>
+        <httpclient.version>4.5.13</httpclient.version>
+        <xerces.version>2.12.1</xerces.version>
+        <commons.codec.version>1.15</commons.codec.version>
+        <spring.web.version>5.3.8</spring.web.version>
+
+        <!-- Maven plugins -->
+        <spotbugs-maven-plugin.version>4.2.3</spotbugs-maven-plugin.version>
         <owasp-dependency-check-plugin.version>6.2.2</owasp-dependency-check-plugin.version>
         <fmt-maven-plugin.version>2.11</fmt-maven-plugin.version>
         <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
-        <puppycrawl-tools-checkstyle.version>8.44</puppycrawl-tools-checkstyle.version>
-        <spotbugs-maven-plugin.version>4.2.3</spotbugs-maven-plugin.version>
-        <spotbugs.version>4.2.3</spotbugs.version>
+        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>3.0.0-M5</maven-failsafe-plugin.version>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <pact.provider-plugin.version>4.2.7</pact.provider-plugin.version>
+        <maven-pmd-plugin.version>3.14.0</maven-pmd-plugin.version>
+        <findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -63,68 +92,60 @@
             <groupId>net.serenity-bdd</groupId>
             <artifactId>serenity-junit</artifactId>
             <version>${serenity.version}</version>
-<!--            <scope>test</scope>-->
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>net.serenity-bdd</groupId>
             <artifactId>serenity-rest-assured</artifactId>
             <version>${serenity.version}</version>
-<!--            <scope>test</scope>-->
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>net.serenity-bdd</groupId>
             <artifactId>serenity-screenplay</artifactId>
             <version>${serenity.version}</version>
-<!--            <scope>test</scope>-->
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>net.serenity-bdd</groupId>
             <artifactId>serenity-screenplay-rest</artifactId>
             <version>${serenity.version}</version>
-<!--            <scope>test</scope>-->
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>net.serenity-bdd</groupId>
             <artifactId>serenity-cucumber6</artifactId>
             <version>${serenity.cucumber.version}</version>
-<!--            <scope>test</scope>-->
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.2</version>
-<!--            <scope>test</scope>-->
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.20.2</version>
-<!--            <scope>test</scope>-->
+            <version>${assertj.core.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-all</artifactId>
-            <version>1.3</version>
-<!--            <scope>test</scope>-->
+            <version>${hamcrest.all.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy</artifactId>
-            <version>1.11.5</version>
+            <version>${byte.buddy.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-            <version>3.0.0</version>
+            <version>${springfox.swagger2.version}</version>
             <scope>compile</scope>
             <exclusions>
                 <exclusion>
@@ -140,14 +161,13 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>3.0.0</version>
+            <version>${springfox.swagger-ui.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20210307</version>
-<!--            <scope>test</scope>-->
+            <version>${json.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -158,56 +178,54 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-codec-http</artifactId>
-            <version>4.1.65.Final</version>
+            <version>${netty.codec.http.version}</version>
         </dependency>
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-codec-http2</artifactId>
-            <version>4.1.65.Final</version>
+            <version>${netty.codec.http2.version}</version>
         </dependency>
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-transport-native-epoll</artifactId>
-            <version>4.1.65.Final</version>
+            <version>${netty.transport.native.epoll.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>30.1.1-jre</version>
+            <version>${guava.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.5.13</version>
+            <version>${httpclient.version}</version>
         </dependency>
         <dependency>
             <groupId>xerces</groupId>
             <artifactId>xercesImpl</artifactId>
-            <version>2.12.1</version>
+            <version>${xerces.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>1.15</version>
+            <version>${commons.codec.version}</version>
         </dependency>
         <dependency>
             <groupId>au.com.dius</groupId>
             <artifactId>pact-jvm-consumer-junit_2.11</artifactId>
-            <version>3.5.24</version>
-<!--            <scope>test</scope>-->
+            <version>${pact.jvm.consumer.junit.2.11.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>au.com.dius</groupId>
             <artifactId>pact-jvm-consumer-junit</artifactId>
-            <version>4.0.10</version>
-<!--            <scope>test</scope>-->
+            <version>${pact.jvm.consumer.junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>au.com.dius</groupId>
             <artifactId>pact-jvm-consumer</artifactId>
-            <version>4.0.10</version>
+            <version>${pact.jvm.consumer.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>io.netty</groupId>
@@ -242,29 +260,15 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>5.3.8</version>
-<!--            <scope>test</scope>-->
+            <version>${spring.web.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>au.com.dius</groupId>
             <artifactId>pact-jvm-provider-junit</artifactId>
-            <version>4.0.10</version>
-<!--            <scope>test</scope>-->
+            <version>${pact.jvm.provider.junit.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>net.serenity-bdd</groupId>
-            <artifactId>serenity-model</artifactId>
-            <version>2.4.34</version>
-            <scope>compile</scope>
-        </dependency>
-<!--        <dependency>-->
-<!--            <groupId>net.serenity-bdd</groupId>-->
-<!--            <artifactId>serenity-core</artifactId>-->
-<!--            <version>${serenity.version}</version>-->
-<!--            <scope>compile</scope>-->
-<!--        </dependency>-->
     </dependencies>
 
     <profiles>
@@ -294,18 +298,18 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M5</version>
+                <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <skip>true</skip>
                     <systemPropertyVariables>
-                        <pact.rootDir>src/java/com/amido/stacks/api/pact/pacts</pact.rootDir>
+                        <pact.rootDir>src/test/java/com/amido/stacks/tests/api/pact/pacts</pact.rootDir>
                         <pact.verifier.publishResults>"true"</pact.verifier.publishResults>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.0.0-M5</version>
+                <version>${maven-failsafe-plugin.version}</version>
                 <configuration>
                     <includes>
                         <include>**/*Test.java</include>
@@ -332,10 +336,8 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-<!--                    <source>1.8</source>-->
-<!--                    <target>1.8</target> -->
                     <source>11</source>
                     <target>11</target>
                 </configuration>
@@ -360,23 +362,23 @@
             <plugin>
                 <groupId>au.com.dius.pact.provider</groupId>
                 <artifactId>maven</artifactId>
-                <version>4.2.7</version>
+                <version>${pact.provider-plugin.version}</version>
                 <configuration>
                     <pactBrokerUrl>${pact.broker.url}</pactBrokerUrl>
                     <pactBrokerToken>${pact.broker.token}</pactBrokerToken>
-                    <pactDirectory>src/java/com/amido/stacks/api/pact/pacts</pactDirectory>
+                    <pactDirectory>src/test/java/com/amido/stacks/tests/api/pact/pacts</pactDirectory>
                 </configuration>
             </plugin>
             <!-- Code quality plugins-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.14.0</version>
+                <version>${maven-pmd-plugin.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
-                <version>3.0.5</version>
+                <version>${findbugs-maven-plugin.version}</version>
                 <configuration>
                     <effort>Max</effort>
                 </configuration>

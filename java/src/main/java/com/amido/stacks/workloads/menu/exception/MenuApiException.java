@@ -1,0 +1,18 @@
+package com.amido.stacks.workloads.menu.exception;
+
+import com.amido.stacks.core.api.exception.ApiException;
+import com.amido.stacks.workloads.menu.commands.MenuCommand;
+
+public class MenuApiException extends ApiException {
+
+  private static final int EXCEPTION_CODE = 10000;
+
+  public MenuApiException(String message, MenuCommand menuCommand) {
+    super(message, menuCommand.getOperationCode(), menuCommand.getCorrelationId());
+  }
+
+  @Override
+  public int getExceptionCode() {
+    return EXCEPTION_CODE;
+  }
+}
