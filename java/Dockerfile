@@ -1,6 +1,6 @@
 FROM azul/zulu-openjdk-alpine:11 as build
 WORKDIR /workspace/app
-
+ARG DEFAULT_MODULE=sample-cqrs-events
 # Copy the m2 directory if it exists to re-use an external cache.
 # The `mvnw` file is also copied so that if an `.m2` directory isn't present
 # the command won't fail.
@@ -11,12 +11,12 @@ COPY .mvn .mvn
 COPY pom.xml .
 COPY src src
 
-RUN ls -la /root/.m2/repository
-
-RUN ./mvnw dependency:go-offline \
-	&& ./mvnw process-resources \
-	&& ./mvnw package -Dmaven.default-test.skip=true -Dmaven.test.skip=true -DskipTests --no-transfer-progress \
+RUN ./mvnw clean\
+  && ./mvnw dependency:go-offline --quiet\
+	&& ./mvnw install -Dmaven.default-test.skip=true -Dmaven.test.skip=true -DskipTests --no-transfer-progress --quiet \
   && mkdir -p extracted && java -Djarmode=layertools -jar target/*.jar extract --destination extracted
+
+RUN ls -lrt extracted
 
 FROM azul/zulu-openjdk-alpine:11-jre
 
