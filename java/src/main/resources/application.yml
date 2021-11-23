@@ -1,6 +1,6 @@
 spring:
   application:
-    name: stacks-api-cqrs-events
+    name: com.amido.stacks-api-cqrs-events
   data:
     rest:
       detection-strategy: annotated
@@ -25,7 +25,7 @@ springdoc:
     display-operation-id: true
     # TODO: Swagger keeps redirecting, it'd be good to stop it if possible
     path: /swagger/index.html
-  packagesToScan: com.amido.stacks.menu.api
+  packagesToScan: com.amido.stacks.workloads.menu.api
   api-docs:
     groups:
       enabled: true
@@ -34,7 +34,7 @@ springdoc:
 
 azure:
   cosmos:
-    uri: xxxxxx
+    uri: https://localhost:8081
     database: Stacks
     key: ${COSMOSDB_KEY}
   application-insights:
@@ -42,7 +42,7 @@ azure:
     enabled: true
   keyvault:
     enabled: false
-    uri: https://amido-stacks-tmp.vault.azure.net/
+    uri: https://amido.stacks-tmp.vault.azure.net/
     client-id: xxxxxx
     client-key: xxxxxx
     tenant-id: xxxxxx

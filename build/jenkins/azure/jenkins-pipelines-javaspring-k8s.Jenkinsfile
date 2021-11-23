@@ -373,7 +373,7 @@ pipeline {
 
                   sh(
                     script: """#!/bin/bash
-                      bash "${dynamic_build_scripts_directory}/build-maven-install.bash" \
+                      bash "${dynamic_build_scripts_directory}/build-maven-install-tests.bash" \
                         -Z "${maven_cache_directory}"
                     """,
                     label: "Maven: Install Packages (${functional_test_project_type})"

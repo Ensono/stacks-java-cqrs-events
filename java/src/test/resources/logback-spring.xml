@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <appender class="ch.qos.logback.core.ConsoleAppender" name="console">
+    <encoder>
+      <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) | %X{CorrelationId} |
+        %highlight(%-5level) %logger{36}.%M - %msg%n
+      </pattern>
+    </encoder>
+  </appender>
+<!--  <appender class="com.microsoft.applicationinsights.logback.ApplicationInsightsAppender"-->
+<!--    name="aiAppender">-->
+<!--  </appender>-->
+  <root level="info">
+    <appender-ref ref="console"/>
+  </root>
+<!--  <root level="info">-->
+<!--    <appender-ref ref="aiAppender"/>-->
+<!--  </root>-->
+</configuration>
