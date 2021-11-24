@@ -45,7 +45,7 @@
         <httpclient.version>4.5.13</httpclient.version>
         <xerces.version>2.12.1</xerces.version>
         <commons.codec.version>1.15</commons.codec.version>
-        <spring.web.version>5.3.8</spring.web.version>
+        <spring.web.version>5.3.13</spring.web.version>
 
         <!-- Maven plugins -->
         <spotbugs-maven-plugin.version>4.2.3</spotbugs-maven-plugin.version>
