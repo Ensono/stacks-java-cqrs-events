@@ -37,7 +37,7 @@
         <mockito.version>3.11.2</mockito.version>
         <lombok.version>1.18.20</lombok.version>
         <hamcrest.version>2.2</hamcrest.version>
-        <pitest.version>1.6.7</pitest.version>
+        <pitest.version>1.7.3</pitest.version>
         <jacoco.version>0.8.7</jacoco.version>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <maven-surefire-phase>test</maven-surefire-phase>
