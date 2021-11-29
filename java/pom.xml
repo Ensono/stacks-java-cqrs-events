@@ -19,12 +19,12 @@
 
     <properties>
         <!-- Stacks versions -->
-        <stacks.core.commons.version>0.0.24-main</stacks.core.commons.version>
-        <stacks.core.api.version>0.0.18-main</stacks.core.api.version>
-        <stacks.azure.cosmos.version>0.0.16-main</stacks.azure.cosmos.version>
-        <stacks.core.cqrs.version>0.0.22-main</stacks.core.cqrs.version>
-        <stacks.azure-servicebus.version>0.0.16-main</stacks.azure-servicebus.version>
-        <stacks.core.messaging.version>0.0.78-main</stacks.core.messaging.version>
+        <stacks.core.commons.version>1.0.0</stacks.core.commons.version>
+        <stacks.core.api.version>1.0.0</stacks.core.api.version>
+        <stacks.azure.cosmos.version>1.0.0</stacks.azure.cosmos.version>
+        <stacks.core.cqrs.version>1.0.0</stacks.core.cqrs.version>
+        <stacks.azure-servicebus.version>1.0.0</stacks.azure-servicebus.version>
+        <stacks.core.messaging.version>1.0.0</stacks.core.messaging.version>
 
         <java.version>11</java.version>
         <org.projectlombok.version>1.18.0</org.projectlombok.version>
