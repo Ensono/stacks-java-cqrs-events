@@ -7,7 +7,7 @@
 # NB: Some resources e.g. blob storage only allow for alpha numeric characters so the name is adjusted accordingly          #
 #  ==> `$company$project$stage$domain`                                                                                      #
 #############################################################################################################################
-name: "$(Build.SourceBranchName)-init"
+name: $(version_major).$(version_minor).$(version_patch)-$(Build.SourceBranchName)-$(Rev:r)
 
 pr:
   - main
@@ -85,11 +85,11 @@ variables:
 
   # Versioning
   - name: version_major
-    value: 0
+    value: 1
   - name: version_minor
     value: 0
-  - name: version_revision
-    value: "$[counter(join(variables['version_major'], join('-', variables['version_minor'])), 0)]"
+  - name: version_patch
+    value: 0
 
   # PR / Branch vars
   - name: source_branch_ref
@@ -105,7 +105,7 @@ variables:
   - name: docker_image_name
     value: "$(self_generic_name)"
   - name: docker_image_tag
-    value: "${{ variables.version_major }}.${{ variables.version_minor }}.$(version_revision)-$(Build.SourceBranchName)"
+    value: "$(Build.BuildNumber)"
   - name: docker_java_image
     value: "azul_java"
 
