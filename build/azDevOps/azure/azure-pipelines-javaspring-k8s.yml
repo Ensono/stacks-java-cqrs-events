@@ -85,7 +85,7 @@ variables:
 
   # Versioning
   - name: version_major
-    value: 0
+    value: 1
   - name: version_minor
     value: 0
   - name: version_patch
