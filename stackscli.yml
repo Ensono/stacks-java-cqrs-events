@@ -1,0 +1,206 @@
+# Configuration file for setting up the project
+
+framework:
+  name: java
+  commands:
+    - name: java
+      version: ">= 11"
+
+# Pipeline files
+pipeline:
+  - type: azdo
+    files:
+      - name: build
+        path: build/azDevOps/azure/azure-pipelines-javaspring-k8s.yml
+      - name: variable
+        path: build/azDevOps/azure/azuredevops-vars.yml
+    replacements:
+      - pattern: ^.*stacks-credentials-nonprod-kv$
+        value: ""
+      - pattern: ^.*amido-stacks-infra-credentials-nonprod$
+        value: ""
+      - pattern: ^.*amido-stacks-infra-credentials-prod$
+        value: ""
+      - pattern: ^.*stacks-credentials-prod-kv$
+        value: ""
+      - pattern: ^.*stacks-credentials-nonprod-kv$
+        value: ""
+      - pattern: ^.*amido-stacks-java-api$
+        value: ""
+      - pattern: ^.*amido-stacks-java-cqrs-events-api$
+        value: ""
+
+# The init stage are things that are required to run before the template is run
+init:
+  operations:
+    # Copy pipelines for build and deploy
+    - action: cmd
+      cmd: mvn
+      args: process-resources
+              -f stacksclipom.xml
+              -P copy-devops-resources
+              -Dtarget.dir={{ .Project.Directory.WorkingDir }}
+              --quiet
+      desc: Coping build and deploy pipelines into the project structure
+
+    # Build archetype for the main code
+    - action: cmd
+      cmd: mvn
+      args: clean archetype:create-from-project
+              -f ./java/pom.xml
+              -DpropertyFile=./java/archetype.properties
+              --quiet
+      desc: Creating the archetype resources using the web-api source code
+
+    - action: cmd
+      cmd: mvn
+      args: install
+              -f ./java/target/generated-sources/archetype/pom.xml
+              --quiet
+      desc: Installing the archetype
+              (groupId= com.amido.stacks.workloads, artifactId= stacks-api-cqrs-events-archetype, version= 1.0.0) in the local maven repository
+
+    - action: cmd
+      cmd: mvn
+      args: archetype:generate
+              -DoutputDirectory={{ .Project.Directory.WorkingDir }}
+              -DarchetypeGroupId=com.amido.stacks.workloads
+              -DarchetypeArtifactId=stacks-api-cqrs-events-archetype
+              -DarchetypeVersion=1.0.0
+              -DgroupId=com.{{ .Input.Business.Company}}.{{ .Input.Business.Domain }}
+              -DartifactId={{ .Project.Name }}
+              -Dpackage=com.{{ .Input.Business.Company}}.{{ .Input.Business.Domain }}.{{.Input.Business.Component}}
+              --quiet
+              -B
+      desc: Generating the web-api project
+
+    - action: cmd
+      cmd: mvn
+      args: process-resources
+              -f stacksclipom.xml
+              -P rename-source-folder
+              -Dtemp.project.dir={{ .Project.Name }}
+              -Dtarget.dir={{ .Project.Directory.WorkingDir }}
+              --quiet
+      desc: Renaming the source code folder to java
+
+    - action: cmd
+      cmd: mvn
+      args: process-resources
+              -f {{ .Project.Directory.WorkingDir }}/java/pom.xml
+              -P update-permissions
+              --quiet
+      desc: Updating file permissions
+
+    - action: cmd
+      cmd: mvn
+      args: dependency:resolve
+              -f {{ .Project.Directory.WorkingDir }}/java/pom.xml
+              --quiet
+      desc: Downloading maven dependencies for the web-api project
+
+    # Build archetype for the serenity tests
+    - action: cmd
+      cmd: mvn
+      args: process-resources
+              -f ./api-tests/pom.xml
+              -P archetype-resources
+              --quiet
+      desc: Duplicating the original pom.xml file to archetype-pom.xml
+
+    - action: cmd
+      cmd: mvn
+      args: clean archetype:create-from-project
+              -f ./api-tests/pom-temp.xml
+              -DpropertyFile=./api-tests/archetype.properties
+              --quiet
+      desc: Creating the archetype resources using the api-test source code
+
+    - action: cmd
+      cmd: mvn
+      args: install
+              -f ./api-tests/target/generated-sources/archetype/pom.xml
+              --quiet
+      desc: Installing the archetype (groupId= com.amido.stacks.tests, artifactId= stacks-api-cqrs-events-tests-archetype, version= 1.0.0) in the local maven repository
+
+    - action: cmd
+      cmd: mvn
+      args: archetype:generate
+              -DoutputDirectory={{ .Project.Directory.WorkingDir }}
+              -DarchetypeGroupId=com.amido.stacks.tests
+              -DarchetypeArtifactId=stacks-api-cqrs-events-tests-archetype
+              -DarchetypeVersion=1.0.0
+              -DgroupId=com.{{ .Input.Business.Company}}.{{ .Input.Business.Domain }}
+              -DartifactId=api-tests
+              -Dpackage=com.{{ .Input.Business.Company}}.{{ .Input.Business.Domain }}.{{.Input.Business.Component}}.tests
+              -DpactLocation=com/{{ .Input.Business.Company}}/{{ .Input.Business.Domain }}/{{.Input.Business.Component}}/tests
+              --quiet
+              -B
+      desc: Generating the api-test project
+
+    - action: cmd
+      cmd: mvn
+      args: process-resources
+              -f {{ .Project.Directory.WorkingDir }}/api-tests/pom-temp.xml
+              -P setup-workload-resources
+              --quiet
+      desc: Replacing the original pom.xml file with the new package references
+
+    - action: cmd
+      cmd: mvn
+      args: process-resources
+              -f {{ .Project.Directory.WorkingDir }}/api-tests/pom.xml
+              -P update-permissions
+              --quiet
+      desc: Updating file permissions
+
+    - action: cmd
+      cmd: mvn
+      args: dependency:resolve
+              -f {{ .Project.Directory.WorkingDir }}/api-tests/pom.xml
+              --quiet
+      desc: Downloading maven dependencies for the api-tests project
+
+    # Build archetype for the karate tests
+    - action: cmd
+      cmd: mvn
+      args: clean archetype:create-from-project
+              -f ./api-tests-karate/pom.xml
+              -DpropertyFile=./api-tests-karate/archetype.properties
+              --quiet
+      desc: Creating the archetype resources using the api-test-karate source code
+
+    - action: cmd
+      cmd: mvn
+      args: install
+              -f ./api-tests-karate/target/generated-sources/archetype/pom.xml
+              --quiet
+      desc: Installing the archetype (groupId= com.amido.stacks.tests, artifactId= stacks-api-cqrs-events-tests-karate-archetype, version= 1.0.0) in the local maven repository
+
+    - action: cmd
+      cmd: mvn
+      args: archetype:generate
+              -DoutputDirectory={{ .Project.Directory.WorkingDir }}
+              -DarchetypeGroupId=com.amido.stacks.tests
+              -DarchetypeArtifactId=stacks-api-cqrs-events-tests-karate-archetype
+              -DarchetypeVersion=1.0.0
+              -DgroupId=org.{{ .Input.Business.Company}}.{{ .Input.Business.Domain }}
+              -DartifactId=api-tests-karate -Dpackage=org.{{ .Input.Business.Company}}.{{ .Input.Business.Domain }}.{{.Input.Business.Component}}.tests
+              --quiet
+              -B
+      desc: Generating the api-test-karate project
+
+    - action: cmd
+      cmd: mvn
+      args: process-resources
+              -f {{ .Project.Directory.WorkingDir }}/api-tests-karate/pom.xml
+              -P update-permissions
+              --quiet
+      desc: Updating file permissions
+
+    - action: cmd
+      cmd: mvn
+      args: dependency:resolve
+              -f {{ .Project.Directory.WorkingDir }}/api-tests-karate/pom.xml
+              --quiet
+      desc: Downloading maven dependencies for the api-tests-karate project
