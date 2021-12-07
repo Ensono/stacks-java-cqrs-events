@@ -50,7 +50,7 @@ init:
               -f ./java/pom.xml
               -DpropertyFile=./java/archetype.properties
               --quiet
-      desc: Creating the archetype resources using the web-api source code
+      desc: Creating the archetype resources using the cqrs+events source code
 
     - action: cmd
       cmd: mvn
@@ -72,7 +72,7 @@ init:
               -Dpackage=com.{{ .Input.Business.Company}}.{{ .Input.Business.Domain }}.{{.Input.Business.Component}}
               --quiet
               -B
-      desc: Generating the web-api project
+      desc: Generating the cqrs+events project
 
     - action: cmd
       cmd: mvn
@@ -94,10 +94,17 @@ init:
 
     - action: cmd
       cmd: mvn
+      args: fmt:format
+              -f {{ .Project.Directory.WorkingDir }}/java/pom.xml
+              --quiet
+      desc: Formating the cqrs+events java code to meet the fmt standards
+
+    - action: cmd
+      cmd: mvn
       args: dependency:resolve
               -f {{ .Project.Directory.WorkingDir }}/java/pom.xml
               --quiet
-      desc: Downloading maven dependencies for the web-api project
+      desc: Downloading maven dependencies for the cqrs+events project
 
     # Build archetype for the serenity tests
     - action: cmd
@@ -153,6 +160,13 @@ init:
               -P update-permissions
               --quiet
       desc: Updating file permissions
+
+    - action: cmd
+      cmd: mvn
+      args: fmt:format
+              -f {{ .Project.Directory.WorkingDir }}/api-tests/pom.xml
+              --quiet
+      desc: Formating the cqrs+events api tests code to meet the fmt standards
 
     - action: cmd
       cmd: mvn
