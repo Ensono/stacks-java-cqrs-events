@@ -113,7 +113,7 @@ init:
               -f ./api-tests/pom.xml
               -P archetype-resources
               --quiet
-      desc: Duplicating the original pom.xml file to archetype-pom.xml
+      desc: Duplicating the original pom.xml file to archetype-pom.xml for the cqrs+events api-tests project
 
     - action: cmd
       cmd: mvn
