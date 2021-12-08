@@ -62,7 +62,7 @@ variables:
   # It is case sensitive for TFS based repos
 
   - name: self_remote_repo
-    value: "amido/$(self_repo)"
+    value: "$(company)/$(self_repo)"
   - name: self_repo_src
     value: java
   - name: self_post_deploy_test_src
