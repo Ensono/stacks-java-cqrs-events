@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.amido.stacks.tests</groupId>
-    <artifactId>stacks-api-tests</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>stacks-api-cqrs-events-tests</artifactId>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -25,7 +24,7 @@
         <!-- Set 'pact.broker.url' and 'pact.broker.token' -->
         <pact.broker.url/>
         <pact.broker.token/>
-        <pact.jvm.consumer.junit.2.11.version>3.5.24</pact.jvm.consumer.junit.2.11.version>
+        <pact.jvm.consumer.junit-2-11-version>3.5.24</pact.jvm.consumer.junit-2-11-version>
         <pact.jvm.consumer.junit.version>4.0.10</pact.jvm.consumer.junit.version>
         <pact.jvm.consumer.version>4.0.10</pact.jvm.consumer.version>
         <pact.jvm.provider.junit.version>4.0.10</pact.jvm.provider.junit.version>
@@ -58,6 +57,7 @@
         <pact.provider-plugin.version>4.2.7</pact.provider-plugin.version>
         <maven-pmd-plugin.version>3.14.0</maven-pmd-plugin.version>
         <findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
+        <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -213,7 +213,7 @@
         <dependency>
             <groupId>au.com.dius</groupId>
             <artifactId>pact-jvm-consumer-junit_2.11</artifactId>
-            <version>${pact.jvm.consumer.junit.2.11.version}</version>
+            <version>${pact.jvm.consumer.junit-2-11-version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -285,6 +285,84 @@
                                 <goals>
                                     <goal>check</goal>
                                 </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>archetype-resources</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.coderplus.maven.plugins</groupId>
+                        <artifactId>copy-rename-maven-plugin</artifactId>
+                        <version>1.0.1</version>
+                        <executions>
+                            <execution>
+                                <id>rename-file</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>rename</goal>
+                                </goals>
+                                <configuration>
+                                    <sourceFile>${basedir}/pom.xml</sourceFile>
+                                    <destinationFile>${basedir}/pom-temp.xml</destinationFile>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>setup-workload-resources</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.coderplus.maven.plugins</groupId>
+                        <artifactId>copy-rename-maven-plugin</artifactId>
+                        <version>1.0.1</version>
+                        <executions>
+                            <execution>
+                                <id>rename-file</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>rename</goal>
+                                </goals>
+                                <configuration>
+                                    <sourceFile>${basedir}/pom-temp.xml</sourceFile>
+                                    <destinationFile>${basedir}/pom.xml</destinationFile>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>update-permissions</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>${exec-maven-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>Add execution rigths on bash scripts</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>chmod</executable>
+                                    <arguments>
+                                        <argument>755</argument>
+                                        <argument>${project.basedir}/mvnw</argument>
+                                    </arguments>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
