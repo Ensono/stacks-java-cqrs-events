@@ -47,6 +47,7 @@
         <owasp-dependency-check-plugin.version>6.2.2</owasp-dependency-check-plugin.version>
         <auth0-spring-security-api.version>1.4.1</auth0-spring-security-api.version>
         <io-projectreactor-netty.version>1.0.8</io-projectreactor-netty.version>
+        <log4j-version>2.15.0</log4j-version>
 
         <fmt-maven-plugin.version>2.11</fmt-maven-plugin.version>
         <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
@@ -118,6 +119,11 @@
 
         <!-- Other dependencies -->
         <!-- TODO: to be moved to a common workloads parent -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j-version}</version>
+        </dependency>
         <dependency>
             <groupId>nl.jqno.equalsverifier</groupId>
             <artifactId>equalsverifier</artifactId>
