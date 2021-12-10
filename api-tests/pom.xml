@@ -39,7 +39,7 @@
         <json.version>20210307</json.version>
         <netty.codec.http.version>4.1.68.Final</netty.codec.http.version>
         <netty.codec.http2.version>4.1.68.Final</netty.codec.http2.version>
-        <netty.transport.native.epoll.version>4.1.65.Final</netty.transport.native.epoll.version>
+        <netty.transport.native.epoll.version>4.1.71.Final</netty.transport.native.epoll.version>
         <guava.version>30.1.1-jre</guava.version>
         <httpclient.version>4.5.13</httpclient.version>
         <xerces.version>2.12.1</xerces.version>
