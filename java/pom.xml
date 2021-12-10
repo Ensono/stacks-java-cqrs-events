@@ -394,6 +394,11 @@
         </profile>
         <profile>
             <id>update-permissions</id>
+            <activation>
+                <os>
+                    <family>!windows</family>
+                </os>
+            </activation>
             <build>
                 <plugins>
                     <plugin>
