@@ -15,7 +15,7 @@
         <serenity.maven.version>2.4.34</serenity.maven.version>
         <serenity.cucumber.version>2.4.34</serenity.cucumber.version>
         <cucumber.version>6.10.4</cucumber.version>
-        <logback.version>1.2.3</logback.version>
+        <logback.version>1.2.7</logback.version>
         <encoding>UTF-8</encoding>
         <parallel.tests>4</parallel.tests>
         <webdriver.base.url/>
@@ -37,8 +37,8 @@
         <springfox.swagger2.version>3.0.0</springfox.swagger2.version>
         <springfox.swagger-ui.version>3.0.0</springfox.swagger-ui.version>
         <json.version>20210307</json.version>
-        <netty.codec.http.version>4.1.68.Final</netty.codec.http.version>
-        <netty.codec.http2.version>4.1.68.Final</netty.codec.http2.version>
+        <netty.codec.http.version>4.1.71.Final</netty.codec.http.version>
+        <netty.codec.http2.version>4.1.71.Final</netty.codec.http2.version>
         <netty.transport.native.epoll.version>4.1.65.Final</netty.transport.native.epoll.version>
         <guava.version>30.1.1-jre</guava.version>
         <httpclient.version>4.5.13</httpclient.version>
@@ -55,7 +55,7 @@
         <maven-failsafe-plugin.version>3.0.0-M5</maven-failsafe-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <pact.provider-plugin.version>4.2.7</pact.provider-plugin.version>
-        <maven-pmd-plugin.version>3.14.0</maven-pmd-plugin.version>
+        <maven-pmd-plugin.version>3.15.0</maven-pmd-plugin.version>
         <findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
         <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
     </properties>
