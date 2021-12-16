@@ -47,13 +47,17 @@
         <owasp-dependency-check-plugin.version>6.5.0</owasp-dependency-check-plugin.version>
         <auth0-spring-security-api.version>1.4.1</auth0-spring-security-api.version>
         <io-projectreactor-netty.version>1.0.8</io-projectreactor-netty.version>
+        <netty.codec.http.version>4.1.72.Final</netty.codec.http.version>
+        <netty.codec.http2.version>4.1.72.Final</netty.codec.http2.version>
+        <netty.transport.native.epoll.version>4.1.72.Final</netty.transport.native.epoll.version>
         <log4j-version>2.16.0</log4j-version>
+        <logback.version>1.2.7</logback.version>
 
         <fmt-maven-plugin.version>2.13</fmt-maven-plugin.version>
         <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
         <puppycrawl-tools-checkstyle.version>9.2</puppycrawl-tools-checkstyle.version>
         <spotbugs-maven-plugin.version>4.2.3</spotbugs-maven-plugin.version>
-        <spotbugs.version>4.2.3</spotbugs.version>
+        <spotbugs.version>4.5.2</spotbugs.version>
         <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
 
         <!-- Set 'pact.broker.url' and 'pact.broker.token' -->
@@ -78,6 +82,29 @@
     </repositories>
 
     <dependencies>
+
+        <!-- NETTY dependencies -->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-codec</artifactId>
+            <version>${netty.codec.http.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-codec-http</artifactId>
+            <version>${netty.codec.http.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-codec-http2</artifactId>
+            <version>${netty.codec.http2.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
 
         <!-- STACKS dependencies -->
         <dependency>
