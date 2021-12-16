@@ -51,12 +51,13 @@
         <netty.codec.http2.version>4.1.72.Final</netty.codec.http2.version>
         <netty.transport.native.epoll.version>4.1.72.Final</netty.transport.native.epoll.version>
         <log4j-version>2.16.0</log4j-version>
-        <logback.version>1.2.7</logback.version>
+        <logback.version>1.2.8</logback.version>
+        <com.google.code.gson-version>2.8.9</com.google.code.gson-version>
 
         <fmt-maven-plugin.version>2.13</fmt-maven-plugin.version>
         <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
         <puppycrawl-tools-checkstyle.version>9.2</puppycrawl-tools-checkstyle.version>
-        <spotbugs-maven-plugin.version>4.2.3</spotbugs-maven-plugin.version>
+        <spotbugs-maven-plugin.version>4.5.0.0</spotbugs-maven-plugin.version>
         <spotbugs.version>4.5.2</spotbugs.version>
         <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
 
@@ -82,6 +83,13 @@
     </repositories>
 
     <dependencies>
+
+        <!-- https://security.snyk.io/vuln/SNYK-JAVA-COMGOOGLECODEGSON-1730327 -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${com.google.code.gson-version}</version>
+        </dependency>
 
         <!-- NETTY dependencies -->
         <dependency>
