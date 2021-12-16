@@ -36,11 +36,11 @@
         <byte.buddy.version>1.11.5</byte.buddy.version>
         <springfox.swagger2.version>3.0.0</springfox.swagger2.version>
         <springfox.swagger-ui.version>3.0.0</springfox.swagger-ui.version>
-        <json.version>20210307</json.version>
         <netty.codec.http.version>4.1.72.Final</netty.codec.http.version>
         <netty.codec.http2.version>4.1.72.Final</netty.codec.http2.version>
         <netty.transport.native.epoll.version>4.1.72.Final</netty.transport.native.epoll.version>
-        <guava.version>30.1.1-jre</guava.version>
+        <json.version>20211205</json.version>
+        <guava.version>31.0.1-jre</guava.version>
         <httpclient.version>4.5.13</httpclient.version>
         <xerces.version>2.12.1</xerces.version>
         <commons.codec.version>1.15</commons.codec.version>
@@ -49,7 +49,7 @@
         <!-- Maven plugins -->
         <spotbugs-maven-plugin.version>4.2.3</spotbugs-maven-plugin.version>
         <owasp-dependency-check-plugin.version>6.2.2</owasp-dependency-check-plugin.version>
-        <fmt-maven-plugin.version>2.11</fmt-maven-plugin.version>
+        <fmt-maven-plugin.version>2.13</fmt-maven-plugin.version>
         <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <maven-failsafe-plugin.version>3.0.0-M5</maven-failsafe-plugin.version>
