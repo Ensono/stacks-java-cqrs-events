@@ -90,6 +90,8 @@ variables:
     value: 0
   - name: version_patch
     value: 0
+  - name: version_number
+    value: $(version_major).$(version_minor).$(version_patch)
 
   # PR / Branch vars
   - name: source_branch_ref
@@ -840,3 +842,40 @@ stages:
                         SB_SUBSCRIPTION: servicebus_subscription,
                         SB_CONNECTION_STRING: servicebus_connectionstring,
                       }
+
+  - stage: Release
+    dependsOn:
+      - Build
+      - Prod
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(variables['create_release'], 'true'))
+    variables:
+      - group: amido-stacks-infra-credentials-nonprod
+    jobs:
+      - job: CreateGitHubRelease
+        pool:
+          vmImage: $(pool_vm_image)
+        steps:
+          # Check out the repo so that it can be tagged
+          - checkout: self
+            persistCredentials: true
+
+          # Create a tag in the code for this release
+          - task: Bash@3
+            displayName: Tag Code
+            inputs:
+              targetType: "inline"
+              script: |
+                git config user.name "BuildService"
+                git config user.email "builder@${COMPANY}.com"
+                git tag -a v${VERSION_NUMBER} -m "Release created by Azure DevOps"
+                git push origin v${VERSION_NUMBER}
+            env:
+              COMPANY: $(company)
+
+          # Create a GitHub release with these packages
+          - task: GitHubRelease@0
+            displayName: Create GitHub Release
+            inputs:
+              gitHubConnection: $(github_release_service_connection)
+              repositoryName: $(github_org)/$(self_repo)
+              tag: $(version_number)
