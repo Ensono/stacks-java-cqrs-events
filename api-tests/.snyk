@@ -1,0 +1,15 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.14.0
+ignore: 
+    snyk:lic:maven:ch.qos.logback:logback-classic:EPL-1.0_OR_LGPL-2.1:
+        - '*':
+            reason: Use of the library is consistent with commercial use as we are not making changes, only consuming it as part of commercial work.
+            expires: '2030-01-01T00:00:00.000Z'
+    snyk:lic:maven:ch.qos.logback:logback-core:EPL-1.0_OR_LGPL-2.1:
+        - '*':
+            reason: Use of the library is consistent with commercial use as we are not making changes, only consuming it as part of commercial work.
+            expires: '2030-01-01T00:00:00.000Z'
+    SNYK:LIC:MAVEN:JUNIT:JUNIT:EPL-1.0:
+        - '*':
+            reason: Use of the library is consistent with commercial use as we are not making changes, only consuming it as part of commercial work.
+            expires: '2030-01-01T00:00:00.000Z'
