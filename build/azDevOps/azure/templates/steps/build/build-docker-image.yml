@@ -3,7 +3,7 @@ parameters:
   pipeline_scripts_directory: ""
   # Docker
   docker_k8s_container: ""
-  docker_build_additional_args: ""
+  docker_build_additional_args: "--build-arg OPEN_TELEMETRY_VERSION=v1.9.1"
   docker_image_name: ""
   docker_image_tag: ""
   docker_container_registry_name: ""
