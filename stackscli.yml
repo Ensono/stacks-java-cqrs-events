@@ -227,4 +227,4 @@ init:
               -P clean-workload
               -Dtarget.dir={{ .Project.Directory.WorkingDir }}
               --quiet
-      desc: Downloading maven dependencies for the api-tests-karate project
+      desc: Cleaning the project folder
