@@ -39,6 +39,7 @@ init:
       args: process-resources
               -f stacksclipom.xml
               -P copy-devops-resources
+              -P generate-settings-file
               -Dtarget.dir={{ .Project.Directory.WorkingDir }}
               --quiet
       desc: Coping build and deploy pipelines into the project structure
@@ -49,6 +50,7 @@ init:
       args: clean archetype:create-from-project
               -f ./java/pom.xml
               -DpropertyFile=./java/archetype.properties
+              -s {{ .Project.Directory.WorkingDir }}/settings.xml
               --quiet
       desc: Creating the archetype resources using the cqrs+events source code
 
@@ -119,6 +121,7 @@ init:
       args: clean archetype:create-from-project
               -f ./api-tests/pom-temp.xml
               -DpropertyFile=./api-tests/archetype.properties
+              -s {{ .Project.Directory.WorkingDir }}/settings.xml
               --quiet
       desc: Creating the archetype resources using the api-test source code
 
@@ -179,6 +182,7 @@ init:
       args: clean archetype:create-from-project
               -f ./api-tests-karate/pom.xml
               -DpropertyFile=./api-tests-karate/archetype.properties
+              -s {{ .Project.Directory.WorkingDir }}/settings.xml
               --quiet
       desc: Creating the archetype resources using the api-test-karate source code
 
@@ -213,5 +217,14 @@ init:
       cmd: mvn
       args: dependency:resolve
               -f {{ .Project.Directory.WorkingDir }}/api-tests-karate/pom.xml
+              --quiet
+      desc: Downloading maven dependencies for the api-tests-karate project
+
+    - action: cmd
+      cmd: mvn
+      args: clean
+              -f stacksclipom.xml
+              -P clean-workload
+              -Dtarget.dir={{ .Project.Directory.WorkingDir }}
               --quiet
       desc: Downloading maven dependencies for the api-tests-karate project
