@@ -88,6 +88,39 @@
     </profile>
 
     <profile>
+      <id>generate-settings-file</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>ru.yaal.maven</groupId>
+            <artifactId>write-text-files-maven-plugin</artifactId>
+            <version>1.1</version>
+            <configuration>
+              <charset>UTF-8</charset>
+              <files>
+                <file>
+                  <path>${output.basedir}/settings.xml</path>
+                  <lines>
+                    <line><![CDATA[<settings></settings>]]></line>
+                  </lines>
+                </file>
+              </files>
+            </configuration>
+            <executions>
+              <execution>
+                <id>generate-settings-file</id>
+                <phase>generate-sources</phase>
+                <goals>
+                  <goal>write-text-files</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
       <id>rename-source-folder</id>
       <build>
         <plugins>
@@ -108,6 +141,29 @@
                 </configuration>
               </execution>
             </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>clean-workload</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-clean-plugin</artifactId>
+            <version>3.1.0</version>
+            <configuration>
+              <filesets>
+                <fileset>
+                  <directory>${output.basedir}</directory>
+                  <includes>
+                    <include>**/settings.xml</include>
+                  </includes>
+                  <followSymlinks>false</followSymlinks>
+                </fileset>
+              </filesets>
+            </configuration>
           </plugin>
         </plugins>
       </build>
