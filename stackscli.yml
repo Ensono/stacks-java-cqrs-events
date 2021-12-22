@@ -42,7 +42,7 @@ init:
               -P generate-settings-file
               -Dtarget.dir={{ .Project.Directory.WorkingDir }}
               --quiet
-      desc: Coping build and deploy pipelines into the project structure
+      desc: Copying build and deploy pipelines into the project structure
 
     # Build archetype for the main code
     - action: cmd
