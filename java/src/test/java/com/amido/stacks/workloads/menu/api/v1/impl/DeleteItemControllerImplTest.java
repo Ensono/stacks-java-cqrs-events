@@ -18,6 +18,7 @@ import com.amido.stacks.workloads.menu.domain.MenuHelper;
 import com.amido.stacks.workloads.menu.repository.MenuRepository;
 import com.amido.stacks.workloads.util.TestHelper;
 import com.azure.spring.autoconfigure.cosmos.CosmosAutoConfiguration;
+import com.azure.spring.autoconfigure.cosmos.CosmosHealthConfiguration;
 import com.azure.spring.autoconfigure.cosmos.CosmosRepositoriesAutoConfiguration;
 import java.util.Optional;
 import java.util.UUID;
@@ -35,23 +36,29 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 
-/** @author ArathyKrishna */
+/**
+ * @author ArathyKrishna
+ */
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
     classes = Application.class)
 @EnableAutoConfiguration(
-    exclude = {CosmosRepositoriesAutoConfiguration.class, CosmosAutoConfiguration.class})
+    exclude = {CosmosRepositoriesAutoConfiguration.class, CosmosAutoConfiguration.class,
+        CosmosHealthConfiguration.class})
 @Tag("Integration")
 @ActiveProfiles("test")
 class DeleteItemControllerImplTest {
 
   public static final String DELETE_ITEM = "%s/v1/menu/%s/category/%s/items/%s";
 
-  @LocalServerPort private int port;
+  @LocalServerPort
+  private int port;
 
-  @Autowired private TestRestTemplate testRestTemplate;
+  @Autowired
+  private TestRestTemplate testRestTemplate;
 
-  @MockBean private MenuRepository repository;
+  @MockBean
+  private MenuRepository repository;
 
   @AfterEach
   void tearDown() {

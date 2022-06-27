@@ -24,6 +24,7 @@ import com.amido.stacks.workloads.menu.mappers.DomainToDtoMapper;
 import com.amido.stacks.workloads.menu.repository.MenuRepository;
 import com.amido.stacks.workloads.util.TestHelper;
 import com.azure.spring.autoconfigure.cosmos.CosmosAutoConfiguration;
+import com.azure.spring.autoconfigure.cosmos.CosmosHealthConfiguration;
 import com.azure.spring.autoconfigure.cosmos.CosmosRepositoriesAutoConfiguration;
 import java.util.Arrays;
 import java.util.Collections;
@@ -48,16 +49,20 @@ import org.springframework.test.context.ActiveProfiles;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
     classes = Application.class)
 @EnableAutoConfiguration(
-    exclude = {CosmosRepositoriesAutoConfiguration.class, CosmosAutoConfiguration.class})
+    exclude = {CosmosRepositoriesAutoConfiguration.class, CosmosAutoConfiguration.class,
+        CosmosHealthConfiguration.class})
 @Tag("Integration")
 @ActiveProfiles("test")
 public class QueryMenuControllerImplTest {
 
-  @LocalServerPort private int port;
+  @LocalServerPort
+  private int port;
 
-  @Autowired private TestRestTemplate testRestTemplate;
+  @Autowired
+  private TestRestTemplate testRestTemplate;
 
-  @MockBean private MenuRepository menuRepository;
+  @MockBean
+  private MenuRepository menuRepository;
 
   final int DEFAULT_PAGE_NUMBER = 1;
   final int DEFAULT_PAGE_SIZE = 20;
@@ -91,7 +96,7 @@ public class QueryMenuControllerImplTest {
   public void listMenusFilteredByRestaurantId() {
 
     // Given
-    final UUID restaurantId = randomUUID();
+    UUID restaurantId = randomUUID();
 
     List<Menu> menuList = createMenus(3);
     Menu match = menuList.get(0);
@@ -124,11 +129,11 @@ public class QueryMenuControllerImplTest {
   @Test
   public void listMenusFilteredByRestaurantIdAndSearchTerm() {
     // Given
-    final UUID restaurantId = randomUUID();
+    UUID restaurantId = randomUUID();
     final String searchTerm = "searchTermString";
 
     when(menuRepository.findAllByRestaurantIdAndNameContaining(
-            eq(restaurantId.toString()), eq(searchTerm), any(Pageable.class)))
+        eq(restaurantId.toString()), eq(searchTerm), any(Pageable.class)))
         .thenReturn(new PageImpl<>(Collections.emptyList()));
 
     // When
