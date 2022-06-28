@@ -2,7 +2,6 @@ package com.amido.stacks.workloads.menu.events;
 
 import com.amido.stacks.workloads.menu.commands.MenuCommand;
 
-/** @author ArathyKrishna */
 public class MenuDeletedEvent extends MenuEvent {
 
   private static final int EVENT_CODE = 103;
