@@ -6,6 +6,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 import com.amido.stacks.workloads.Application;
 import com.amido.stacks.workloads.menu.repository.MenuRepository;
 import com.azure.spring.autoconfigure.cosmos.CosmosAutoConfiguration;
+import com.azure.spring.autoconfigure.cosmos.CosmosHealthConfiguration;
 import com.azure.spring.autoconfigure.cosmos.CosmosRepositoriesAutoConfiguration;
 import java.util.Map;
 import org.junit.jupiter.api.Tag;
@@ -24,7 +25,11 @@ import org.springframework.test.context.TestPropertySource;
     classes = Application.class)
 @TestPropertySource(properties = {"management.port=0"})
 @EnableAutoConfiguration(
-    exclude = {CosmosRepositoriesAutoConfiguration.class, CosmosAutoConfiguration.class})
+    exclude = {
+      CosmosRepositoriesAutoConfiguration.class,
+      CosmosAutoConfiguration.class,
+      CosmosHealthConfiguration.class
+    })
 @Tag("Component")
 class ActuatorTest {
 

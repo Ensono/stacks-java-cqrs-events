@@ -3,7 +3,6 @@ package com.amido.stacks.workloads.menu.events;
 import com.amido.stacks.workloads.menu.commands.MenuCommand;
 import java.util.UUID;
 
-/** @author ArathyKrishna */
 public class ItemDeletedEvent extends MenuItemEvent {
 
   private static final int EVENT_CODE = 303;
