@@ -15,6 +15,7 @@ import com.amido.stacks.workloads.menu.api.v1.dto.request.CreateMenuRequest;
 import com.amido.stacks.workloads.menu.domain.Menu;
 import com.amido.stacks.workloads.menu.repository.MenuRepository;
 import com.azure.spring.autoconfigure.cosmos.CosmosAutoConfiguration;
+import com.azure.spring.autoconfigure.cosmos.CosmosHealthConfiguration;
 import com.azure.spring.autoconfigure.cosmos.CosmosRepositoriesAutoConfiguration;
 import java.util.Arrays;
 import java.util.Collections;
@@ -36,7 +37,11 @@ import org.springframework.test.context.ActiveProfiles;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
     classes = Application.class)
 @EnableAutoConfiguration(
-    exclude = {CosmosRepositoriesAutoConfiguration.class, CosmosAutoConfiguration.class})
+    exclude = {
+      CosmosRepositoriesAutoConfiguration.class,
+      CosmosAutoConfiguration.class,
+      CosmosHealthConfiguration.class
+    })
 @Tag("Integration")
 @ActiveProfiles("test")
 class CreateMenuControllerImplTest {
