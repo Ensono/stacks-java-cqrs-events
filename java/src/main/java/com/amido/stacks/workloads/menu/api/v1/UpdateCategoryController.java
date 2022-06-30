@@ -9,18 +9,22 @@ import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/** @author ArathyKrishna */
-@RequestMapping("/v1/menu/{id}/category/{categoryId}")
+/**
+ * @author ArathyKrishna
+ */
+@RequestMapping(
+    path = "/v1/menu/{id}/category/{categoryId}",
+    consumes = "application/json",
+    produces = "application/json; charset=utf-8",
+    method = RequestMethod.PUT)
 public interface UpdateCategoryController {
 
-  @PutMapping(consumes = "application/json", produces = "application/json; charset=utf-8")
+  @PutMapping
   @Operation(
       tags = "Category",
       summary = "Update a category in the menu",
       description = "Update a category to menu",
       operationId = "UpdateMenuCategory")
-
-
   @UpdateAPIResponses
   ResponseEntity<ResourceUpdatedResponse> updateMenuCategory(
       @Parameter(description = "Menu id", required = true) @PathVariable("id") UUID menuId,
