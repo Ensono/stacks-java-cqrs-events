@@ -9,37 +9,36 @@ import com.amido.stacks.workloads.menu.api.v1.dto.response.SearchMenuResult;
 import com.amido.stacks.workloads.menu.commands.MenuCommand;
 import com.amido.stacks.workloads.menu.domain.Menu;
 import com.amido.stacks.workloads.menu.exception.MenuNotFoundException;
-import com.amido.stacks.workloads.menu.mappers.DomainToDtoMapper;
+import com.amido.stacks.workloads.menu.mappers.MenuMapper;
+import com.amido.stacks.workloads.menu.mappers.SearchMenuResultItemMapper;
 import com.amido.stacks.workloads.menu.service.MenuQueryService;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-/** MenuControllerImpl - MenuDTO Controller used to interact and manage menus API. */
 @RestController
 public class QueryMenuControllerImpl implements QueryMenuController {
 
   Logger logger = LoggerFactory.getLogger(QueryMenuControllerImpl.class);
 
-  private DomainToDtoMapper mapper;
+  @Autowired private SearchMenuResultItemMapper searchMenuResultItemMapper;
+
+  @Autowired private MenuMapper menuMapper;
 
   private MenuQueryService menuQueryService;
 
-  public QueryMenuControllerImpl(DomainToDtoMapper mapper, MenuQueryService menuQueryService) {
-    this.mapper = mapper;
+  public QueryMenuControllerImpl(MenuQueryService menuQueryService) {
     this.menuQueryService = menuQueryService;
   }
 
   @Override
   public ResponseEntity<SearchMenuResult> searchMenu(
-      final String searchTerm,
-      final UUID restaurantId,
-      final Integer pageSize,
-      final Integer pageNumber) {
+      String searchTerm, UUID restaurantId, Integer pageSize, Integer pageNumber) {
     List<Menu> menuList;
 
     if (isNotEmpty(searchTerm) && nonNull(restaurantId)) {
@@ -59,16 +58,16 @@ public class QueryMenuControllerImpl implements QueryMenuController {
             pageSize,
             pageNumber,
             menuList.stream()
-                .map(m -> mapper.toSearchMenuResultItem(m))
+                .map(m -> searchMenuResultItemMapper.toDto(m))
                 .collect(Collectors.toList())));
   }
 
   @Override
-  public ResponseEntity<MenuDTO> getMenu(final UUID id, final String correlationId) {
+  public ResponseEntity<MenuDTO> getMenu(UUID id, String correlationId) {
     Menu menu =
         this.menuQueryService
             .findById(id)
             .orElseThrow(() -> new MenuNotFoundException(new MenuCommand(correlationId, id)));
-    return ResponseEntity.ok(mapper.toMenuDto(menu));
+    return ResponseEntity.ok(menuMapper.toDto(menu));
   }
 }
