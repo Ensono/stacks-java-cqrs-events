@@ -28,6 +28,13 @@ public interface QueryMenuController {
       summary = "Get or search a list of menus",
       description =
           "By passing in the appropriate options, you can search for available menus in the system")
+  @ApiResponse(
+      responseCode = "200",
+      description = "Success",
+      content =
+          @Content(
+              mediaType = "application/json",
+              schema = @Schema(implementation = SearchMenuResult.class)))
   @SearchAPIResponses
   ResponseEntity<SearchMenuResult> searchMenu(
       @RequestParam(value = "searchTerm", required = false) String searchTerm,
