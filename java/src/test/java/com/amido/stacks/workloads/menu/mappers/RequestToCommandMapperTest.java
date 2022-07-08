@@ -1,6 +1,6 @@
 package com.amido.stacks.workloads.menu.mappers;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 import com.amido.stacks.workloads.menu.api.v1.dto.request.CreateCategoryRequest;
 import com.amido.stacks.workloads.menu.api.v1.dto.request.CreateItemRequest;
@@ -8,12 +8,44 @@ import com.amido.stacks.workloads.menu.api.v1.dto.request.CreateMenuRequest;
 import com.amido.stacks.workloads.menu.commands.CreateCategoryCommand;
 import com.amido.stacks.workloads.menu.commands.CreateItemCommand;
 import com.amido.stacks.workloads.menu.commands.CreateMenuCommand;
+import com.amido.stacks.workloads.menu.mappers.commands.CreateCategoryMapper;
+import com.amido.stacks.workloads.menu.mappers.commands.CreateCategoryMapperImpl;
+import com.amido.stacks.workloads.menu.mappers.commands.CreateItemMapper;
+import com.amido.stacks.workloads.menu.mappers.commands.CreateItemMapperImpl;
+import com.amido.stacks.workloads.menu.mappers.commands.CreateMenuMapper;
+import com.amido.stacks.workloads.menu.mappers.commands.CreateMenuMapperImpl;
+import com.amido.stacks.workloads.menu.mappers.commands.UpdateCategoryMapper;
+import com.amido.stacks.workloads.menu.mappers.commands.UpdateCategoryMapperImpl;
+import com.amido.stacks.workloads.menu.mappers.commands.UpdateItemMapper;
+import com.amido.stacks.workloads.menu.mappers.commands.UpdateItemMapperImpl;
+import com.amido.stacks.workloads.menu.mappers.commands.UpdateMenuMapper;
+import com.amido.stacks.workloads.menu.mappers.commands.UpdateMenuMapperImpl;
 import java.util.UUID;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 @Tag("Unit")
+@SpringBootTest(
+    classes = {
+      CreateMenuMapper.class,
+      CreateMenuMapperImpl.class,
+      UpdateMenuMapper.class,
+      UpdateMenuMapperImpl.class,
+      CreateCategoryMapper.class,
+      CreateCategoryMapperImpl.class,
+      UpdateCategoryMapper.class,
+      UpdateCategoryMapperImpl.class,
+      CreateItemMapper.class,
+      CreateItemMapperImpl.class,
+      UpdateItemMapper.class,
+      UpdateItemMapperImpl.class,
+      RequestToCommandMapper.class
+    })
 class RequestToCommandMapperTest {
+
+  @Autowired private RequestToCommandMapper requestToCommandMapper;
 
   @Test
   void createMenuRequestToCommand() {
@@ -27,7 +59,7 @@ class RequestToCommandMapperTest {
     CreateMenuRequest request = new CreateMenuRequest(name, description, tenantId, enabled);
 
     // When
-    CreateMenuCommand command = RequestToCommandMapper.map(correlationId, request);
+    CreateMenuCommand command = requestToCommandMapper.map(correlationId, request);
 
     // Then
     assertEquals(correlationId, command.getCorrelationId());
@@ -48,7 +80,7 @@ class RequestToCommandMapperTest {
     CreateCategoryRequest request = new CreateCategoryRequest(name, description);
 
     // When
-    CreateCategoryCommand command = RequestToCommandMapper.map(correlationId, menuId, request);
+    CreateCategoryCommand command = requestToCommandMapper.map(correlationId, menuId, request);
 
     // Then
     assertEquals(correlationId, command.getCorrelationId());
@@ -72,7 +104,7 @@ class RequestToCommandMapperTest {
 
     // When
     CreateItemCommand command =
-        RequestToCommandMapper.map(correlationId, menuId, categoryId, request);
+        requestToCommandMapper.map(correlationId, menuId, categoryId, request);
 
     // Then
     assertEquals(correlationId, command.getCorrelationId());
