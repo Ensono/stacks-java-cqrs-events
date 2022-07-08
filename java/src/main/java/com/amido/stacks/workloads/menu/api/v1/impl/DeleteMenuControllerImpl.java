@@ -9,11 +9,6 @@ import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * DeleteMenuController implementation.
- *
- * @author ArathyKrishna
- */
 @RestController
 public class DeleteMenuControllerImpl implements DeleteMenuController {
 
