@@ -1,10 +1,11 @@
 package com.amido.stacks.workloads.menu.api.v1;
 
+import com.amido.stacks.core.api.annotations.UpdateAPIResponses;
+import com.amido.stacks.core.api.dto.response.ResourceUpdatedResponse;
 import com.amido.stacks.workloads.menu.api.v1.dto.request.UpdateMenuRequest;
-import com.amido.stacks.workloads.menu.api.v1.dto.response.ResourceUpdatedResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +14,8 @@ import java.util.UUID;
 
 @RequestMapping(
     path = "/v1/menu/{id}",
-    consumes = "application/json",
-    produces = "application/json; charset=utf-8",
+    consumes = MediaType.APPLICATION_JSON_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE + "; charset=utf-8",
     method = RequestMethod.PUT)
 public interface UpdateMenuController {
 
@@ -22,7 +23,6 @@ public interface UpdateMenuController {
   @Operation(
       tags = "Menu",
       summary = "Update a menu",
-      security = @SecurityRequirement(name = "bearerAuth"),
       description = "Update a menu with new information")
   @UpdateAPIResponses
   ResponseEntity<ResourceUpdatedResponse> updateMenu(
