@@ -1,18 +1,17 @@
 package com.amido.stacks.workloads.menu.api.v1.impl;
 
+import static com.amido.stacks.workloads.menu.mappers.RequestToCommandMapper.map;
+
 import com.amido.stacks.core.api.dto.response.ResourceUpdatedResponse;
 import com.amido.stacks.workloads.menu.api.v1.UpdateMenuController;
 import com.amido.stacks.workloads.menu.api.v1.dto.request.UpdateMenuRequest;
 import com.amido.stacks.workloads.menu.commands.UpdateMenuCommand;
 import com.amido.stacks.workloads.menu.handlers.UpdateMenuHandler;
+import java.util.UUID;
+import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
-import java.util.UUID;
-
-import static com.amido.stacks.workloads.menu.mappers.RequestToCommandMapper.map;
 
 @RestController
 public class UpdateMenuControllerImpl implements UpdateMenuController {
