@@ -1,73 +1,34 @@
 package com.amido.stacks.workloads.menu.api.v1;
 
-import com.amido.stacks.core.api.dto.ErrorResponse;
+import com.amido.stacks.core.api.annotations.UpdateAPIResponses;
+import com.amido.stacks.core.api.dto.response.ResourceUpdatedResponse;
 import com.amido.stacks.workloads.menu.api.v1.dto.request.UpdateItemRequest;
-import com.amido.stacks.workloads.menu.api.v1.dto.response.ResourceUpdatedResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.UUID;
 import javax.validation.Valid;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-/** @author ArathyKrishna */
-@RequestMapping("/v1/menu/{id}/category/{categoryId}/items/{itemId}")
+@RequestMapping(
+    path = "/v1/menu/{id}/category/{categoryId}/items/{itemId}",
+    consumes = MediaType.APPLICATION_JSON_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE + "; charset=utf-8",
+    method = RequestMethod.PUT)
 public interface UpdateItemController {
-  @PutMapping(consumes = "application/json", produces = "application/json; charset=utf-8")
+  @PutMapping
   @Operation(
       tags = "Item",
       summary = "Update an item in the menu",
-      security = @SecurityRequirement(name = "bearerAuth"),
       description = "Update an item in the menu",
-      operationId = "UpdateMenuItem",
-      responses = {
-        @ApiResponse(
-            responseCode = "200",
-            description = "Success",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ResourceUpdatedResponse.class))),
-        @ApiResponse(
-            responseCode = "204",
-            description = "No Content",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "400",
-            description = "Bad Request",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "401",
-            description = "Unauthorized, Access token is missing or invalid",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "403",
-            description = "Forbidden, the user does not have permission to execute this operation",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "404",
-            description = "Resource not found",
-            content =
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ErrorResponse.class)))
-      })
+      operationId = "UpdateMenuItem")
+  @UpdateAPIResponses
   ResponseEntity<ResourceUpdatedResponse> updateItem(
       @Parameter(description = "Menu id", required = true) @PathVariable("id") UUID menuId,
       @Parameter(description = "Category id", required = true) @PathVariable("categoryId")

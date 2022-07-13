@@ -1,8 +1,8 @@
 package com.amido.stacks.workloads.menu.api.v1.impl;
 
+import com.amido.stacks.core.api.dto.response.ResourceUpdatedResponse;
 import com.amido.stacks.workloads.menu.api.v1.UpdateItemController;
 import com.amido.stacks.workloads.menu.api.v1.dto.request.UpdateItemRequest;
-import com.amido.stacks.workloads.menu.api.v1.dto.response.ResourceUpdatedResponse;
 import com.amido.stacks.workloads.menu.handlers.UpdateItemHandler;
 import com.amido.stacks.workloads.menu.mappers.RequestToCommandMapper;
 import java.util.UUID;
