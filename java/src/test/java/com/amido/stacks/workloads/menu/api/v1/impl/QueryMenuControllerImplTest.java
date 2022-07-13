@@ -20,7 +20,8 @@ import com.amido.stacks.workloads.menu.api.v1.dto.response.SearchMenuResultItem;
 import com.amido.stacks.workloads.menu.domain.Category;
 import com.amido.stacks.workloads.menu.domain.Item;
 import com.amido.stacks.workloads.menu.domain.Menu;
-import com.amido.stacks.workloads.menu.mappers.DomainToDtoMapper;
+import com.amido.stacks.workloads.menu.mappers.MenuMapper;
+import com.amido.stacks.workloads.menu.mappers.SearchMenuResultItemMapper;
 import com.amido.stacks.workloads.menu.repository.MenuRepository;
 import com.amido.stacks.workloads.util.TestHelper;
 import com.azure.spring.autoconfigure.cosmos.CosmosAutoConfiguration;
@@ -64,6 +65,10 @@ public class QueryMenuControllerImplTest {
 
   @MockBean private MenuRepository menuRepository;
 
+  @Autowired private MenuMapper menuMapper;
+
+  @Autowired private SearchMenuResultItemMapper searchMenuResultItemMapper;
+
   final int DEFAULT_PAGE_NUMBER = 1;
   final int DEFAULT_PAGE_SIZE = 20;
 
@@ -106,7 +111,7 @@ public class QueryMenuControllerImplTest {
 
     List<SearchMenuResultItem> expectedMenuList =
         matching.stream()
-            .map(DomainToDtoMapper::toSearchMenuResultItem)
+            .map(m -> searchMenuResultItemMapper.toDto(m))
             .collect(Collectors.toList());
 
     SearchMenuResult expectedResponse =
@@ -174,7 +179,7 @@ public class QueryMenuControllerImplTest {
             UUID.randomUUID().toString(), "cat name", "cat description", Arrays.asList(item));
     menu.addOrUpdateCategory(category);
 
-    MenuDTO expectedResponse = DomainToDtoMapper.toMenuDto(menu);
+    MenuDTO expectedResponse = menuMapper.toDto(menu);
 
     when(menuRepository.findById(menu.getId())).thenReturn(Optional.of(menu));
 
