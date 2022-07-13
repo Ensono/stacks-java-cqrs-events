@@ -2,9 +2,9 @@ package com.amido.stacks.workloads.menu.api.v1.impl;
 
 import static org.springframework.http.HttpStatus.OK;
 
+import com.amido.stacks.core.api.dto.response.ResourceUpdatedResponse;
 import com.amido.stacks.workloads.menu.api.v1.UpdateCategoryController;
 import com.amido.stacks.workloads.menu.api.v1.dto.request.UpdateCategoryRequest;
-import com.amido.stacks.workloads.menu.api.v1.dto.response.ResourceUpdatedResponse;
 import com.amido.stacks.workloads.menu.handlers.UpdateCategoryHandler;
 import com.amido.stacks.workloads.menu.mappers.RequestToCommandMapper;
 import java.util.UUID;
