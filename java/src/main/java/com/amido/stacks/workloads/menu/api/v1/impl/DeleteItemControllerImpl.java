@@ -9,7 +9,6 @@ import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-/** @author ArathyKrishna */
 @RestController
 public class DeleteItemControllerImpl implements DeleteItemController {
 

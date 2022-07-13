@@ -12,53 +12,88 @@ import com.amido.stacks.workloads.menu.commands.CreateMenuCommand;
 import com.amido.stacks.workloads.menu.commands.UpdateCategoryCommand;
 import com.amido.stacks.workloads.menu.commands.UpdateItemCommand;
 import com.amido.stacks.workloads.menu.commands.UpdateMenuCommand;
+import com.amido.stacks.workloads.menu.mappers.commands.CreateCategoryMapper;
+import com.amido.stacks.workloads.menu.mappers.commands.CreateItemMapper;
+import com.amido.stacks.workloads.menu.mappers.commands.CreateMenuMapper;
+import com.amido.stacks.workloads.menu.mappers.commands.UpdateCategoryMapper;
+import com.amido.stacks.workloads.menu.mappers.commands.UpdateItemMapper;
+import com.amido.stacks.workloads.menu.mappers.commands.UpdateMenuMapper;
 import java.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RequestToCommandMapper {
 
-  public static CreateMenuCommand map(String correlationId, CreateMenuRequest r) {
-    return new CreateMenuCommand(
-        correlationId, r.getName(), r.getDescription(), r.getTenantId(), r.getEnabled());
+  @Autowired private CreateMenuMapper createMenuMapper;
+
+  @Autowired private UpdateMenuMapper updateMenuMapper;
+
+  @Autowired private CreateCategoryMapper createCategoryMapper;
+
+  @Autowired private UpdateCategoryMapper updateCategoryMapper;
+
+  @Autowired private CreateItemMapper createItemMapper;
+
+  @Autowired private UpdateItemMapper updateItemMapper;
+
+  public CreateMenuCommand map(String correlationId, CreateMenuRequest r) {
+
+    CreateMenuCommand createMenuCommand = createMenuMapper.fromDto(r);
+    createMenuCommand.setCorrelationId(correlationId);
+
+    return createMenuCommand;
   }
 
-  public static UpdateMenuCommand map(String correlationId, UUID menuId, UpdateMenuRequest r) {
-    return new UpdateMenuCommand(
-        correlationId, menuId, r.getName(), r.getDescription(), r.getEnabled());
+  public UpdateMenuCommand map(String correlationId, UUID menuId, UpdateMenuRequest r) {
+
+    UpdateMenuCommand updateMenuCommand = updateMenuMapper.fromDto(r);
+    updateMenuCommand.setCorrelationId(correlationId);
+    updateMenuCommand.setMenuId(menuId);
+
+    return updateMenuCommand;
   }
 
-  public static CreateCategoryCommand map(
-      String correlationId, UUID menuId, CreateCategoryRequest r) {
-    return new CreateCategoryCommand(correlationId, menuId, r.getName(), r.getDescription());
+  public CreateCategoryCommand map(String correlationId, UUID menuId, CreateCategoryRequest r) {
+
+    CreateCategoryCommand createCategoryCommand = createCategoryMapper.fromDto(r);
+    createCategoryCommand.setCorrelationId(correlationId);
+    createCategoryCommand.setMenuId(menuId);
+
+    return createCategoryCommand;
   }
 
-  public static UpdateCategoryCommand map(
+  public UpdateCategoryCommand map(
       String correlationId, UUID menuId, UUID categoryId, UpdateCategoryRequest r) {
-    return new UpdateCategoryCommand(
-        correlationId, menuId, categoryId, r.getName(), r.getDescription());
+
+    UpdateCategoryCommand updateCategoryCommand = updateCategoryMapper.fromDto(r);
+    updateCategoryCommand.setCorrelationId(correlationId);
+    updateCategoryCommand.setMenuId(menuId);
+    updateCategoryCommand.setCategoryId(categoryId);
+
+    return updateCategoryCommand;
   }
 
-  public static CreateItemCommand map(
+  public CreateItemCommand map(
       String correlationId, UUID menuId, UUID categoryId, CreateItemRequest r) {
-    return new CreateItemCommand(
-        correlationId,
-        menuId,
-        categoryId,
-        r.getName(),
-        r.getDescription(),
-        r.getPrice(),
-        r.getAvailable());
+
+    CreateItemCommand createItemCommand = createItemMapper.fromDto(r);
+    createItemCommand.setCorrelationId(correlationId);
+    createItemCommand.setMenuId(menuId);
+    createItemCommand.setCategoryId(categoryId);
+
+    return createItemCommand;
   }
 
-  public static UpdateItemCommand map(
+  public UpdateItemCommand map(
       String correlationId, UUID menuId, UUID categoryId, UUID itemId, UpdateItemRequest r) {
-    return new UpdateItemCommand(
-        correlationId,
-        menuId,
-        categoryId,
-        itemId,
-        r.getName(),
-        r.getDescription(),
-        r.getPrice(),
-        r.getAvailable());
+
+    UpdateItemCommand updateItemCommand = updateItemMapper.fromDto(r);
+    updateItemCommand.setCorrelationId(correlationId);
+    updateItemCommand.setMenuId(menuId);
+    updateItemCommand.setCategoryId(categoryId);
+    updateItemCommand.setItemId(itemId);
+
+    return updateItemCommand;
   }
 }

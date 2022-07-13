@@ -9,7 +9,7 @@ import com.amido.stacks.workloads.Application;
 import com.amido.stacks.workloads.menu.api.v1.dto.response.MenuDTO;
 import com.amido.stacks.workloads.menu.domain.Menu;
 import com.amido.stacks.workloads.menu.domain.MenuHelper;
-import com.amido.stacks.workloads.menu.mappers.DomainToDtoMapper;
+import com.amido.stacks.workloads.menu.mappers.MenuMapper;
 import com.amido.stacks.workloads.menu.repository.MenuRepository;
 import com.amido.stacks.workloads.util.TestHelper;
 import com.azure.spring.autoconfigure.cosmos.CosmosAutoConfiguration;
@@ -48,11 +48,13 @@ class QueryMenuControllerImplV2Test {
 
   @MockBean private MenuRepository menuRepository;
 
+  @Autowired private MenuMapper menuMapper;
+
   @Test
   void getMenuById() {
     // Given
     Menu menu = MenuHelper.createMenu(0);
-    MenuDTO expectedResponse = DomainToDtoMapper.toMenuDto(menu);
+    MenuDTO expectedResponse = menuMapper.toDto(menu);
 
     when(menuRepository.findById(menu.getId())).thenReturn(Optional.of(menu));
 

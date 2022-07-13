@@ -15,9 +15,30 @@ import java.util.Collections;
 import java.util.UUID;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 @Tag("Unit")
-class DomainToDtoMapperTest {
+@SpringBootTest(
+    classes = {
+      MenuMapper.class,
+      MenuMapperImpl.class,
+      CategoryMapper.class,
+      CategoryMapperImpl.class,
+      ItemMapper.class,
+      ItemMapperImpl.class,
+      SearchMenuResultItemMapper.class,
+      SearchMenuResultItemMapperImpl.class
+    })
+class DomainToDtoMapperMapstructTest {
+
+  @Autowired private MenuMapper menuMapper;
+
+  @Autowired private CategoryMapper categoryMapper;
+
+  @Autowired private ItemMapper itemMapper;
+
+  @Autowired private SearchMenuResultItemMapper searchMenuResultItemMapper;
 
   @Test
   void menuToMenuDto() {
@@ -39,7 +60,7 @@ class DomainToDtoMapperTest {
             enabled);
 
     // When
-    MenuDTO menuDTO = DomainToDtoMapper.toMenuDto(menu);
+    MenuDTO menuDTO = menuMapper.toDto(menu);
 
     // Then
     assertThat(menuDTO.getId()).isEqualTo(id);
@@ -63,14 +84,14 @@ class DomainToDtoMapperTest {
     Menu menu = new Menu(id.toString(), restaurantId.toString(), name, description, null, enabled);
 
     // When
-    MenuDTO menuDTO = DomainToDtoMapper.toMenuDto(menu);
+    MenuDTO menuDTO = menuMapper.toDto(menu);
 
     // Then
     assertThat(menuDTO.getId()).isEqualTo(id);
     assertThat(menuDTO.getRestaurantId()).isEqualTo(restaurantId);
     assertThat(menuDTO.getName()).isEqualTo(name);
     assertThat(menuDTO.getDescription()).isEqualTo(description);
-    assertThat(menuDTO.getCategories()).isNull();
+    assertThat(menuDTO.getCategories()).isEmpty();
     assertThat(menuDTO.getEnabled()).isEqualTo(enabled);
   }
 
@@ -97,7 +118,7 @@ class DomainToDtoMapperTest {
             enabled);
 
     // When
-    MenuDTO menuDTO = DomainToDtoMapper.toMenuDto(menu);
+    MenuDTO menuDTO = menuMapper.toDto(menu);
 
     // Then
     assertThat(menuDTO.getId()).isEqualTo(id);
@@ -110,7 +131,7 @@ class DomainToDtoMapperTest {
     assertThat(menuDTO.getCategories().get(0).getDescription())
         .isEqualTo(category.getDescription());
     assertThat(menuDTO.getCategories().get(0).getId()).isEqualTo(category.getId());
-    assertThat(menuDTO.getCategories().get(0).getItems()).isNull();
+    assertThat(menuDTO.getCategories().get(0).getItems()).isEmpty();
   }
 
   @Test
@@ -126,7 +147,7 @@ class DomainToDtoMapperTest {
     Menu menu = new Menu(id.toString(), restaurantId.toString(), name, description, null, enabled);
 
     // When
-    SearchMenuResultItem resultItem = DomainToDtoMapper.toSearchMenuResultItem(menu);
+    SearchMenuResultItem resultItem = searchMenuResultItemMapper.toDto(menu);
 
     // Then
     assertThat(resultItem.getId()).isEqualTo(id);
@@ -148,7 +169,7 @@ class DomainToDtoMapperTest {
     Item item = new Item(id, name, description, price, available);
 
     // When
-    ItemDTO itemDTO = DomainToDtoMapper.toItemDto(item);
+    ItemDTO itemDTO = itemMapper.toDto(item);
 
     // Then
     assertThat(itemDTO.getId()).isEqualTo(id);
@@ -168,7 +189,7 @@ class DomainToDtoMapperTest {
     Category category = new Category(id, name, description, Collections.emptyList());
 
     // When
-    CategoryDTO categoryDTO = DomainToDtoMapper.toCategoryDto(category);
+    CategoryDTO categoryDTO = categoryMapper.toDto(category);
 
     // Then
     assertThat(categoryDTO.getId()).isEqualTo(id);
