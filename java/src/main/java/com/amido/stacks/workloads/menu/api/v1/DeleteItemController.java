@@ -1,12 +1,8 @@
 package com.amido.stacks.workloads.menu.api.v1;
 
 import com.amido.stacks.core.api.annotations.DeleteAPIResponses;
-import com.amido.stacks.core.api.dto.ErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.UUID;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,13 +24,6 @@ public interface DeleteItemController {
       summary = "Removes an item from menu",
       description = "Removes an item from menu",
       operationId = "DeleteMenuItem")
-  @ApiResponse(
-      responseCode = "404",
-      description = "Resource not found",
-      content =
-          @Content(
-              mediaType = "application/json",
-              schema = @Schema(implementation = ErrorResponse.class)))
   @DeleteAPIResponses
   ResponseEntity<Void> deleteItem(
       @Parameter(description = "Menu id", required = true) @PathVariable("id") UUID menuId,

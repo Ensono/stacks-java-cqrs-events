@@ -1,14 +1,10 @@
 package com.amido.stacks.workloads.menu.api.v1;
 
 import com.amido.stacks.core.api.annotations.UpdateAPIResponses;
-import com.amido.stacks.core.api.dto.ErrorResponse;
 import com.amido.stacks.core.api.dto.response.ResourceUpdatedResponse;
 import com.amido.stacks.workloads.menu.api.v1.dto.request.UpdateItemRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.UUID;
 import javax.validation.Valid;
 import org.springframework.http.MediaType;
@@ -32,13 +28,6 @@ public interface UpdateItemController {
       summary = "Update an item in the menu",
       description = "Update an item in the menu",
       operationId = "UpdateMenuItem")
-  @ApiResponse(
-      responseCode = "404",
-      description = "Resource not found",
-      content =
-          @Content(
-              mediaType = "application/json",
-              schema = @Schema(implementation = ErrorResponse.class)))
   @UpdateAPIResponses
   ResponseEntity<ResourceUpdatedResponse> updateItem(
       @Parameter(description = "Menu id", required = true) @PathVariable("id") UUID menuId,
