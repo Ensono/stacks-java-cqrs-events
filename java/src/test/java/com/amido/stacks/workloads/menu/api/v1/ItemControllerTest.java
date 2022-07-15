@@ -66,15 +66,15 @@ import org.springframework.test.context.ActiveProfiles;
 public class ItemControllerTest {
 
   public static final String CREATE_ITEM = "%s/v1/menu/%s/category/%s/items";
+
+  public static final String UPDATE_ITEM = "%s/v1/menu/%s/category/%s/items/%s";
+
+  public static final String DELETE_ITEM = "%s/v1/menu/%s/category/%s/items/%s";
   @LocalServerPort private int port;
 
   @Autowired private TestRestTemplate testRestTemplate;
 
   @MockBean private MenuRepository menuRepository;
-
-  public static final String UPDATE_ITEM = "%s/v1/menu/%s/category/%s/items/%s";
-
-  public static final String DELETE_ITEM = "%s/v1/menu/%s/category/%s/items/%s";
 
   @AfterEach
   void tearDown() {
