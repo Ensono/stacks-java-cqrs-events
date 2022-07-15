@@ -57,7 +57,7 @@ public class MenuController {
   private CreateMenuHandler createMenuHandler;
   private UpdateMenuHandler updateMenuHandler;
 
-  private DeleteMenuHandler deleteHandler;
+  private DeleteMenuHandler deleteMenuHandler;
 
   private RequestToCommandMapper requestToCommandMapper;
 
@@ -70,14 +70,14 @@ public class MenuController {
       CreateMenuHandler createMenuHandler,
       UpdateMenuHandler updateMenuHandler,
       RequestToCommandMapper requestToCommandMapper,
-      DeleteMenuHandler deleteHandler,
+      DeleteMenuHandler deleteMenuHandler,
       SearchMenuResultItemMapper searchMenuResultItemMapper,
       MenuMapper menuMapper,
       MenuQueryService menuQueryService) {
     this.createMenuHandler = createMenuHandler;
     this.updateMenuHandler = updateMenuHandler;
     this.requestToCommandMapper = requestToCommandMapper;
-    this.deleteHandler = deleteHandler;
+    this.deleteMenuHandler = deleteMenuHandler;
     this.searchMenuResultItemMapper = searchMenuResultItemMapper;
     this.menuMapper = menuMapper;
     this.menuQueryService = menuQueryService;
@@ -200,7 +200,7 @@ public class MenuController {
       @Parameter(description = "Menu id", required = true) @PathVariable("id") UUID menuId,
       @Parameter(hidden = true) @RequestAttribute("CorrelationId") String correlationId) {
 
-    deleteHandler.handle(new DeleteMenuCommand(correlationId, menuId));
+    deleteMenuHandler.handle(new DeleteMenuCommand(correlationId, menuId));
     return new ResponseEntity<>(OK);
   }
 }
