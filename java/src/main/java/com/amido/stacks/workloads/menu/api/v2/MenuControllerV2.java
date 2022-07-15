@@ -2,6 +2,11 @@ package com.amido.stacks.workloads.menu.api.v2;
 
 import com.amido.stacks.core.api.annotations.ReadAPIResponses;
 import com.amido.stacks.workloads.menu.api.v1.dto.response.MenuDTO;
+import com.amido.stacks.workloads.menu.commands.MenuCommand;
+import com.amido.stacks.workloads.menu.domain.Menu;
+import com.amido.stacks.workloads.menu.exception.MenuNotFoundException;
+import com.amido.stacks.workloads.menu.mappers.MenuMapper;
+import com.amido.stacks.workloads.menu.service.MenuQueryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -14,13 +19,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping(
-    path = "/v2/menu",
-    produces = MediaType.APPLICATION_JSON_VALUE + "; charset=utf-8",
-    method = RequestMethod.GET)
-public interface QueryMenuControllerV2 {
+@RequestMapping(path = "/v2/menu", produces = MediaType.APPLICATION_JSON_VALUE + "; charset=utf-8")
+@RestController
+public class MenuControllerV2 {
+
+  private MenuMapper menuMapper;
+
+  private MenuQueryService menuQueryService;
+
+  public MenuControllerV2(MenuMapper menuMapper, MenuQueryService menuQueryService) {
+    this.menuMapper = menuMapper;
+    this.menuQueryService = menuQueryService;
+  }
 
   @GetMapping(value = "/{id}")
   @Operation(
@@ -39,5 +51,11 @@ public interface QueryMenuControllerV2 {
   @ReadAPIResponses
   ResponseEntity<MenuDTO> getMenu(
       @PathVariable(name = "id") UUID id,
-      @Parameter(hidden = true) @RequestAttribute("CorrelationId") String correlationId);
+      @Parameter(hidden = true) @RequestAttribute("CorrelationId") String correlationId) {
+    Menu menu =
+        this.menuQueryService
+            .findById(id)
+            .orElseThrow(() -> new MenuNotFoundException(new MenuCommand(correlationId, id)));
+    return ResponseEntity.ok(menuMapper.toDto(menu));
+  }
 }
