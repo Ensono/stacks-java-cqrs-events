@@ -170,10 +170,7 @@ public class MenuController {
     return ResponseEntity.ok(menuMapper.toDto(menu));
   }
 
-  @PutMapping(
-      value = "/{id}",
-      consumes = MediaType.APPLICATION_JSON_VALUE,
-      produces = MediaType.APPLICATION_JSON_VALUE + "; charset=utf-8")
+  @PutMapping(value = "/{id}")
   @Operation(
       tags = "Menu",
       summary = "Update a menu",

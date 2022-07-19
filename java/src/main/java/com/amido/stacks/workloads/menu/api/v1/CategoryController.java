@@ -62,7 +62,7 @@ public class CategoryController {
       description = "Adds a category to menu",
       operationId = "AddMenuCategory")
   @CreateAPIResponses
-  ResponseEntity<ResourceCreatedResponse> addMenuCategory(
+  ResponseEntity<ResourceCreatedResponse> addCategory(
       @Parameter(description = "Menu id", required = true) @PathVariable("id") UUID menuId,
       @Valid @RequestBody CreateCategoryRequest body,
       @Parameter(hidden = true) @RequestAttribute("CorrelationId") String correlationId) {
@@ -82,7 +82,7 @@ public class CategoryController {
       description = "Update a category to menu",
       operationId = "UpdateMenuCategory")
   @UpdateAPIResponses
-  ResponseEntity<ResourceUpdatedResponse> updateMenuCategory(
+  ResponseEntity<ResourceUpdatedResponse> updateCategory(
       @Parameter(description = "Menu id", required = true) @PathVariable("id") UUID menuId,
       @Parameter(description = "Category id", required = true) @PathVariable("categoryId")
           UUID categoryId,
