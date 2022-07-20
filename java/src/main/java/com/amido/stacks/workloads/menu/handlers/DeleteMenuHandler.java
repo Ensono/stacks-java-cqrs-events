@@ -6,6 +6,7 @@ import com.amido.stacks.workloads.menu.domain.Menu;
 import com.amido.stacks.workloads.menu.events.MenuDeletedEvent;
 import com.amido.stacks.workloads.menu.events.MenuEvent;
 import com.amido.stacks.workloads.menu.repository.MenuRepository;
+import com.amido.stacks.workloads.menu.service.v1.MenuService;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -20,15 +21,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class DeleteMenuHandler extends MenuBaseCommandHandler<DeleteMenuCommand> {
 
+  private final MenuService menuService;
+
   public DeleteMenuHandler(
       MenuRepository menuRepository,
-      ApplicationEventPublisherWithListener applicationEventPublisher) {
-    super(menuRepository, applicationEventPublisher);
+      ApplicationEventPublisherWithListener applicationEventPublisher,
+      MenuService menuService) {
+    super(applicationEventPublisher);
+    this.menuService = menuService;
   }
 
   @Override
   Optional<UUID> handleCommand(Menu menu, DeleteMenuCommand command) {
-    menuRepository.delete(menu);
+    menuService.delete(menu);
     publishEvents(raiseApplicationEvents(menu, command));
     return Optional.empty();
   }

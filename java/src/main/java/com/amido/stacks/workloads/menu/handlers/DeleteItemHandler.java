@@ -21,14 +21,16 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
-/** @author ArathyKrishna */
+/**
+ * @author ArathyKrishna
+ */
 @Component
 public class DeleteItemHandler extends MenuBaseCommandHandler<DeleteItemCommand> {
 
   public DeleteItemHandler(
       MenuRepository menuRepository,
       ApplicationEventPublisherWithListener applicationEventPublisher) {
-    super(menuRepository, applicationEventPublisher);
+    super(applicationEventPublisher);
   }
 
   @Override

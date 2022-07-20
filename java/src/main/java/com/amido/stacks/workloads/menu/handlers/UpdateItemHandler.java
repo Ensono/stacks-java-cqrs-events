@@ -19,13 +19,15 @@ import java.util.Optional;
 import java.util.UUID;
 import org.springframework.stereotype.Component;
 
-/** @author ArathyKrishna */
+/**
+ * @author ArathyKrishna
+ */
 @Component
 public class UpdateItemHandler extends MenuBaseCommandHandler<UpdateItemCommand> {
 
   public UpdateItemHandler(
       MenuRepository repository, ApplicationEventPublisherWithListener publisher) {
-    super(repository, publisher);
+    super(repository, menuService, publisher);
   }
 
   @Override

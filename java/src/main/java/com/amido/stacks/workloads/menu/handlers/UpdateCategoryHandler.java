@@ -16,13 +16,15 @@ import java.util.Optional;
 import java.util.UUID;
 import org.springframework.stereotype.Component;
 
-/** @author ArathyKrishna */
+/**
+ * @author ArathyKrishna
+ */
 @Component
 public class UpdateCategoryHandler extends MenuBaseCommandHandler<UpdateCategoryCommand> {
 
   public UpdateCategoryHandler(
       MenuRepository repository, ApplicationEventPublisherWithListener publisher) {
-    super(repository, publisher);
+    super(repository, menuService, publisher);
   }
 
   @Override
