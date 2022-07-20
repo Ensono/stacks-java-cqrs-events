@@ -7,32 +7,26 @@ import com.amido.stacks.workloads.menu.domain.Category;
 import com.amido.stacks.workloads.menu.domain.Item;
 import com.amido.stacks.workloads.menu.domain.Menu;
 import com.amido.stacks.workloads.menu.events.MenuEvent;
-import com.amido.stacks.workloads.menu.exception.MenuNotFoundException;
-import com.amido.stacks.workloads.menu.repository.MenuRepository;
+import com.amido.stacks.workloads.menu.service.v1.MenuService;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 public abstract class MenuBaseCommandHandler<T extends MenuCommand> implements CommandHandler<T> {
 
-  protected MenuRepository menuRepository;
-
+  private final MenuService menuService;
   private ApplicationEventPublisherWithListener applicationEventPublisher;
 
   public MenuBaseCommandHandler(
-      MenuRepository menuRepository,
-      ApplicationEventPublisherWithListener applicationEventPublisher) {
-    this.menuRepository = menuRepository;
+      ApplicationEventPublisherWithListener applicationEventPublisher, MenuService menuService) {
+    this.menuService = menuService;
     this.applicationEventPublisher = applicationEventPublisher;
   }
 
   @Override
   public Optional<UUID> handle(T command) {
 
-    Menu menu =
-        menuRepository
-            .findById(command.getMenuId().toString())
-            .orElseThrow(() -> new MenuNotFoundException(command));
+    Menu menu = menuService.findById(command);
 
     var result = handleCommand(menu, command);
 
@@ -48,24 +42,6 @@ public abstract class MenuBaseCommandHandler<T extends MenuCommand> implements C
   abstract Optional<UUID> handleCommand(Menu menu, T command);
 
   abstract List<MenuEvent> raiseApplicationEvents(Menu menu, T command);
-
-  /**
-   * find a category for the id provided
-   *
-   * @param menu menu object
-   * @param categoryId category id
-   * @return category if found else optional.empty
-   */
-  public Optional<Category> findCategory(Menu menu, UUID categoryId) {
-    Optional<Category> existing = Optional.empty();
-    if (menu.getCategories() != null && !menu.getCategories().isEmpty()) {
-      existing =
-          menu.getCategories().stream()
-              .filter(c -> c.getId().equals(categoryId.toString()))
-              .findFirst();
-    }
-    return existing;
-  }
 
   public Optional<Item> findItem(Category category, UUID itemId) {
     Optional<Item> existing = Optional.empty();

@@ -25,7 +25,7 @@ public class CreateItemHandler extends MenuBaseCommandHandler<CreateItemCommand>
   public CreateItemHandler(
       MenuRepository menuRepository,
       ApplicationEventPublisherWithListener applicationEventPublisher) {
-    super(menuRepository, applicationEventPublisher);
+    super(menuRepository, menuService, applicationEventPublisher);
   }
 
   @Override
