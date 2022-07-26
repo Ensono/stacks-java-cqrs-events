@@ -470,7 +470,9 @@ public class CategoryControllerTest {
     // Given
     Menu menu = createMenu(1);
     Category category = createCategory(0);
-    menu.setCategories(List.of(category));
+    List<Category> categories = new ArrayList<>();
+    categories.add(category);
+    menu.setCategories(categories);
     when(menuRepository.findById(eq(menu.getId()))).thenReturn(Optional.of(menu));
 
     // When
