@@ -10,17 +10,13 @@ import com.amido.stacks.workloads.menu.service.v1.MenuService;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public abstract class MenuBaseCommandHandler<T extends MenuCommand> implements CommandHandler<T> {
 
-  protected MenuService menuService;
-  private ApplicationEventPublisherWithListener applicationEventPublisher;
-
-  public MenuBaseCommandHandler(
-      MenuService menuService, ApplicationEventPublisherWithListener applicationEventPublisher) {
-    this.menuService = menuService;
-    this.applicationEventPublisher = applicationEventPublisher;
-  }
+  protected final MenuService menuService;
+  private final ApplicationEventPublisherWithListener applicationEventPublisher;
 
   @Override
   public Optional<UUID> handle(T command) {

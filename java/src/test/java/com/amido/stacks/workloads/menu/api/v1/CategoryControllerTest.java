@@ -27,6 +27,7 @@ import com.amido.stacks.workloads.menu.domain.Category;
 import com.amido.stacks.workloads.menu.domain.Menu;
 import com.amido.stacks.workloads.menu.domain.MenuHelper;
 import com.amido.stacks.workloads.menu.repository.MenuRepository;
+import com.amido.stacks.workloads.menu.service.v1.utility.MenuHelperService;
 import com.amido.stacks.workloads.util.TestHelper;
 import com.azure.spring.autoconfigure.cosmos.CosmosAutoConfiguration;
 import com.azure.spring.autoconfigure.cosmos.CosmosHealthConfiguration;
@@ -72,6 +73,8 @@ public class CategoryControllerTest {
   @Autowired private TestRestTemplate testRestTemplate;
 
   @MockBean private MenuRepository menuRepository;
+
+  @Autowired private MenuHelperService menuHelperService;
 
   @Test
   void testCanNotAddCategoryIfMenuNotPresent() {
@@ -171,7 +174,7 @@ public class CategoryControllerTest {
     Category category =
         new Category(
             UUID.randomUUID().toString(), "cat name", "cat description", new ArrayList<>());
-    menu.addOrUpdateCategory(category);
+    menuHelperService.addOrUpdateCategory(menu, category);
 
     when(menuRepository.findById(eq(menu.getId()))).thenReturn(Optional.of(menu));
 
@@ -214,7 +217,8 @@ public class CategoryControllerTest {
     // Given
     Menu menu = MenuHelper.createMenu(0);
     Category category = createCategory(0);
-    menu.addOrUpdateCategory(category);
+    menuHelperService.addOrUpdateCategory(menu, category);
+
     when(menuRepository.findById(eq(menu.getId()))).thenReturn(Optional.of(menu));
 
     UpdateCategoryRequest request = new UpdateCategoryRequest("new Category", "new Description");
@@ -416,7 +420,8 @@ public class CategoryControllerTest {
     // Given
     Menu menu = MenuHelper.createMenu(0);
     Category category = createCategory(0);
-    menu.addOrUpdateCategory(category);
+    menuHelperService.addOrUpdateCategory(menu, category);
+
     when(menuRepository.findById(eq(menu.getId()))).thenReturn(Optional.of(menu));
 
     UpdateCategoryRequest request = new UpdateCategoryRequest("", "new Description");
@@ -443,7 +448,8 @@ public class CategoryControllerTest {
     // Given
     Menu menu = MenuHelper.createMenu(0);
     Category category = createCategory(0);
-    menu.addOrUpdateCategory(category);
+    menuHelperService.addOrUpdateCategory(menu, category);
+
     when(menuRepository.findById(eq(menu.getId()))).thenReturn(Optional.of(menu));
 
     UpdateCategoryRequest request = new UpdateCategoryRequest("Updated Name", "");
@@ -498,8 +504,9 @@ public class CategoryControllerTest {
     // Given
     Menu menu = createMenu(1);
     Category category = createCategory(0);
-    category.addOrUpdateItem(createItem(0));
-    menu.addOrUpdateCategory(category);
+    menuHelperService.addOrUpdateItem(category, createItem(0));
+
+    menuHelperService.addOrUpdateCategory(menu, category);
 
     when(menuRepository.findById(eq(menu.getId()))).thenReturn(Optional.of(menu));
 

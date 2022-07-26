@@ -41,7 +41,9 @@ public class ItemService {
     createItemCommand.setItemId(itemId);
 
     menuHelperService.addOrUpdateItem(category, item);
-    menuRepository.save(menu.addOrUpdateCategory(category));
+    menuHelperService.addOrUpdateCategory(menu, category);
+
+    menuRepository.save(menu);
 
     return Optional.of(menu);
   }
@@ -54,7 +56,9 @@ public class ItemService {
     menuHelperService.checkItemExistsById(command, category, command.getItemId());
 
     menuHelperService.removeItem(category, command.getItemId());
-    menuRepository.save(menu.addOrUpdateCategory(category));
+    menuHelperService.addOrUpdateCategory(menu, category);
+
+    menuRepository.save(menu);
   }
 
   public void update(Menu menu, UpdateItemCommand command) {
