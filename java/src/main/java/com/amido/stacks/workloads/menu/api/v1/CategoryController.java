@@ -18,6 +18,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import java.util.UUID;
 import javax.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,26 +35,16 @@ import org.springframework.web.bind.annotation.RestController;
     path = "/v1/menu/{id}/category",
     produces = MediaType.APPLICATION_JSON_VALUE + "; charset=utf-8")
 @RestController
+@RequiredArgsConstructor
 public class CategoryController {
 
-  private CreateCategoryHandler createCategoryHandler;
+  private final CreateCategoryHandler createCategoryHandler;
 
-  private RequestToCommandMapper requestToCommandMapper;
+  private final RequestToCommandMapper requestToCommandMapper;
 
-  private UpdateCategoryHandler updateCategoryHandler;
+  private final UpdateCategoryHandler updateCategoryHandler;
 
-  private DeleteCategoryHandler deleteCategoryHandler;
-
-  public CategoryController(
-      CreateCategoryHandler createCategoryHandler,
-      RequestToCommandMapper requestToCommandMapper,
-      UpdateCategoryHandler handler,
-      DeleteCategoryHandler deleteCategoryHandler) {
-    this.createCategoryHandler = createCategoryHandler;
-    this.requestToCommandMapper = requestToCommandMapper;
-    this.updateCategoryHandler = handler;
-    this.deleteCategoryHandler = deleteCategoryHandler;
-  }
+  private final DeleteCategoryHandler deleteCategoryHandler;
 
   @PostMapping
   @Operation(

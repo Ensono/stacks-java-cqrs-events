@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -52,36 +53,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping(path = "/v1/menu", produces = MediaType.APPLICATION_JSON_VALUE + "; charset=utf-8")
 @RestController
+@RequiredArgsConstructor
 public class MenuController {
 
-  private CreateMenuHandler createMenuHandler;
-  private UpdateMenuHandler updateMenuHandler;
+  private final CreateMenuHandler createMenuHandler;
+  private final UpdateMenuHandler updateMenuHandler;
 
-  private DeleteMenuHandler deleteMenuHandler;
+  private final DeleteMenuHandler deleteMenuHandler;
 
-  private RequestToCommandMapper requestToCommandMapper;
+  private final RequestToCommandMapper requestToCommandMapper;
 
-  private SearchMenuResultItemMapper searchMenuResultItemMapper;
+  private final SearchMenuResultItemMapper searchMenuResultItemMapper;
 
-  private MenuMapper menuMapper;
-  private MenuQueryService menuQueryService;
-
-  public MenuController(
-      CreateMenuHandler createMenuHandler,
-      UpdateMenuHandler updateMenuHandler,
-      RequestToCommandMapper requestToCommandMapper,
-      DeleteMenuHandler deleteMenuHandler,
-      SearchMenuResultItemMapper searchMenuResultItemMapper,
-      MenuMapper menuMapper,
-      MenuQueryService menuQueryService) {
-    this.createMenuHandler = createMenuHandler;
-    this.updateMenuHandler = updateMenuHandler;
-    this.requestToCommandMapper = requestToCommandMapper;
-    this.deleteMenuHandler = deleteMenuHandler;
-    this.searchMenuResultItemMapper = searchMenuResultItemMapper;
-    this.menuMapper = menuMapper;
-    this.menuQueryService = menuQueryService;
-  }
+  private final MenuMapper menuMapper;
+  private final MenuQueryService menuQueryService;
 
   @PostMapping
   @Operation(
@@ -140,9 +125,7 @@ public class MenuController {
         new SearchMenuResult(
             pageSize,
             pageNumber,
-            menuList.stream()
-                .map(m -> searchMenuResultItemMapper.toDto(m))
-                .collect(Collectors.toList())));
+            menuList.stream().map(searchMenuResultItemMapper::toDto).collect(Collectors.toList())));
   }
 
   @GetMapping(value = "/{id}")

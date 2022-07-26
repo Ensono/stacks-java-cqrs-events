@@ -33,6 +33,7 @@ import com.amido.stacks.workloads.menu.domain.MenuHelper;
 import com.amido.stacks.workloads.menu.mappers.MenuMapper;
 import com.amido.stacks.workloads.menu.mappers.SearchMenuResultItemMapper;
 import com.amido.stacks.workloads.menu.repository.MenuRepository;
+import com.amido.stacks.workloads.menu.service.v1.utility.MenuHelperService;
 import com.amido.stacks.workloads.util.TestHelper;
 import com.azure.cosmos.implementation.Utils;
 import com.azure.spring.autoconfigure.cosmos.CosmosAutoConfiguration;
@@ -91,6 +92,8 @@ public class MenuControllerTest {
   @Autowired private MenuMapper menuMapper;
 
   @Autowired private SearchMenuResultItemMapper searchMenuResultItemMapper;
+
+  @Autowired private MenuHelperService menuHelperService;
 
   @Test
   void testCreateNewMenu() {
@@ -279,7 +282,7 @@ public class MenuControllerTest {
     Category category =
         new Category(
             UUID.randomUUID().toString(), "cat name", "cat description", Arrays.asList(item));
-    menu.addOrUpdateCategory(category);
+    menuHelperService.addOrUpdateCategory(menu, category);
 
     MenuDTO expectedResponse = menuMapper.toDto(menu);
 

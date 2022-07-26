@@ -10,7 +10,7 @@ import lombok.ToString;
 public abstract class CategoryEvent extends MenuEvent {
   private final UUID categoryId;
 
-  public CategoryEvent(MenuCommand menuCommand, UUID categoryId) {
+  protected CategoryEvent(MenuCommand menuCommand, UUID categoryId) {
     super(menuCommand, menuCommand.getMenuId());
     this.categoryId = categoryId;
   }

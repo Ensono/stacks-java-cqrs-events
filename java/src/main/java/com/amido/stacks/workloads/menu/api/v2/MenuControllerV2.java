@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.UUID;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,16 +24,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping(path = "/v2/menu", produces = MediaType.APPLICATION_JSON_VALUE + "; charset=utf-8")
 @RestController
+@RequiredArgsConstructor
 public class MenuControllerV2 {
 
-  private MenuMapper menuMapper;
+  private final MenuMapper menuMapper;
 
-  private MenuQueryService menuQueryService;
-
-  public MenuControllerV2(MenuMapper menuMapper, MenuQueryService menuQueryService) {
-    this.menuMapper = menuMapper;
-    this.menuQueryService = menuQueryService;
-  }
+  private final MenuQueryService menuQueryService;
 
   @GetMapping(value = "/{id}")
   @Operation(

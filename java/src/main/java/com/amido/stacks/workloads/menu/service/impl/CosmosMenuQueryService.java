@@ -6,8 +6,7 @@ import com.amido.stacks.workloads.menu.service.MenuQueryService;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,21 +14,19 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class CosmosMenuQueryService implements MenuQueryService {
 
   private static final String NAME = "name";
-  private static Logger logger = LoggerFactory.getLogger(CosmosMenuQueryService.class);
 
-  private MenuRepository menuRepository;
+  private final MenuRepository menuRepository;
 
-  public CosmosMenuQueryService(MenuRepository menuRepository) {
-    this.menuRepository = menuRepository;
-  }
-
+  @Override
   public Optional<Menu> findById(UUID id) {
     return menuRepository.findById(id.toString());
   }
 
+  @Override
   public List<Menu> findAll(int pageNumber, int pageSize) {
 
     Page<Menu> page =

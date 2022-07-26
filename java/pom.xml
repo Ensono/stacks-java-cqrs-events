@@ -76,15 +76,6 @@
     <pact.consumer.version>4.3.2</pact.consumer.version>
   </properties>
 
-  <repositories>
-    <repository>
-      <snapshots/>
-      <id>snapshots</id>
-      <name>default-maven-virtual</name>
-      <url>https://amidostacks.jfrog.io/artifactory/default-maven-virtual</url>
-    </repository>
-  </repositories>
-
   <dependencies>
 
     <!-- https://security.snyk.io/vuln/SNYK-JAVA-COMGOOGLECODEGSON-1730327 -->
