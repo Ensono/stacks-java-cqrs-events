@@ -4,9 +4,9 @@ import com.amido.stacks.workloads.menu.commands.MenuCommand;
 import java.util.UUID;
 
 public abstract class MenuItemEvent extends CategoryEvent {
-  private UUID itemId;
+  private final UUID itemId;
 
-  public MenuItemEvent(MenuCommand command, UUID categoryId, UUID itemId) {
+  protected MenuItemEvent(MenuCommand command, UUID categoryId, UUID itemId) {
     super(command, categoryId);
     this.itemId = itemId;
   }
