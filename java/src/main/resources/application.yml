@@ -51,3 +51,14 @@ azure:
     topicName: ${SB_TOPIC}
     subscriptionName: ${SB_SUBSCRIPTION}
     enabled: ${SB_ENABLED:false}
+
+aws:
+  xray:
+    enabled: ${AWS_XRAY_ENABLED:false}
+  secretsmanager:
+    enabled: ${AWS_SECRETS_ENABLED:false}
+
+# AWS Secrets Manager imports
+spring.config.import:
+  - optional:aws-secretsmanager:/stacks-secret/example-1/
+  - optional:aws-secretsmanager:/stacks-secret/example-2/
