@@ -73,14 +73,6 @@
     <spotbugs.version>4.5.2</spotbugs.version>
     <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
 
-    <!-- Set 'pact.broker.url' and 'pact.broker.token' -->
-    <!--        <pact.broker.url></pact.broker.url>-->
-    <!--        <pact.broker.token></pact.broker.token>-->
-    <!--        <pact.api.name>JavaMenuAPI</pact.api.name>-->
-    <!--        <pact.api.protocol>http</pact.api.protocol>-->
-    <!--        <pact.api.host>localhost</pact.api.host>-->
-    <!--        <pact.api.port>9000</pact.api.port>-->
-    <!--        <pact.version>3.5.24</pact.version>-->
     <pact.provider.spring.version>4.0.10</pact.provider.spring.version>
     <pact.consumer.version>4.3.2</pact.consumer.version>
   </properties>
@@ -270,36 +262,6 @@
           </execution>
         </executions>
       </plugin>
-      <!--            <plugin>-->
-      <!--                <groupId>au.com.dius.pact.provider</groupId>-->
-      <!--                <artifactId>maven</artifactId>-->
-      <!--                <version>4.2.7</version>-->
-      <!--                <configuration>-->
-      <!--                    <pactBrokerUrl>${pact.broker.url}</pactBrokerUrl>-->
-      <!--                    <pactBrokerToken>${pact.broker.token}</pactBrokerToken>-->
-      <!--                    <systemPropertyVariables>-->
-      <!--                        <pact.verifier.publishResults>true</pact.verifier.publishResults>-->
-      <!--                    </systemPropertyVariables>-->
-
-      <!--                    <serviceProviders>-->
-      <!--                        <serviceProvider>-->
-      <!--                            <name>${pact.api.name}</name>-->
-      <!--                            <protocol>${pact.api.protocol}</protocol>-->
-      <!--                            <host>${pact.api.host}</host>-->
-      <!--                            <port>${pact.api.port}</port>-->
-      <!--                        </serviceProvider>-->
-      <!--                    </serviceProviders>-->
-
-      <!--                </configuration>-->
-      <!--                <executions>-->
-      <!--                    <execution>-->
-      <!--                        <phase>integration-test</phase>-->
-      <!--                        <goals>-->
-      <!--                            <goal>verify</goal>-->
-      <!--                        </goals>-->
-      <!--                    </execution>-->
-      <!--                </executions>-->
-      <!--            </plugin>-->
       <plugin>
         <groupId>com.coveo</groupId>
         <artifactId>fmt-maven-plugin</artifactId>
@@ -508,6 +470,7 @@
         </plugins>
       </build>
     </profile>
+
     <profile>
       <id>test</id>
       <activation>
@@ -518,6 +481,7 @@
         </property>
       </activation>
     </profile>
+
     <profile>
       <id>local</id>
       <build>
@@ -531,6 +495,7 @@
         </resources>
       </build>
     </profile>
+
     <profile>
       <id>update-permissions</id>
       <activation>
@@ -546,7 +511,7 @@
             <version>${exec-maven-plugin.version}</version>
             <executions>
               <execution>
-                <id>Add execution rigths on bash scripts</id>
+                <id>Add execution rights on bash scripts</id>
                 <phase>process-resources</phase>
                 <goals>
                   <goal>exec</goal>
