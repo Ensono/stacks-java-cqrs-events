@@ -46,7 +46,7 @@
     <azure.messaging-servicebus.version>7.3.0</azure.messaging-servicebus.version>
     <jackson.version>2.12.3</jackson.version>
     <mockito.version>3.11.2</mockito.version>
-    <lombok.version>1.18.20</lombok.version>
+    <lombok.version>1.18.24</lombok.version>
     <hamcrest.version>2.2</hamcrest.version>
     <pitest.version>1.6.7</pitest.version>
     <jacoco.version>0.8.7</jacoco.version>

@@ -4,4 +4,3 @@ azure:
     topicName: ${SB_TOPIC}
     subscriptionName: ${SB_SUBSCRIPTION}
     enabled: ${SB_ENABLED:false}
-
