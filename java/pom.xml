@@ -21,6 +21,15 @@
   </description>
 
   <properties>
+    <!-- Stacks features -->
+    <aws.profile.name>no-aws</aws.profile.name>
+    <azure.profile.name>no-azure</azure.profile.name>
+    <cosmosdb.profile.name>no-cosmosdb</cosmosdb.profile.name>
+    <dynamodb.profile.name>no-dynamodb</dynamodb.profile.name>
+    <servicebus.profile.name>no-servicebus</servicebus.profile.name>
+    <kafka.profile.name>no-kafka</kafka.profile.name>
+    <sqs.profile.name>no-sqs</sqs.profile.name>
+
     <!-- Stacks versions -->
     <stacks.core.commons.version>1.0.3</stacks.core.commons.version>
     <stacks.core.api.version>1.0.3.2-RELEASE</stacks.core.api.version>
@@ -116,11 +125,6 @@
     </dependency>
     <dependency>
       <groupId>com.amido.stacks.modules</groupId>
-      <artifactId>stacks-azure-cosmos</artifactId>
-      <version>${stacks.azure.cosmos.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.amido.stacks.modules</groupId>
       <artifactId>stacks-core-api</artifactId>
       <version>${stacks.core.api.version}</version>
     </dependency>
@@ -128,11 +132,6 @@
       <groupId>com.amido.stacks.modules</groupId>
       <artifactId>stacks-core-cqrs</artifactId>
       <version>${stacks.core.cqrs.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.amido.stacks.modules</groupId>
-      <artifactId>stacks-azure-servicebus</artifactId>
-      <version>${stacks.azure-servicebus.version}</version>
     </dependency>
 
     <!-- Spring dependencies -->
@@ -392,6 +391,104 @@
   </build>
 
   <profiles>
+
+    <!-- START FEATURE PROFILES -->
+
+    <profile>
+      <id>aws</id>
+      <activation>
+        <file>
+          <exists>.</exists>
+        </file>
+      </activation>
+      <properties>
+        <aws.profile.name>aws</aws.profile.name>
+      </properties>
+      <dependencies>
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>azure</id>
+      <activation>
+        <file>
+          <exists>.</exists>
+        </file>
+      </activation>
+      <properties>
+        <azure.profile.name>azure</azure.profile.name>
+      </properties>
+      <dependencies>
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>cosmosdb</id>
+      <activation>
+        <file>
+          <exists>.</exists>
+        </file>
+      </activation>
+      <properties>
+        <cosmosdb.profile.name>cosmosdb</cosmosdb.profile.name>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>com.amido.stacks.modules</groupId>
+          <artifactId>stacks-azure-cosmos</artifactId>
+          <version>${stacks.azure.cosmos.version}</version>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>dynamodb</id>
+      <properties>
+        <dynamodb.profile.name>dynamodb</dynamodb.profile.name>
+      </properties>
+      <dependencies>
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>servicebus</id>
+      <activation>
+        <file>
+          <exists>.</exists>
+        </file>
+      </activation>
+      <properties>
+        <servicebus.profile.name>servicebus</servicebus.profile.name>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>com.amido.stacks.modules</groupId>
+          <artifactId>stacks-azure-servicebus</artifactId>
+          <version>${stacks.azure-servicebus.version}</version>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>kafka</id>
+      <properties>
+        <kafka.profile.name>kafka</kafka.profile.name>
+      </properties>
+      <dependencies>
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>sqs</id>
+      <properties>
+        <sqs.profile.name>sqs</sqs.profile.name>
+      </properties>
+      <dependencies>
+      </dependencies>
+    </profile>
+
+    <!-- END FEATURE PROFILES -->
+
     <profile>
       <id>owasp-dependency-check</id>
       <build>
