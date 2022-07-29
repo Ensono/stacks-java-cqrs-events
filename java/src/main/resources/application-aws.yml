@@ -1,0 +1,9 @@
+spring.config.import:
+  - optional:aws-secretsmanager:/stacks-secret/example-1/
+  - optional:aws-secretsmanager:/stacks-secret/example-2/
+
+aws:
+  xray:
+    enabled: ${AWS_XRAY_ENABLED:false}
+  secretsmanager:
+    enabled: ${AWS_SECRETS_ENABLED:false}

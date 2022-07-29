@@ -1,4 +1,14 @@
 spring:
+  profiles:
+    include:
+      - @aws.profile.name@
+      - @azure.profile.name@
+      - @cosmosdb.profile.name@
+      - @dynamodb.profile.name@
+      - @servicebus.profile.name@
+      - @kafka.profile.name@
+      - @sqs.profile.name@
+
   application:
     name: com.amido.stacks-api-cqrs-events
   data:
@@ -32,33 +42,3 @@ springdoc:
     enabled: true
     path: /swagger/oas-json
 
-azure:
-  cosmos:
-    uri: https://localhost:8081
-    database: Stacks
-    key: ${COSMOSDB_KEY}
-  application-insights:
-    instrumentation-key: xxxxxx
-    enabled: true
-  keyvault:
-    enabled: false
-    uri: https://amido.stacks-tmp.vault.azure.net/
-    client-id: xxxxxx
-    client-key: xxxxxx
-    tenant-id: xxxxxx
-  servicebus:
-    connectionString: ${SB_CONNECTION_STRING}
-    topicName: ${SB_TOPIC}
-    subscriptionName: ${SB_SUBSCRIPTION}
-    enabled: ${SB_ENABLED:false}
-
-aws:
-  xray:
-    enabled: ${AWS_XRAY_ENABLED:false}
-  secretsmanager:
-    enabled: ${AWS_SECRETS_ENABLED:false}
-
-# AWS Secrets Manager imports
-spring.config.import:
-  - optional:aws-secretsmanager:/stacks-secret/example-1/
-  - optional:aws-secretsmanager:/stacks-secret/example-2/
