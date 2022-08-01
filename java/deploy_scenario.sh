@@ -117,15 +117,27 @@ function delete_from_array {
 
 }
 
-function array_contains_element () {
+function array_contains_element {
     local e match="$1"
     shift
     for e; do [[ "$e" == "$match" ]] && return 0; done
     return 1
 }
 
+function check_environment {
+
+  if ! command -v xmlstarlet &> /dev/null
+  then
+      printf "\n   ERROR: Utility 'xmlstarlet' could not be found, please install from : http://xmlstar.sourceforge.net/doc/UG/index.html\n\n"
+      exit 1
+  fi
+
+}
+
 #####################
 #####################
+
+check_environment
 
 declare -a ALL_SPRING_PROFILES=(aws azure cosmosdb dynamodb servicebus kafka sqs)
 
