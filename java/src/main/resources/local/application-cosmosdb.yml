@@ -1,0 +1,5 @@
+azure:
+  cosmos:
+    uri: https://localhost:8081
+    database: Stacks
+    key: ${COSMOSDB_KEY}
