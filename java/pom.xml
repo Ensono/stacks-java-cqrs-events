@@ -33,9 +33,10 @@
     <!-- Stacks versions -->
     <stacks.core.commons.version>1.0.3</stacks.core.commons.version>
     <stacks.core.api.version>1.0.3.2-RELEASE</stacks.core.api.version>
-    <stacks.azure.cosmos.version>1.0.0</stacks.azure.cosmos.version>
+    <stacks.azure.cosmos.version>2.0.0</stacks.azure.cosmos.version>
+    <stacks.aws.dynamodb.version>1.0.0-SNAPSHOT</stacks.aws.dynamodb.version>
     <stacks.core.cqrs.version>1.0.0</stacks.core.cqrs.version>
-    <stacks.azure-servicebus.version>1.0.0</stacks.azure-servicebus.version>
+    <stacks.azure-servicebus.version>2.0.0</stacks.azure-servicebus.version>
 
     <java.version>11</java.version>
     <org.projectlombok.version>1.18.0</org.projectlombok.version>
@@ -409,6 +410,13 @@
         <dynamodb.profile.name>dynamodb</dynamodb.profile.name>
       </properties>
       <dependencies>
+        <!--
+        <dependency>
+          <groupId>com.amido.stacks.modules</groupId>
+          <artifactId>stacks-aws-dynamodb</artifactId>
+          <version>${stacks.aws.dynamodb.version}</version>
+        </dependency>
+        -->
       </dependencies>
     </profile>
 
