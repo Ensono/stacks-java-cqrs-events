@@ -5,15 +5,11 @@ import static org.assertj.core.api.BDDAssertions.then;
 
 import com.amido.stacks.workloads.Application;
 import com.amido.stacks.workloads.menu.repository.MenuRepository;
-import com.azure.spring.autoconfigure.cosmos.CosmosAutoConfiguration;
-import com.azure.spring.autoconfigure.cosmos.CosmosHealthConfiguration;
-import com.azure.spring.autoconfigure.cosmos.CosmosRepositoriesAutoConfiguration;
 import java.util.Map;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -23,12 +19,14 @@ import org.springframework.test.context.TestPropertySource;
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
     classes = Application.class)
-@TestPropertySource(properties = {"management.port=0"})
-@EnableAutoConfiguration(
-    exclude = {
-      CosmosRepositoriesAutoConfiguration.class,
-      CosmosAutoConfiguration.class,
-      CosmosHealthConfiguration.class
+@TestPropertySource(
+    properties = {
+      "management.port=0",
+      "aws.xray.enabled=false",
+      "aws.secretsmanager.enabled=false",
+      "spring.autoconfigure.exclude=com.azure.spring.autoconfigure.cosmos.CosmosRepositoriesAutoConfiguration,"
+          + "com.azure.spring.autoconfigure.cosmos.CosmosAutoConfiguration,"
+          + "com.azure.spring.autoconfigure.cosmos.CosmosHealthConfiguration"
     })
 @Tag("Component")
 class ActuatorTest {

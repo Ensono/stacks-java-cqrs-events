@@ -1,8 +1,8 @@
 package com.amido.stacks.workloads.menu.api.v1;
 
-import static com.amido.stacks.workloads.menu.domain.CategoryHelper.createCategory;
-import static com.amido.stacks.workloads.menu.domain.ItemHelper.createItem;
-import static com.amido.stacks.workloads.menu.domain.ItemHelper.createItems;
+import static com.amido.stacks.workloads.menu.domain.utility.CategoryHelper.createCategory;
+import static com.amido.stacks.workloads.menu.domain.utility.ItemHelper.createItem;
+import static com.amido.stacks.workloads.menu.domain.utility.ItemHelper.createItems;
 import static java.util.UUID.randomUUID;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.ArgumentMatchers.any;
@@ -25,13 +25,10 @@ import com.amido.stacks.workloads.menu.api.v1.dto.request.UpdateItemRequest;
 import com.amido.stacks.workloads.menu.domain.Category;
 import com.amido.stacks.workloads.menu.domain.Item;
 import com.amido.stacks.workloads.menu.domain.Menu;
-import com.amido.stacks.workloads.menu.domain.MenuHelper;
+import com.amido.stacks.workloads.menu.domain.utility.MenuHelper;
 import com.amido.stacks.workloads.menu.repository.MenuRepository;
 import com.amido.stacks.workloads.menu.service.v1.utility.MenuHelperService;
 import com.amido.stacks.workloads.util.TestHelper;
-import com.azure.spring.autoconfigure.cosmos.CosmosAutoConfiguration;
-import com.azure.spring.autoconfigure.cosmos.CosmosHealthConfiguration;
-import com.azure.spring.autoconfigure.cosmos.CosmosRepositoriesAutoConfiguration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -42,7 +39,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -52,15 +48,19 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
     classes = Application.class)
-@EnableAutoConfiguration(
-    exclude = {
-      CosmosRepositoriesAutoConfiguration.class,
-      CosmosAutoConfiguration.class,
-      CosmosHealthConfiguration.class
+@TestPropertySource(
+    properties = {
+      "management.port=0",
+      "aws.xray.enabled=false",
+      "aws.secretsmanager.enabled=false",
+      "spring.autoconfigure.exclude=com.azure.spring.autoconfigure.cosmos.CosmosRepositoriesAutoConfiguration,"
+          + "com.azure.spring.autoconfigure.cosmos.CosmosAutoConfiguration,"
+          + "com.azure.spring.autoconfigure.cosmos.CosmosHealthConfiguration"
     })
 @Tag("Integration")
 @ActiveProfiles("test")
