@@ -27,7 +27,7 @@ management:
     web:
       base-path: /
       exposure:
-        include: health, info, beans
+        include: health, info, beans, refresh
 
 springdoc:
   swagger-ui:
