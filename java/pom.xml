@@ -410,13 +410,11 @@
         <dynamodb.profile.name>dynamodb</dynamodb.profile.name>
       </properties>
       <dependencies>
-        <!--
         <dependency>
           <groupId>com.amido.stacks.modules</groupId>
           <artifactId>stacks-aws-dynamodb</artifactId>
           <version>${stacks.aws.dynamodb.version}</version>
         </dependency>
-        -->
       </dependencies>
     </profile>
 
