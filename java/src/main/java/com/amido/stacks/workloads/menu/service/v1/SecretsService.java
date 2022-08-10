@@ -2,10 +2,12 @@ package com.amido.stacks.workloads.menu.service.v1;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
+@RefreshScope
 public class SecretsService {
 
   @Value(value = "${stacks-secret-1:secret-not-available}")
