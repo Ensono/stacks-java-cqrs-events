@@ -1,4 +1,4 @@
-@AWS
+@AWS @Ignore
 Feature: Check whether AWS features are operational
   The `/v1/secrets` endpoint returns a few example secrets to enable us to verify the connection
 
