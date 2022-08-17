@@ -13,6 +13,7 @@ function fn() {
         menu: '/v1/menu',
         menu_v2: '/v2/menu',
         items: '/items',
+        secrets: '/v1/secrets',
 
         generate_auth0_token: false,
 

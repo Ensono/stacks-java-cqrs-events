@@ -6,7 +6,8 @@ public enum WebServiceEndPoints {
   STATUS("/health"),
   MENU("/v1/menu"),
   MENU_V2("/v2/menu"),
-  ITEMS("/items");
+  ITEMS("/items"),
+  SECRETS("/v1/secrets");
 
   private final String url;
 
