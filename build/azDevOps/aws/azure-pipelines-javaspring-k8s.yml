@@ -832,7 +832,6 @@ stages:
   - stage: Release
     dependsOn:
       - Build
-      - Prod
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(variables['create_release'], 'true'))
     variables:
       - group: amido-stacks-infra-credentials-nonprod
