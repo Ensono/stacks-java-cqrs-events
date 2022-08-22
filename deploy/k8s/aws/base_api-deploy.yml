@@ -13,7 +13,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   annotations:
-    alb.ingress.kubernetes.io/load-balancer-attributes: idle_timeout.timeout_seconds=120 # resolved 502 error while deployment "https://www.tessian.com/blog/how-to-fix-http-502-errors/"
+    alb.ingress.kubernetes.io/load-balancer-attributes: idle_timeout.timeout_seconds=120    # resolved 502 error while deployment "https://www.tessian.com/blog/how-to-fix-http-502-errors/"
     alb.ingress.kubernetes.io/certificate-arn: ${k8s_ingress_cert_arn}
     alb.ingress.kubernetes.io/healthcheck-interval-seconds: "15"
     alb.ingress.kubernetes.io/healthcheck-port: traffic-port
@@ -41,7 +41,7 @@ metadata:
     app.kubernetes.io/part-of: ${project}
     environment: ${environment}
   finalizers:
-  - ingress.k8s.aws/resources
+      - ingress.k8s.aws/resources
   name: ${resource_def_name}
   namespace: ${namespace}
 spec:
@@ -245,11 +245,11 @@ spec:
             requests:
               cpu: "0.5"
               memory: "256Mi"
-          image: ${k8s_image} # this we need to pass from the pipeline to the deployment steps
+          image: ${k8s_image}    # this we need to pass from the pipeline to the deployment steps
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: appsettings
-              mountPath: /app/config  # this can either be configured if you are re-using this for many services or should be changed here
+              mountPath: /app/config    # this can either be configured if you are re-using this for many services or should be changed here
           ports:
             - name: http
               containerPort: 80
