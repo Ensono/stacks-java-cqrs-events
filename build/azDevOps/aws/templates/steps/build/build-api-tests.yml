@@ -1,0 +1,61 @@
+parameters:
+  repo_root_dir: ""
+  functional_test_project_root_dir: ""
+  functional_test_artefact_path: ""
+  pipeline_scripts_directory: ""
+  # Maven
+  maven_cache_directory: ""
+  # maven_surefire_reports_dir: ""
+  maven_untagged_test_check: true
+  maven_allowed_post_deploy_test_tags: ""
+  maven_ignored_post_deploy_test_tags: ""
+  maven_post_deploy_html_report_directory: ""
+  maven_post_deploy_failsafe_reports_directory: ""
+  # Docker Config
+  docker_build_container: ""
+  # Vulnerability Scanning
+  vulnerability_scan: true
+  vulnerability_scan_fail_build_on_detection: true
+  project_type: ""
+
+steps:
+  # Builds the Java API Tests
+  - template: ./build-api-tests-cli.yml
+    parameters:
+      repo_root_dir: "${{ parameters.repo_root_dir }}"
+      functional_test_project_root_dir: "${{ parameters.functional_test_project_root_dir }}"
+      functional_test_artefact_path: "${{ parameters.functional_test_artefact_path }}"
+      pipeline_scripts_directory: "${{ parameters.pipeline_scripts_directory }}"
+      # Maven
+      maven_untagged_test_check: "${{ parameters.maven_untagged_test_check }}"
+      maven_cache_directory: "${{ parameters.maven_cache_directory }}"
+      maven_allowed_post_deploy_test_tags: "${{ parameters.maven_allowed_post_deploy_test_tags }}"
+      maven_ignored_post_deploy_test_tags: "${{ parameters.maven_ignored_post_deploy_test_tags }}"
+      maven_post_deploy_html_report_directory: "${{ parameters.maven_post_deploy_html_report_directory }}"
+      maven_post_deploy_failsafe_reports_directory: "${{ parameters.maven_post_deploy_failsafe_reports_directory }}"
+      # Docker
+      docker_build_container: "${{ parameters.docker_build_container }}"
+      # Vulnerability Scan
+      vulnerability_scan: "${{ parameters.vulnerability_scan }}"
+      vulnerability_scan_fail_build_on_detection: "${{ parameters.vulnerability_scan_fail_build_on_detection }}"
+      project_type: "${{ parameters.project_type }}"
+
+  - template: ./build-api-tests-cli.yml
+    parameters:
+      repo_root_dir: "${{ parameters.repo_root_dir }}"
+      functional_test_project_root_dir: "${{ parameters.functional_test_project_root_dir }}-karate"
+      functional_test_artefact_path: "${{ parameters.functional_test_artefact_path }}-karate"
+      pipeline_scripts_directory: "${{ parameters.pipeline_scripts_directory }}"
+      # Maven
+      maven_untagged_test_check: false
+      maven_cache_directory: "${{ parameters.maven_cache_directory }}"
+      maven_allowed_post_deploy_test_tags: "${{ parameters.maven_allowed_post_deploy_test_tags }}"
+      maven_ignored_post_deploy_test_tags: "${{ parameters.maven_ignored_post_deploy_test_tags }}"
+      maven_post_deploy_html_report_directory: "${{ parameters.maven_post_deploy_html_report_directory }}"
+      maven_post_deploy_failsafe_reports_directory: "${{ parameters.maven_post_deploy_failsafe_reports_directory }}"
+      # Docker
+      docker_build_container: "${{ parameters.docker_build_container }}"
+      # Vulnerability Scan
+      vulnerability_scan: "${{ parameters.vulnerability_scan }}"
+      vulnerability_scan_fail_build_on_detection: "${{ parameters.vulnerability_scan_fail_build_on_detection }}"
+      project_type: "${{ parameters.project_type }}"

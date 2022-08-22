@@ -1,0 +1,77 @@
+parameters:
+  pipeline_scripts_directory: ""
+  shared_replacements: {}
+  template_input: []
+  cat_template_output: false
+  aws_access_key_id: ""
+  aws_secret_access_key: ""
+  aws_default_region: ""
+  aws_account_id: ""
+  aws_cluster_role: ""
+  eks_cluster_name: ""
+  deployments: []
+  servicebus_creds: {}
+steps:
+  # Template Substitutions
+  - ${{ each template in parameters.template_input }}:
+      - task: Bash@3
+        inputs:
+          filePath: "$(self_pipeline_scripts_dir)/deploy-k8s-envsubst.bash"
+          arguments: >
+            -a "${{ template.base }}"
+            -b "${{ template.additional_args }}"
+            -Y "${{ parameters.cat_template_output }}"
+            -Z "${{ template.out }}"
+        env:
+          ${{ each var in parameters.shared_replacements }}:
+            ${{ var.key }}: ${{ var.value }}
+          ${{ each var in template.replacements }}:
+            ${{ var.key }}: ${{ var.value }}
+        displayName: "K8s: Yaml '${{ template.displayName }}'"
+
+  - task: Bash@3
+    inputs:
+      filePath: "${{ parameters.pipeline_scripts_directory }}/util-aws-login.bash"
+      arguments: >
+        -a "${{ parameters.aws_access_key_id }}"
+        -b "${{ parameters.aws_secret_access_key }}"
+        -c "${{ parameters.aws_default_region }}"
+    displayName: "Login: AWS CLI"
+
+  - task: Bash@3
+    inputs:
+      filePath: "${{ parameters.pipeline_scripts_directory }}/util-aws-kubeconfig.bash"
+      arguments: >
+        -a "${{ parameters.eks_cluster_name }}"
+        -b "${{ parameters.aws_default_region }}"
+    displayName: "Login: AWS EKS Update KubeConfig"
+
+  - task: Bash@3
+    inputs:
+      filePath: "${{ parameters.pipeline_scripts_directory }}/util-aws-assume-role.bash"
+      arguments: >
+        -a "${{ parameters.aws_account_id }}"
+        -b "${{ parameters.aws_cluster_role }}"
+        -c "${{ parameters.aws_default_region }}"
+    displayName: "Login: AWS EKS Assume Role"
+
+  - ${{ each template in parameters.template_input }}:
+      - task: Bash@3
+        inputs:
+          filePath: "${{ parameters.pipeline_scripts_directory }}/deploy-k8s-apply.bash"
+          arguments: >
+            -a "${{ template.out }}"
+        displayName: "Deploy: Kubectl Apply (${{ template.out }})"
+        env:
+          ${{ each var in parameters.servicebus_creds }}:
+            ${{ var.key }}: ${{ var.value }}
+
+  - ${{ each deployment in parameters.deployments }}:
+      - task: Bash@3
+        inputs:
+          filePath: "${{ parameters.pipeline_scripts_directory }}/deploy-k8s-rollout-status.bash"
+          arguments: >
+            -a "${{ deployment.name }}"
+            -b "${{ deployment.namespace }}"
+            -Z "${{ deployment.timeout }}"
+        displayName: "Deploy: Kubectl Rollout Status Check (${{ deployment.name }} @ ${{ deployment.namespace }})"

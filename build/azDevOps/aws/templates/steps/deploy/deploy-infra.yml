@@ -1,0 +1,87 @@
+parameters:
+  pipeline_scripts_directory: ""
+  docker_terraform_container: ""
+  aws_access_key_id: ""
+  aws_secret_access_key: ""
+  aws_default_region: ""
+  aws_account_id: ""
+  terraform_directory: ""
+  terraform_backend_aws_access_key_id: ""
+  terraform_backend_aws_secret_access_key: ""
+  terraform_backend_aws_default_region: ""
+  terraform_state_region: ""
+  terraform_state_s3_bucket: ""
+  terraform_state_encryption: ""
+  terraform_state_key: ""
+  terraform_state_workspace: ""
+  terraform_extra_properties: ""
+  terraform_output_commands: ""
+  terraform_output_artefact_name: ""
+
+steps:
+  - task: Bash@3
+    inputs:
+      filePath: "${{ parameters.pipeline_scripts_directory }}/util-aws-login.bash"
+      arguments: >
+        -a "${{ parameters.aws_access_key_id}}"
+        -b "${{ parameters.aws_secret_access_key }}"
+        -c "${{ parameters.aws_default_region }}"
+
+    target:
+      container: ${{ parameters.docker_terraform_container }}
+    displayName: "Login: AWS CLI"
+
+  - task: Bash@3
+    inputs:
+      filePath: "${{ parameters.pipeline_scripts_directory }}/deploy-aws-terraform-init.bash"
+      arguments: >
+        -a "${{ parameters.terraform_backend_aws_access_key_id }}"
+        -b "${{ parameters.terraform_backend_aws_secret_access_key }}"
+        -c "${{ parameters.terraform_backend_aws_default_region }}"
+        -e "${{ parameters.terraform_state_region }}"
+        -f "${{ parameters.terraform_state_s3_bucket }}"
+        -g "${{ parameters.terraform_state_dynamotable }}"
+        -h "${{ parameters.terraform_state_encryption }}"
+        -i "${{ parameters.terraform_state_key }}"
+        -j "${{ parameters.terraform_state_workspace }}"
+      workingDirectory: ${{ parameters.terraform_directory }}
+    target:
+      container: ${{ parameters.docker_terraform_container }}
+    displayName: "Terraform: Initialise and Set Workspace"
+
+  - task: Bash@3
+    inputs:
+      filePath: "${{ parameters.pipeline_scripts_directory }}/deploy-aws-terraform-plan.bash"
+      arguments: >
+        -a "${{ parameters.aws_access_key_id}}"
+        -b "${{ parameters.aws_secret_access_key }}"
+        -c "${{ parameters.default_region }}"
+      workingDirectory: ${{ parameters.terraform_directory }}
+    env:
+      ${{ each var in parameters.terraform_extra_properties }}:
+        ${{ var.key }}: "${{ var.value }}"
+    target:
+      container: ${{ parameters.docker_terraform_container }}
+    displayName: "Terraform: Plan"
+
+  - task: Bash@3
+    inputs:
+      filePath: "${{ parameters.pipeline_scripts_directory }}/deploy-aws-terraform-apply.bash"
+      arguments: >
+        -a "${{ parameters.aws_access_key_id}}"
+        -b "${{ parameters.aws_secret_access_key }}"
+        -c "${{ parameters.default_region }}"
+      workingDirectory: ${{ parameters.terraform_directory }}
+    env:
+      ${{ each var in parameters.terraform_extra_properties }}:
+        ${{ var.key }}: "${{ var.value }}"
+    target:
+      container: ${{ parameters.docker_terraform_container }}
+    displayName: "Terraform: Apply"
+
+  - bash: ${{ parameters.terraform_output_commands }}
+    workingDirectory: ${{ parameters.terraform_directory }}
+    target:
+      container: ${{ parameters.docker_terraform_container }}
+    name: ${{ parameters.terraform_output_artefact_name }}
+    displayName: 'Terraform: Write Outputs to Variables'
