@@ -335,6 +335,7 @@ stages:
           - name: tags
             value: "{}"
 
+
         strategy:
           runOnce:
             deploy:
@@ -374,22 +375,6 @@ stages:
                       TF_VAR_name_environment: "$(Environment.ShortName)",
                       TF_VAR_attributes: "${{ variables.attributes }}",
                       TF_VAR_tags: "${{ variables.tags }}"
-                      # TF_VAR_resource_group_location: "${{ variables.resource_group_location }}",
-                      # TF_VAR_app_gateway_frontend_ip_name: "${{ variables.app_gateway_frontend_ip_name }}",
-                      # TF_VAR_dns_record: "${{ variables.dns_name }}",
-                      # TF_VAR_dns_zone_name: "${{ variables.base_domain_nonprod }}",
-                      # TF_VAR_dns_zone_resource_group: "${{ variables.dns_zone_resource_group }}",
-                      # TF_VAR_core_resource_group: "${{ variables.core_resource_group }}",
-                      # TF_VAR_internal_dns_zone_name: "${{ variables.base_domain_internal_nonprod }}",
-                      # TF_VAR_create_dynamodb: "${{ variables.create_cosmosdb }}",
-                      # TF_VAR_create_cache: "${{ variables.create_cache }}",
-                      # TF_VAR_create_dns_record: "${{ variables.create_dns_record }}",
-                      # TF_VAR_create_cdn_endpoint: "${{ variables.create_cdn_endpoint }}",
-                      # TF_VAR_cosmosdb_sql_container: "${{ variables.cosmosdb_sql_container }}",
-                      # TF_VAR_cosmosdb_sql_container_partition_key: "${{ variables.cosmosdb_sql_container_partition_key }}",
-                      # TF_VAR_cosmosdb_kind: "${{ variables.cosmosdb_kind }}",
-                      # TF_VAR_cosmosdb_offer_type: "${{ variables.cosmosdb_offer_type }}",
-                      # TF_VAR_app_insights_name: "${{ variables.app_insights_name }}",
                     }
                     terraform_output_commands: |
                       raw_tf=$(terraform output -json | jq -r 'keys[] as $k | "##vso[task.setvariable variable=\($k);isOutput=true]\(.[$k] | .value)"')
@@ -425,14 +410,7 @@ stages:
             value: $(kubernetes_clustername_nonprod)
           - name: app_name
             value: "java-api"
-          # - name: servicebus_enabled
-          #   value: "true"
-          # - name: servicebus_connectionstring
-          #   value: $[ dependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.servicebus_connectionstring'] ]
-          # - name: servicebus_topic
-          #   value: $[ dependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.servicebus_topic_name'] ]
-          # - name: servicebus_subscription
-          #   value: $[ dependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.servicebus_subscription_name'] ]
+
         strategy:
           runOnce:
             deploy:
@@ -462,36 +440,18 @@ stages:
                         out: "${{ variables.self_repo_dir }}/deploy/k8s/app/api-deploy.yml",
                         displayName: "App Deployment",
                         replacements: {
-                          # dns_pointer: "${{ variables.dns_pointer }}",
                           tls_domain: "${{ variables.base_domain_nonprod }}",
                           k8s_app_path: "${{ variables.k8s_app_path }}",
                           log_level: "Debug",
                           k8s_image: '${{ variables.k8s_docker_registry_nonprod }}/${{ variables.docker_image_name }}:${{ variables.docker_image_tag }}'
-                          # Unused currently
-                          # aadpodidentitybinding: stacks-webapp-identity,
-                          # app_insights_key: "$(app_insights_instrumentation_key)",
-                          # cosmosdb_key: "$(cosmosdb_primary_master_key)",
-                          # cosmosdb_endpoint: "$(cosmosdb_endpoint)",
-                          # cosmosdb_name: "$(cosmosdb_database_name)",
-                          # sb_enabled: "$(servicebus_enabled)",
-                          # sb_conn_string: "$(servicebus_connectionstring)",
-                          # sb_topic: "$(servicebus_topic)",
-                          # sb_subscription: "$(servicebus_subscription)"
                         },
                         additional_args: "-no-empty",
                       },
                     ]
-                    azure_client_id: "$(aws_access_key_id)"
-                    azure_client_secret: "$(aws_secret_access_key)"
-                    azure_tenant_id: "$(aws_default_region)"
+                    aws_access_key_id: "$(aws_access_key_id)"
+                    aws_secret_access_key: "$(aws_secret_access_key)"
+                    aws_default_region: "$(aws_default_region)"
                     eks_cluster_name: "${{ variables.eks_cluster_name }}"
-                    # servicebus_creds:
-                    #   {
-                    #     SB_ENABLED: true,
-                    #     SB_TOPIC: servicebus_topic,
-                    #     SB_SUBSCRIPTION: servicebus_subscription,
-                    #     SB_CONNECTION_STRING: servicebus_connectionstring,
-                    #   }
                     # Used to do a `kubectl rollout status`
                     deployments: [
                       {
