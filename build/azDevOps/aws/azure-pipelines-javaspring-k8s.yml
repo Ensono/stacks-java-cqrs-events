@@ -110,12 +110,6 @@ variables:
     value: "$(Build.BuildNumber)"
   - name: docker_java_image
     value: "azul_java"
-
- # - name: k8s_docker_registry_nonprod
- #   value: "${{ variables.docker_container_registry_name_nonprod }}.azurecr.io"
- # - name: k8s_docker_registry_prod
- #   value: "${{ variables.docker_container_registry_name_prod }}.azurecr.io"
-
   - name: resource_def_name
     value: java-api-cqrs-evnts
 
