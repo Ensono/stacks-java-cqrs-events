@@ -45,7 +45,7 @@ steps:
         -a "${{ parameters.docker_image_name }}"
         -b "${{ parameters.docker_image_tag }}"
         -c "${{ parameters.docker_container_registry_name }}"
-        -d "${{ parameters.aws_default_region" }}
+        -d "${{ parameters.aws_default_region }}
         -Y "false"
         -Z ".azurecr.io"
     target:
