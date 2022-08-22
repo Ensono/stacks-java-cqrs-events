@@ -51,7 +51,7 @@ steps:
       filePath: "${{ parameters.pipeline_scripts_directory }}/util-aws-assume-role.bash"
       arguments: >
         -a "${{ parameters.aws_account_id }}"
-        -b "${{ parameters.aws_cluster-role }}"
+        -b "${{ parameters.aws_cluster_role }}"
         -c "${{ parameters.aws_default_region }}"
     displayName: "Login: AWS EKS Assume Role"
 
