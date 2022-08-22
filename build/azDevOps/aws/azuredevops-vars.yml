@@ -37,45 +37,21 @@ variables:
     value: deploy/aws/app/kube
 
 
-  # TF Variables
-  # --nonprod
-  # - name: tf_app_gateway_frontend_ip_name_nonprod
-  #   value: amido-stacks-nonprod-euw-core
-  # - name: tf_core_resource_group_nonprod
-  #   value: amido-stacks-nonprod-euw-core
-
-  # --prod
-  # - name: tf_app_insights_name_prod
-  #   value: amido-stacks-prod-euw-core
-  # - name: tf_app_gateway_frontend_ip_name_prod
-  #   value: amido-stacks-prod-euw-core
-  # - name: tf_core_resource_group_prod
-  #   value: amido-stacks-prod-euw-core
-
   # Kubernetes configuration
   # --nonprod
   - name: kubernetes_clustername_nonprod
     value: amido-stacks-dev-h0ax6owA
 
-  # --prod
-  # - name: kubernetes_clustername_prod
-  #   value: amido-stacks-prod-euw-core
 
   # Container registry configuration
   - name: docker_container_registry_name_nonprod
     value: amidostacksnonprodeuwcore
-  # - name: docker_container_registry_name_prod
-  #   value: amidostacksprodeuwcore
 
   # Domain names
   - name: base_domain_nonprod
     value: nonprod.amidostacks.com
   - name: base_domain_internal_nonprod
     value: nonprod.amidostacks.internal
-  # - name: base_domain_prod
-  #   value: prod.amidostacks.com
-  # - name: base_domain_internal_prod
-  #   value: prod.amidostacks.internal
 
   # GitHub infomration
   - name: create_release
