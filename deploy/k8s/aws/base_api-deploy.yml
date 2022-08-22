@@ -41,7 +41,7 @@ metadata:
     app.kubernetes.io/part-of: ${project}
     environment: ${environment}
   finalizers:
-        - ingress.k8s.aws/resources
+    - ingress.k8s.aws/resources
   name: ${resource_def_name}
   namespace: ${namespace}
 spec:
