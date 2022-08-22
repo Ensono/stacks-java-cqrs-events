@@ -386,7 +386,7 @@ stages:
                       TF_VAR_name_role: "${{ variables.role }}",
                       TF_VAR_name_environment: "$(Environment.ShortName)",
                       TF_VAR_attributes: "${{ variables.attributes }}",
-                      TF_VAR_tags: "${{ variables.tags }}",
+                      TF_VAR_tags: "${{ variables.tags }}"
                       # TF_VAR_resource_group_location: "${{ variables.resource_group_location }}",
                       # TF_VAR_app_gateway_frontend_ip_name: "${{ variables.app_gateway_frontend_ip_name }}",
                       # TF_VAR_dns_record: "${{ variables.dns_name }}",
