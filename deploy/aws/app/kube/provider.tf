@@ -11,7 +11,7 @@ provider "aws" {
 }
 
 terraform {
-  required_version = ">= 0.14"
+  required_version = ">= 0.13"
 
   backend "s3" {
     # Configured via runtime command line flags
