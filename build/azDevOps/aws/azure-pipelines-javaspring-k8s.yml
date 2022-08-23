@@ -350,6 +350,7 @@ stages:
                     aws_access_key_id: "$(aws_access_key_id)"
                     aws_secret_access_key: "$(aws_secret_access_key)"
                     aws_default_region: "$(aws_default_region)"
+                    aws_account_id: "$(aws_account_id)"
                     # Terraform
                     terraform_directory: '$(self_repo_tf_dir)'
                     # Backend Azure State Storage Credentials
@@ -449,6 +450,7 @@ stages:
                     aws_access_key_id: "$(aws_access_key_id)"
                     aws_secret_access_key: "$(aws_secret_access_key)"
                     aws_default_region: "$(aws_default_region)"
+                    aws_account_id: "$(aws_account_id)"
                     eks_cluster_name: "${{ variables.eks_cluster_name }}"
                     # Used to do a `kubectl rollout status`
                     deployments: [
