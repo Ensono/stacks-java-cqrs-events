@@ -10,7 +10,6 @@ parameters:
   aws_cluster_role: ""
   eks_cluster_name: ""
   deployments: []
-  servicebus_creds: {}
 steps:
   # Template Substitutions
   - ${{ each template in parameters.template_input }}:
