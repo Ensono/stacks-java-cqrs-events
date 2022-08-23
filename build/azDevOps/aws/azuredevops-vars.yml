@@ -47,7 +47,7 @@ variables:
 
   # Container registry configuration
   - name: docker_container_registry_name_nonprod
-    value: amidostacksnonprodeuwcore
+    value: stacks-java
 
   # Domain names
   - name: base_domain_nonprod

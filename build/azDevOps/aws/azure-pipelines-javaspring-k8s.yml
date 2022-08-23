@@ -104,8 +104,10 @@ variables:
   # Docker Config
   - name: docker_dockerfile_path
     value: "."
-  - name: docker_image_name
+  - name: docker_registry_name
     value: "$(aws_account_id).dkr.ecr.eu-west-2.amazonaws.com"
+  - name: docker_image_name
+    value: "stacks-java"
   - name: docker_image_tag
     value: "$(Build.BuildNumber)"
   - name: docker_java_image
@@ -280,6 +282,7 @@ stages:
               docker_build_additional_args: "."
               docker_image_name: "${{ variables.docker_image_name }}"
               docker_image_tag: "${{ variables.docker_image_tag }}"
+              docker_registry_name: "${{ variables.docker_registry_name }}"
               docker_container_registry_name: "${{ variables.docker_container_registry_name_nonprod }}"
               # AWS
               aws_access_key_id: "$(aws_access_key_id)"
