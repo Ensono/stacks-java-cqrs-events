@@ -288,6 +288,7 @@ stages:
               aws_access_key_id: "$(aws_access_key_id)"
               aws_secret_access_key: "$(aws_secret_access_key)"
               aws_default_region: "$(aws_default_region)"
+              aws_account_id: "$(aws_account_id)"
 
           # Post build tasks, such as Test and Coverage upload, and publishing artefacts
           - template: templates/steps/build/post-build-tasks.yml
