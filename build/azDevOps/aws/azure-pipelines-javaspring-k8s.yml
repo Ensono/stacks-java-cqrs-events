@@ -105,7 +105,7 @@ variables:
   - name: docker_dockerfile_path
     value: "."
   - name: docker_image_name
-    value: "${{ aws_account_id }}.dkr.ecr.eu-west-2.amazonaws.com"
+    value: "$(aws_account_id).dkr.ecr.eu-west-2.amazonaws.com"
   - name: docker_image_tag
     value: "$(Build.BuildNumber)"
   - name: docker_java_image
