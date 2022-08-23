@@ -21,7 +21,6 @@ steps:
         -b "${{ parameters.docker_image_name }}"
         -c "${{ parameters.docker_image_tag }}"
         -d "${{ parameters.docker_container_registry_name }}"
-        -Z ".azurecr.io"
       workingDirectory: ${{ parameters.project_root_dir }}
     target:
       container: ${{ parameters.docker_k8s_container }}
