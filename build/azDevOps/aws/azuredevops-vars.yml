@@ -11,6 +11,8 @@ variables:
     value: stacks-java-cqrs-events
   - name: self_generic_name
     value: $(project)-$(domain)-aws
+  - name: aws_default_region
+    value: eu-west-2
 
   # Terraform Configuration
 
