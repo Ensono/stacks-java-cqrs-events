@@ -11,6 +11,7 @@ parameters:
   aws_access_key_id: ""
   aws_secret_access_key: ""
   aws_default_region: ""
+  aws_account_id: ""
 
 steps:
   - task: Bash@3
@@ -45,6 +46,7 @@ steps:
         -b "${{ parameters.docker_image_tag }}"
         -c "${{ parameters.docker_container_registry_name }}"
         -d "${{ parameters.aws_default_region }}"
+        -e "${{ parameters.aws_account_id }}"
         -Y "false"
     target:
       container: ${{ parameters.docker_k8s_container }}

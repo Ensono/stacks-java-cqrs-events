@@ -55,7 +55,7 @@ steps:
       arguments: >
         -a "${{ parameters.aws_access_key_id}}"
         -b "${{ parameters.aws_secret_access_key }}"
-        -c "${{ parameters.default_region }}"
+        -c "${{ parameters.aws_default_region }}"
       workingDirectory: ${{ parameters.terraform_directory }}
     env:
       ${{ each var in parameters.terraform_extra_properties }}:
@@ -70,7 +70,7 @@ steps:
       arguments: >
         -a "${{ parameters.aws_access_key_id}}"
         -b "${{ parameters.aws_secret_access_key }}"
-        -c "${{ parameters.default_region }}"
+        -c "${{ parameters.aws_default_region }}"
       workingDirectory: ${{ parameters.terraform_directory }}
     env:
       ${{ each var in parameters.terraform_extra_properties }}:
