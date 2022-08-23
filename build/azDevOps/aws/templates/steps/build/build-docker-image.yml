@@ -6,7 +6,7 @@ parameters:
   docker_build_additional_args: ""
   docker_image_name: ""
   docker_image_tag: ""
-  docker_container_registry_name: ""
+  docker_registry_name: ""
   # AWS
   aws_access_key_id: ""
   aws_secret_access_key: ""
@@ -21,7 +21,7 @@ steps:
         -a "${{ parameters.docker_build_additional_args }}"
         -b "${{ parameters.docker_image_name }}"
         -c "${{ parameters.docker_image_tag }}"
-        -d "${{ parameters.docker_container_registry_name }}"
+        -d "${{ parameters.docker_registry_name }}"
       workingDirectory: ${{ parameters.project_root_dir }}
     target:
       container: ${{ parameters.docker_k8s_container }}
@@ -44,7 +44,7 @@ steps:
       arguments: >
         -a "${{ parameters.docker_image_name }}"
         -b "${{ parameters.docker_image_tag }}"
-        -c "${{ parameters.docker_container_registry_name }}"
+        -c "${{ parameters.docker_registry_name }}"
         -d "${{ parameters.aws_default_region }}"
         -e "${{ parameters.aws_account_id }}"
         -Y "false"
