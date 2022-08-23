@@ -10,7 +10,7 @@ parameters:
   # AWS
   aws_access_key_id: ""
   aws_secret_access_key: ""
-  default_region: ""
+  aws_default_region: ""
 
 steps:
   - task: Bash@3
@@ -33,7 +33,7 @@ steps:
       arguments: >
         -a "${{ parameters.aws_access_key_id}}"
         -b "${{ parameters.aws_secret_access_key }}"
-        -c "${{ parameters.default_region }}"
+        -c "${{ parameters.aws_default_region }}"
     target:
       container: ${{ parameters.docker_k8s_container }}
     displayName: "Login: AWS CLI"
