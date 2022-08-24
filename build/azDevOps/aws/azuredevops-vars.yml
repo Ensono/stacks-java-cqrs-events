@@ -25,15 +25,15 @@ variables:
   # **`terraform_state_workspace: `**
   # avoid running anything past dev that is not on master
   # sample value: company-webapp
-  - name: aws_tf_state_region
+  - name: region
     value: eu-west-2
-  - name: aws_tf_state_dynamotable
+  - name: dynamodb_table
     value: dynamo-ew2-rjs-tf-state-dev-terraform-state-lock
-  - name: aws_tf_state_bucket
+  - name: bucket
     value: aws_s3-ew2-rjs-tf-state-dev-terraform-backend-3
-  - name: aws_tf_state_key
+  - name: key
     value: "eks.tfstate"
-  - name: aws_tf_state_encryption
+  - name: encrypt
     value: "true"
   - name: TF_FILE_LOCATION
     value: deploy/aws/app/kube
