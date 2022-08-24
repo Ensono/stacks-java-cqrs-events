@@ -323,7 +323,7 @@ stages:
         container: terraform_custom
         pool:
           vmImage: $(pool_vm_image)
-        environment: ${{ variables.domain }}-dev
+        environment: nonprod
         variables:
           - name: attributes
             value: "[]"
@@ -365,6 +365,11 @@ stages:
                     encrypt: ${{ variables.aws_encrypt }}
                     terraform_state_workspace: "dev"
                     terraform_extra_properties: {
+                      TF_VAR_name_owner: "${{ variables.owner}}",
+                      TF_VAR_region: "${{ variable.region }}",
+                      TF_VAR_create_docker_repositories: "true",
+                      TF_VAR_env: "nonprod",
+                      TF_VAR_docker_image_name: "${variables.docker_image_name}",
                       TF_VAR_name_company: "${{ variables.company }}",
                       TF_VAR_name_project: "${{ variables.project }}",
                       TF_VAR_name_domain: "${{ variables.domain }}",
