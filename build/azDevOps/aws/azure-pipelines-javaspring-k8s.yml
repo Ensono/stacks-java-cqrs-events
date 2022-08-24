@@ -344,8 +344,8 @@ stages:
                     pipeline_scripts_directory: "${{ variables.self_pipeline_scripts_dir }}"
                     docker_terraform_container: "terraform_custom"
                     # AWS Credenitals (For Deploying)
-                    aws_access_key_id: "$(aws_access_key_id)"
-                    aws_secret_access_key: "$(aws_secret_access_key)"
+                    access_key: "$(access_key)"
+                    secret_key: "$(secret_key)"
                     aws_default_region: "$(aws_default_region)"
                     aws_account_id: "$(aws_account_id)"
                     # Terraform
@@ -356,11 +356,11 @@ stages:
                     terraform_backend_aws_access_key_id: "$(aws_access_key_id)"
                     terraform_backend_aws_secret_access_key: "$(aws_secret_access_key)"
                     terraform_backend_aws_default_region: "$(aws_default_region)"
-                    aws_tf_state_region: ${{ variables.aws_tf_state_region }}
-                    aws_tf_state_dynamotable: ${{ variables.aws_tf_state_dynamotable }}
-                    aws_tf_state_bucket: ${{ variables.aws_tf_state_bucket }}
-                    aws_tf_state_key: ${{ variables.aws_tf_state_key }}
-                    aws_tf_state_encryption: ${{ variables.aws_tf_state_encryption }}
+                    region: ${{ variables.region }}
+                    dynamodn_table: ${{ variables.dynamodb_table }}
+                    bucket: ${{ variables.bucket }}
+                    key: ${{ variables.key }}
+                    encrypt: ${{ variables.encrypt }}
                     terraform_state_workspace: "dev"
                     terraform_extra_properties: {
                       TF_VAR_name_company: "${{ variables.company }}",
