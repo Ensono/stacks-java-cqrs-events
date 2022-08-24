@@ -4,7 +4,7 @@ locals {
   default_tags = {
     Environment = var.env
     Application = var.docker_image_name
-    Owner       = var.owner
+    Owner       = "stacks-team"
   }
 
   account_id = data.aws_caller_identity.current.account_id
