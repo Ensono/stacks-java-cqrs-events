@@ -361,7 +361,7 @@ stages:
                     aws_tf_state_bucket: ${{ variables.aws_tf_state_bucket }}
                     aws_tf_state_key: ${{ variables.aws_tf_state_key }}
                     aws_tf_state_encryption: ${{ variables.aws_tf_state_encryption }}
-                    terraform_tf_state_workspace: "$(Environment.ShortName)"
+                    terraform_tf_state_workspace: "dev"
                     terraform_extra_properties: {
                       TF_VAR_name_company: "${{ variables.company }}",
                       TF_VAR_name_project: "${{ variables.project }}",
