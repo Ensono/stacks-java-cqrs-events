@@ -29,7 +29,7 @@ variables:
     value: eu-west-2
   - name: aws_tf_state_dynambotable
     value: dynamo-ew2-rjs-tf-state-dev-terraform-state-lock
-  - name: aws_tf_state_s3_bucket
+  - name: aws_tf_state_bucket
     value: aws_s3-ew2-rjs-tf-state-dev-terraform-backend-3
   - name: aws_tf_state_key
     value: "eks.tfstate"
