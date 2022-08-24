@@ -3,6 +3,8 @@ parameters:
   docker_terraform_container: ""
   access_key: ""
   secret_key: ""
+  aws_access_key_id: ""
+  aws_secret_access_key: ""
   terraform_directory: ""
   terraform_backend_aws_access_key_id: ""
   terraform_backend_aws_secret_access_key: ""
