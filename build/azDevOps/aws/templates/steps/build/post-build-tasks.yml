@@ -34,19 +34,19 @@ steps:
       #     artifact: "owasp-vulnerability-report-java"
       #   displayName: "Publish: Vulnerability Scan Report Artefact (${{ parameters.java_project_type }})"
 
-      - task: PublishPipelineArtifact@1
-        condition: always()
-        inputs:
-          path: "${{ parameters.functional_test_project_root_dir }}/${{ parameters.vulnerability_scan_report }}"
-          artifact: "owasp-vulnerability-report-functional-test"
-        displayName: "Publish: Vulnerability Scan Report Artefact (${{ parameters.functional_test_project_type }})"
+      # - task: PublishPipelineArtifact@1
+      #   condition: always()
+      #   inputs:
+      #     path: "${{ parameters.functional_test_project_root_dir }}/${{ parameters.vulnerability_scan_report }}"
+      #     artifact: "owasp-vulnerability-report-functional-test"
+      #   displayName: "Publish: Vulnerability Scan Report Artefact (${{ parameters.functional_test_project_type }})"
 
-      - task: PublishPipelineArtifact@1
-        condition: always()
-        inputs:
-          path: "${{ parameters.functional_test_project_root_dir }}-karate/${{ parameters.vulnerability_scan_report }}"
-          artifact: "owasp-vulnerability-report-functional-test-karate"
-        displayName: "Publish: Vulnerability Scan Report Artefact (${{ parameters.functional_test_project_type }})"
+      # - task: PublishPipelineArtifact@1
+      #   condition: always()
+      #   inputs:
+      #     path: "${{ parameters.functional_test_project_root_dir }}-karate/${{ parameters.vulnerability_scan_report }}"
+      #     artifact: "owasp-vulnerability-report-functional-test-karate"
+      #   displayName: "Publish: Vulnerability Scan Report Artefact (${{ parameters.functional_test_project_type }})"
 
   # Publish Artefacts if required
   - ${{ if eq(parameters.functional_test, true) }}:
