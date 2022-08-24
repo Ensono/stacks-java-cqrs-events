@@ -109,7 +109,7 @@ variables:
   - name: docker_image_name
     value: "stacks-java"
   - name: docker_image_tag
-    value: "$(Build.BuildNumber)"
+    value: "latest"
   - name: docker_java_image
     value: "azul_java"
   - name: resource_def_name
@@ -279,7 +279,6 @@ stages:
               project_root_dir: "${{ variables.self_project_dir }}"
               pipeline_scripts_directory: "${{ variables.self_pipeline_scripts_dir }}"
               docker_k8s_container: "k8s_deploy"
-              docker_build_additional_args: "."
               docker_image_name: "${{ variables.docker_image_name }}"
               docker_image_tag: "${{ variables.docker_image_tag }}"
               docker_registry_name: "${{ variables.docker_registry_name }}"
