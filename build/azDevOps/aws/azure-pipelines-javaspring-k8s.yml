@@ -313,8 +313,9 @@ stages:
     condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/main'))
     variables:
       - group: amido-stacks-infra-credentials-nonprod
-      # - group: stacks-credentials-nonprod-kv
+      - group: stacks-credentials-nonprod-kv
       - group: amido-stacks-java-api
+      - group: amido-stacks-aws-credentials
       # - name: dns_name
       #   value: "$(Environment.ShortName)-$(domain)"
       # - name: core_resource_group
