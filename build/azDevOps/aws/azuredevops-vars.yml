@@ -13,6 +13,10 @@ variables:
     value: $(project)-$(domain)-aws
   - name: aws_default_region
     value: eu-west-2
+  - name: owner
+    value: stacks-team
+  - name: docker_image_name
+    value: stacks-java
 
   # Terraform Configuration
 
