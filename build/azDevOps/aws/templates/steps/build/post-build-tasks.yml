@@ -26,13 +26,13 @@ steps:
     displayName: "Publish JaCoCo Coverage Results"
 
   # Publish Vulnerability Artefacts if required
-  # - ${{ if eq(parameters.vulnerability_scan, true) }}:
-  #     - task: PublishPipelineArtifact@1
-  #       condition: always()
-  #       inputs:
-  #         path: "${{ parameters.project_root_dir }}/${{ parameters.vulnerability_scan_report }}"
-  #         artifact: "owasp-vulnerability-report-java"
-  #       displayName: "Publish: Vulnerability Scan Report Artefact (${{ parameters.java_project_type }})"
+  - ${{ if eq(parameters.vulnerability_scan, true) }}:
+      # - task: PublishPipelineArtifact@1
+      #   condition: always()
+      #   inputs:
+      #     path: "${{ parameters.project_root_dir }}/${{ parameters.vulnerability_scan_report }}"
+      #     artifact: "owasp-vulnerability-report-java"
+      #   displayName: "Publish: Vulnerability Scan Report Artefact (${{ parameters.java_project_type }})"
 
       - task: PublishPipelineArtifact@1
         condition: always()
