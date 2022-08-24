@@ -360,12 +360,12 @@ stages:
                     terraform_backend_aws_access_key_id: "$(aws_access_key_id)"
                     terraform_backend_aws_secret_access_key: "$(aws_secret_access_key)"
                     terraform_backend_aws_default_region: "$(aws_default_region)"
-                    terraform_state_region: ${{ variables.tf_state_region }}
-                    terraform_state_dynamotable: ${{ variables.tf_state_dynamotable }}
-                    terraform_state_s3_bucket: ${{ variables.tf_state_s3_bucket }}
-                    terraform_state_key: ${{ variables.tf_state_key }}
-                    terraform_state_encryption: ${{ variables.tf_state_encryption }}
-                    terraform_state_workspace: $(Environment.ShortName)
+                    aws_tf_state_region: ${{ variables.aws_tf_state_region }}
+                    aws_tf_state_dynamotable: ${{ variables.aws_tf_state_dynamotable }}
+                    aws_tf_state_s3_bucket: ${{ variables.aws_tf_state_s3_bucket }}
+                    aws_tf_state_key: ${{ variables.aws_tf_state_key }}
+                    aws_tf_state_encryption: ${{ variables.aws_tf_state_encryption }}
+                    terraform_tf_state_workspace: $(Environment.ShortName)
                     terraform_extra_properties: {
                       TF_VAR_name_company: "${{ variables.company }}",
                       TF_VAR_name_project: "${{ variables.project }}",
