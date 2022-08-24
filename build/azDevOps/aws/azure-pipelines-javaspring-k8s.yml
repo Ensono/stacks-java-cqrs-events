@@ -368,7 +368,7 @@ stages:
                       TF_VAR_name_owner: "${{ variables.owner}}",
                       TF_VAR_region: "${{ variables.region }}",
                       TF_VAR_create_docker_repositories: "true",
-                      TF_VAR_env: "nonprod",
+                      TF_VAR_env: "dev",
                       TF_VAR_docker_image_name: "${variables.docker_image_name}",
                       TF_VAR_name_company: "${{ variables.company }}",
                       TF_VAR_name_project: "${{ variables.project }}",
