@@ -37,12 +37,12 @@ steps:
         -a "${{ parameters.terraform_backend_aws_access_key_id }}"
         -b "${{ parameters.terraform_backend_aws_secret_access_key }}"
         -c "${{ parameters.terraform_backend_aws_default_region }}"
-        -e "${{ parameters.aws_tf_state_region }}"
-        -f "${{ parameters.aws_tf_state_bucket }}"
-        -g "${{ parameters.aws_tf_state_dynamotable }}"
-        -h "${{ parameters.aws_tf_state_encryption }}"
-        -i "${{ parameters.aws_tf_state_key }}"
-        -j "${{ parameters.terraform_state_workspace }}"
+        -d "${{ parameters.aws_tf_state_region }}"
+        -e "${{ parameters.aws_tf_state_bucket }}"
+        -f "${{ parameters.aws_tf_state_dynamotable }}"
+        -g "${{ parameters.aws_tf_state_encryption }}"
+        -h "${{ parameters.aws_tf_state_key }}"
+        -i "${{ parameters.terraform_state_workspace }}"
       workingDirectory: ${{ parameters.terraform_directory }}
     target:
       container: ${{ parameters.docker_terraform_container }}
