@@ -344,6 +344,8 @@ stages:
                     pipeline_scripts_directory: "${{ variables.self_pipeline_scripts_dir }}"
                     docker_terraform_container: "terraform_custom"
                     # AWS Credenitals (For Deploying)
+                    aws_access_key_id: "$(aws_access_key_id)"
+                    aws_secret_access_key: "$(aws_secret_access_key)"
                     access_key: "$(aws_access_key_id)"
                     secret_key: "$(aws_secret_access_key)"
                     aws_default_region: "$(aws_default_region)"
