@@ -25,8 +25,6 @@ steps:
       reportDirectory: "${{ parameters.project_root_dir }}/target/site/jacoco-inline"
     displayName: "Publish JaCoCo Coverage Results"
 
-
-
   # Publish Artefacts if required
   - ${{ if eq(parameters.functional_test, true) }}:
       - task: PublishPipelineArtifact@1
