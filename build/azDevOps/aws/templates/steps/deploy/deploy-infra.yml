@@ -36,12 +36,12 @@ steps:
       arguments: >
         -a "${{ parameters.access_key }}"
         -b "${{ parameters.secret_key }}"
-        -d "${{ parameters.region }}"
-        -e "${{ parameters.bucket }}"
-        -f "${{ parameters.dynamodb_table }}"
-        -g "${{ parameters.encrypt }}"
-        -h "${{ parameters.key }}"
-        -i "${{ parameters.terraform_state_workspace }}"
+        -c"${{ parameters.region }}"
+        -d "${{ parameters.bucket }}"
+        -e "${{ parameters.dynamodb_table }}"
+        -f "${{ parameters.encrypt }}"
+        -g "${{ parameters.key }}"
+        -h "${{ parameters.terraform_state_workspace }}"
       workingDirectory: ${{ parameters.terraform_directory }}
     target:
       container: ${{ parameters.docker_terraform_container }}
