@@ -323,7 +323,7 @@ stages:
         container: terraform_custom
         pool:
           vmImage: $(pool_vm_image)
-        environment: nonprod
+        environment: ${{ variables.domain }}-dev
         variables:
           - name: attributes
             value: "[]"
