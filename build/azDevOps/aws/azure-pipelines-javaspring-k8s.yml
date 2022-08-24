@@ -365,7 +365,7 @@ stages:
                     encrypt: ${{ variables.aws_encrypt }}
                     terraform_state_workspace: "dev"
                     terraform_extra_properties: {
-                      TF_VAR_name_owner: "${{ variables.owner}}",
+                      TF_VAR_name_owner: "stacks-team",
                       TF_VAR_region: "${{ variables.region }}",
                       TF_VAR_create_docker_repositories: "true",
                       TF_VAR_env: "dev",
