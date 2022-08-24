@@ -33,7 +33,7 @@ variables:
     value: aws_s3-ew2-rjs-tf-state-dev-terraform-backend-3
   - name: key
     value: "eks.tfstate"
-  - name: encrypt
+  - name: aws_encrypt
     value: "true"
   - name: TF_FILE_LOCATION
     value: deploy/aws/app/kube
