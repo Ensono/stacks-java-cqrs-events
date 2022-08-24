@@ -16,12 +16,11 @@ parameters:
 steps:
   - task: Bash@3
     inputs:
-      filePath: "${{ parameters.pipeline_scripts_directory }}/build-docker-image.bash"
+      filePath: "${{ parameters.pipeline_scripts_directory }}/build-docker-image-aws.bash"
       arguments: >
-        -a "${{ parameters.docker_build_additional_args }}"
-        -b "${{ parameters.docker_image_name }}"
-        -c "${{ parameters.docker_image_tag }}"
-        -d "${{ parameters.docker_registry_name }}"
+        -a "${{ parameters.docker_image_name }}"
+        -b "${{ parameters.docker_image_tag }}"
+        -c "${{ parameters.docker_registry_name }}"
       workingDirectory: ${{ parameters.project_root_dir }}
     target:
       container: ${{ parameters.docker_k8s_container }}
