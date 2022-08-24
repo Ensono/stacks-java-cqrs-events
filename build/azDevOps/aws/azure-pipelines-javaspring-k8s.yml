@@ -107,9 +107,9 @@ variables:
   - name: docker_registry_name
     value: "$(aws_account_id).dkr.ecr.eu-west-2.amazonaws.com"
   - name: docker_image_name
-    value: "$(Build.BuildNumber)"
+    value: "stacks-java"
   - name: docker_image_tag
-    value: "latest"
+    value: "$(Build.BuildNumber)"
   - name: docker_java_image
     value: "azul_java"
   - name: resource_def_name
