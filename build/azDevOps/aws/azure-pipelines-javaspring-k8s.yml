@@ -357,7 +357,7 @@ stages:
                     terraform_backend_aws_secret_access_key: "$(aws_secret_access_key)"
                     terraform_backend_aws_default_region: "$(aws_default_region)"
                     region: ${{ variables.region }}
-                    dynamodn_table: ${{ variables.dynamodb_table }}
+                    dynamodb_table: ${{ variables.dynamodb_table }}
                     bucket: ${{ variables.bucket }}
                     key: ${{ variables.key }}
                     encrypt: ${{ variables.aws_encrypt }}
