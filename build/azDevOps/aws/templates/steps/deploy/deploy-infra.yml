@@ -26,7 +26,6 @@ steps:
         -a "${{ parameters.aws_access_key_id }}"
         -b "${{ parameters.aws_secret_access_key }}"
         -c "${{ parameters.aws_default_region }}"
-
     target:
       container: ${{ parameters.docker_terraform_container }}
     displayName: "Login: AWS CLI"
