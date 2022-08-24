@@ -25,8 +25,8 @@ steps:
       reportDirectory: "${{ parameters.project_root_dir }}/target/site/jacoco-inline"
     displayName: "Publish JaCoCo Coverage Results"
 
-  # Publish Vulnerability Artefacts if required
-  # - ${{ if eq(parameters.vulnerability_scan, true) }}:
+      # Publish Vulnerability Artefacts if required
+      # - ${{ if eq(parameters.vulnerability_scan, true) }}:
       # - task: PublishPipelineArtifact@1
       #   condition: always()
       #   inputs:
