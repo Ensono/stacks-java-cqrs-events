@@ -362,7 +362,7 @@ stages:
                     terraform_backend_aws_default_region: "$(aws_default_region)"
                     aws_tf_state_region: ${{ variables.aws_tf_state_region }}
                     aws_tf_state_dynamotable: ${{ variables.aws_tf_state_dynamotable }}
-                    aws_tf_state_s3_bucket: ${{ variables.aws_tf_state_s3_bucket }}
+                    aws_tf_state_bucket: ${{ variables.aws_tf_state_bucket }}
                     aws_tf_state_key: ${{ variables.aws_tf_state_key }}
                     aws_tf_state_encryption: ${{ variables.aws_tf_state_encryption }}
                     terraform_tf_state_workspace: $(Environment.ShortName)
