@@ -468,6 +468,7 @@ stages:
                     aws_default_region: "$(aws_default_region)"
                     aws_account_id: "$(aws_account_id)"
                     eks_cluster_name: "${{ variables.eks_cluster_name }}"
+                    eks_cluster_role: "${{ variables.eks_cluster_role }}"
                     # Used to do a `kubectl rollout status`
                     deployments: [
                       {
