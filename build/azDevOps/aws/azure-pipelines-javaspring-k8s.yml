@@ -413,7 +413,7 @@ stages:
             value: $(kubernetes_clustername_nonprod)
           - name: app_name
             value: "java-api"
-          - name: eks_cluster_role
+          - name: aws_cluster_role
             value: "eks-admin-role"
 
         strategy:
@@ -468,7 +468,7 @@ stages:
                     aws_default_region: "$(aws_default_region)"
                     aws_account_id: "$(aws_account_id)"
                     eks_cluster_name: "${{ variables.eks_cluster_name }}"
-                    eks_cluster_role: "${{ variables.eks_cluster_role }}"
+                    aws_cluster_role: "${{ variables.aws_cluster_role }}"
                     # Used to do a `kubectl rollout status`
                     deployments: [
                       {
