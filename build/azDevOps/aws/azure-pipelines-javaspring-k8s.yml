@@ -457,7 +457,6 @@ stages:
                           cloudwatch_log_prefix: "${cloudwatch_stream_prefix}",
                           cloudwatch_region: "${{ variables.region }}",
                           rewrite_target: '/$([char]0x0024)2'
-                          
                         },
                         additional_args: "-no-empty",
                       },
