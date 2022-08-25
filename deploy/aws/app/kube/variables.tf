@@ -1,5 +1,6 @@
 variable "docker_image_name" {
   type = string
+  default = "stacks-team"
 }
 variable "create_docker_repositories" {
   type    = bool
