@@ -17,6 +17,8 @@ variables:
     value: stacks-team
   - name: docker_image_name
     value: stacksjava
+  - name: k8s_app_route
+    value: /api/menu
 
   # Terraform Configuration
 
