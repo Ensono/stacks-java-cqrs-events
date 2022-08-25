@@ -7,9 +7,8 @@ parameters:
   aws_secret_access_key: ""
   aws_default_region: ""
   aws_account_id: ""
-  aws_cluster_role: ""
   eks_cluster_name: ""
-  eks_cluster_role: ""
+  aws_cluster_role: ""
   deployments: []
 steps:
   # Template Substitutions

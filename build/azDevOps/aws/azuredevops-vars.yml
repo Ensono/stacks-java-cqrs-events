@@ -19,6 +19,8 @@ variables:
     value: stacksjava
   - name: k8s_app_route
     value: /api/menu
+  - name: aws_cluster_role
+    value: "eks-admin-role"
 
   # Terraform Configuration
 
