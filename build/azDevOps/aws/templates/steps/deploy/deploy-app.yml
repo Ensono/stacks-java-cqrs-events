@@ -15,7 +15,7 @@ steps:
   - ${{ each template in parameters.template_input }}:
       - task: Bash@3
         inputs:
-          filePath: "$(self_pipeline_scripts_dir)/deploy-k8s-envsubst.bash"
+          filePath: "$(self_pipeline_scripts_dir)/deploy-k8s-envsubst-aws.bash"
           arguments: >
             -a "${{ template.base }}"
             -b "${{ template.additional_args }}"
