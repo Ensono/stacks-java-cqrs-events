@@ -413,6 +413,8 @@ stages:
             value: $(kubernetes_clustername_nonprod)
           - name: app_name
             value: "java-api"
+          - name: eks_cluster_role
+            value: "eks-admin-role"
 
         strategy:
           runOnce:
