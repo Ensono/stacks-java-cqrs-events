@@ -439,8 +439,8 @@ stages:
                     # Used for doing template substitutions and deployments
                     template_input: [
                       {
-                        base: "${{ variables.self_repo_dir }}/deploy/k8s/app/base_api-deploy.yml",
-                        out: "${{ variables.self_repo_dir }}/deploy/k8s/app/api-deploy.yml",
+                        base: "${{ variables.self_repo_dir }}/deploy/k8s/aws/base_api-deploy.yml",
+                        out: "${{ variables.self_repo_dir }}/deploy/k8s/aws/api-deploy.yml",
                         displayName: "App Deployment",
                         replacements: {
                           tls_domain: "${{ variables.base_domain_nonprod }}",
