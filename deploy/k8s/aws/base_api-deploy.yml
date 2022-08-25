@@ -137,16 +137,6 @@ data:
           "awslogs-stream-prefix": "${cloudwatch_log_prefix}"
         }
       },
-      "JwtBearerAuthentication": {
-          "Audience": "${jwtbearerauthentication_audience}",
-          "Authority": "${jwtbearerauthentication_authority}",
-          "Enabled": false,
-          "OpenApi": {
-              "AuthorizationUrl": "${jwtbearerauthentication_openapiauthorizationurl}",
-              "ClientId": "${jwtbearerauthentication_openapiclientid}",
-              "TokenUrl": "${jwtbearerauthentication_openapitokenurl}"
-          }
-      },
       "TestConfig": "Test value from file",
       "Values": {
         "Items": [

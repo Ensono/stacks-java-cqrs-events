@@ -446,7 +446,20 @@ stages:
                           tls_domain: "${{ variables.base_domain_nonprod }}",
                           k8s_app_path: "${{ variables.k8s_app_path }}",
                           log_level: "Debug",
-                          k8s_image: '${{ variables.k8s_docker_registry_nonprod }}/${{ variables.docker_image_name }}:${{ variables.docker_image_tag }}'
+                          k8s_image: '${{ variables.docker_registry_name }}/${{ variables.docker_image_name }}:${{ variables.docker_image_tag }}',
+                          k8s_app_route: "${{ variables.k8s_app_route }}",
+                          k8s_ingress_cert_arn: "replaceme",
+                          region: "eu-west-2",
+                          dns_pointer: "${enviroment}-${{ variables.domain }}.${{ variables.base_domain_nonprod }}",
+                          environment: "nonprod",
+                          cloudwatch_log_group: "amido-stacks-dev-h0ax6owA-logs",
+                          cloudwatch_stream_prefix: "nonprod-${{ variables.domain }}",
+                          cloudwatch_log_group_name: "${cloudwatch_log_group}",
+                          cloudwatch_log_prefix: "${cloudwatch_stream_prefix}",
+                          cloudwatch_region: "${{ variables.region }}",
+                          version: "${{ variables.docker_image_tag }}",
+                          rewrite_target: '/$([char]0x0024)2'
+                          
                         },
                         additional_args: "-no-empty",
                       },
