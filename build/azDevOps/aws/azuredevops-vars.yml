@@ -16,7 +16,7 @@ variables:
   - name: owner
     value: stacks-team
   - name: docker_image_name
-    value: stacks-java
+    value: stacksjava
 
   # Terraform Configuration
 
