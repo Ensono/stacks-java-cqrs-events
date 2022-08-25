@@ -107,7 +107,7 @@ variables:
   - name: docker_registry_name
     value: "$(aws_account_id).dkr.ecr.eu-west-2.amazonaws.com"
   - name: docker_image_name
-    value: "stacks-java1"
+    value: "stacks-java"
   - name: docker_image_tag
     value: "$(Build.BuildNumber)"
   - name: docker_java_image
