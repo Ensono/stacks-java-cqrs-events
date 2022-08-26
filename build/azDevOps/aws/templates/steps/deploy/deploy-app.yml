@@ -43,6 +43,8 @@ steps:
       arguments: >
         -a "${{ parameters.eks_cluster_name }}"
         -b "${{ parameters.aws_default_region }}"
+        -c "${{ parameters.aws_account_id }}"
+        -d "${{ parameters.aws_cluster_role }}"
     displayName: "Login: AWS EKS Update KubeConfig"
 
   - task: Bash@3
