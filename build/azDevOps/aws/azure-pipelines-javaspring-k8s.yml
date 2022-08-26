@@ -113,7 +113,7 @@ variables:
   - name: docker_java_image
     value: "azul_java"
   - name: resource_def_name
-    value: java-api-cqrs-evnts
+    value: java-api-cqrs-events
 
   # BUILD ARTIFACTS across stages
   - name: build_artifact_deploy_path
