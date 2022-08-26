@@ -59,9 +59,12 @@ steps:
   - ${{ each template in parameters.template_input }}:
       - task: Bash@3
         inputs:
-          filePath: "${{ parameters.pipeline_scripts_directory }}/deploy-k8s-apply.bash"
+          filePath: "${{ parameters.pipeline_scripts_directory }}/deploy-k8s-apply-aws.bash"
           arguments: >
             -a "${{ template.out }}"
+            -b "${{ parameters.aws_account_id }}"
+            -c "${{ parameters.aws_cluster_role }}"
+            -d "${{ parameters.aws_default_region }}"
         displayName: "Deploy: Kubectl Apply (${{ template.out }})"
         env:
           ${{ each var in parameters.servicebus_creds }}:
