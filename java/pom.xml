@@ -34,7 +34,7 @@
 
     <stacks.core.commons.version>2.0.5</stacks.core.commons.version>
     <stacks.core.api.version>1.0.4.4-RELEASE</stacks.core.api.version>
-    <stacks.azure.cosmos.version>2.0.1</stacks.azure.cosmos.version>
+    <stacks.azure.cosmos.version>2.1.1</stacks.azure.cosmos.version>
     <stacks.aws.dynamodb.version>1.0.0</stacks.aws.dynamodb.version>
     <stacks.core.cqrs.version>1.0.0</stacks.core.cqrs.version>
     <stacks.azure-servicebus.version>2.0.0</stacks.azure-servicebus.version>
@@ -134,6 +134,7 @@
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
 
+
     <!-- Other dependencies -->
     <!-- TODO: to be moved to a common workloads parent -->
     <dependency>
@@ -159,6 +160,7 @@
       <version>${pact.consumer.version}</version>
       <scope>test</scope>
     </dependency>
+
   </dependencies>
 
   <reporting>
@@ -402,6 +404,8 @@
           <artifactId>stacks-azure-cosmos</artifactId>
           <version>${stacks.azure.cosmos.version}</version>
         </dependency>
+
+
       </dependencies>
     </profile>
 
@@ -416,6 +420,7 @@
           <artifactId>stacks-aws-dynamodb</artifactId>
           <version>${stacks.aws.dynamodb.version}</version>
         </dependency>
+
       </dependencies>
     </profile>
 
