@@ -134,7 +134,6 @@
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
 
-
     <!-- Other dependencies -->
     <!-- TODO: to be moved to a common workloads parent -->
     <dependency>
@@ -411,6 +410,11 @@
 
     <profile>
       <id>dynamodb</id>
+      <activation>
+        <file>
+          <exists>.</exists>
+        </file>
+      </activation>
       <properties>
         <dynamodb.profile.name>dynamodb</dynamodb.profile.name>
       </properties>
@@ -445,6 +449,11 @@
 
     <profile>
       <id>kafka</id>
+      <activation>
+        <file>
+          <exists>.</exists>
+        </file>
+      </activation>
       <properties>
         <kafka.profile.name>kafka</kafka.profile.name>
       </properties>
@@ -454,6 +463,11 @@
 
     <profile>
       <id>sqs</id>
+      <activation>
+        <file>
+          <exists>.</exists>
+        </file>
+      </activation>
       <properties>
         <sqs.profile.name>sqs</sqs.profile.name>
       </properties>

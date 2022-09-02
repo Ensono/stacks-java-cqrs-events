@@ -5,7 +5,6 @@ import com.amido.stacks.workloads.menu.commands.UpdateMenuCommand;
 import com.amido.stacks.workloads.menu.domain.Menu;
 import com.amido.stacks.workloads.menu.exception.MenuAlreadyExistsException;
 import com.amido.stacks.workloads.menu.mappers.cqrs.CreateMenuCommandMapper;
-import com.amido.stacks.workloads.menu.repository.MenuRepository;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +15,16 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class MenuService {
+   #if Cosmos
 
-  private final MenuRepository menuRepository;
+  private final StacksCosmosRepository menuRepository;
+
+   #elseif Dynamo
+
+  private final StacksDynamoDbRepository menuRepository;
+
+  #endif
+
 
   private final CreateMenuCommandMapper createMenuCommandMapper;
 
