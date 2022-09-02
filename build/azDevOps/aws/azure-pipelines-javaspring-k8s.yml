@@ -107,7 +107,7 @@ variables:
   - name: docker_registry_name
     value: "$(aws_account_id).dkr.ecr.eu-west-2.amazonaws.com"
   - name: docker_image_name
-    value: "stacks-java"
+    value: "stacks-java-api-cqrs-events"
   - name: docker_image_tag
     value: "$(Build.BuildNumber)"
   - name: docker_java_image
@@ -393,22 +393,10 @@ stages:
           vmImage: $(pool_vm_image)
         environment: ${{ variables.domain }}-dev
         variables:
-          # - name: cosmosdb_database_name
-          #   value: "$[ dependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.cosmosdb_database_name'] ]"
-          # - name: cosmosdb_endpoint
-          #   value: "$[ dependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.cosmosdb_endpoint'] ]"
-          # - name: cosmosdb_primary_master_key
-          #   value: "$[ dependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.cosmosdb_primary_master_key'] ]"
-          # - name: app_insights_instrumentation_key
-          #   value: "$[ dependencies.AppInfraDev.outputs['AppInfraDev.tfoutputs.app_insights_instrumentation_key'] ]"
           - name: namespace
             value: "$(Environment.ShortName)-${{ variables.domain }}"
           - name: k8s_app_path
             value: "/api/menu"
-          # - name: dns_pointer
-          #   value: "${{ variables.dns_name }}.${{ variables.base_domain_nonprod }}"
-          # - name: functional_test_base_url
-          #   value: "https://${{ variables.dns_pointer }}${{ variables.k8s_app_path }}"
           - name: eks_cluster_name
             value: $(kubernetes_clustername_nonprod)
           - name: app_name
@@ -450,7 +438,7 @@ stages:
                           log_level: "Debug",
                           k8s_image: '${{ variables.docker_registry_name }}/${{ variables.docker_image_name }}:${{ variables.docker_image_tag }}',
                           k8s_app_route: "${{ variables.k8s_app_route }}",
-                          k8s_ingress_cert_arn: "replaceme",
+                          k8s_ingress_cert_arn: "17e50dfb-9fdc-4dce-92c1-8351a3961279",
                           region: "eu-west-2",
                           dns_pointer: "${enviroment}-${{ variables.domain }}.${{ variables.base_domain_nonprod }}",
                           cloudwatch_log_group: "amido-stacks-dev-h0ax6owA-logs",
