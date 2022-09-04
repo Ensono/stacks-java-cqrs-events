@@ -25,7 +25,7 @@ resources:
     - repository: templates
       type: github
       name: amido/stacks-pipeline-templates
-      ref: feature/cycle9_aws
+      ref: feature/cycle9_aws_med
       # EXCHANGE THIS FOR YOUR OWN ENDPOINT CONNECTION TO GITHUB
       # REPOSITORY IS PUBLIC
       endpoint: amidostacks
@@ -128,6 +128,8 @@ variables:
   # Maven
   - name: maven_cache_directory
     value: "./.m2"
+  - name: maven_profile
+    value: "azure,aws,dynamodb,servicebus,-cosmosdb"
   - name: maven_surefire_reports_dir
     value: "target/surefire-reports"
   - name: maven_allowed_test_tags
