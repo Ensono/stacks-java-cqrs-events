@@ -12,8 +12,8 @@ COPY pom.xml .
 COPY src src
 
 RUN ./mvnw clean --quiet\
-  && ./mvnw dependency:go-offline --quiet\
-	&& ./mvnw install -Dmaven.default-test.skip=true -Dmaven.test.skip=true -DskipTests --no-transfer-progress --quiet \
+  && ./mvnw dependency:go-offline  --quiet\
+	&& ./mvnw install -Dmaven.default-test.skip=true -Dmaven.test.skip=true -DskipTests -Pazure,aws,dynamodb,servicebus,-cosmosdb --no-transfer-progress --quiet \
   && mkdir -p extracted && java -Djarmode=layertools -jar target/*.jar extract --destination extracted
 
 RUN ls -lrt extracted
