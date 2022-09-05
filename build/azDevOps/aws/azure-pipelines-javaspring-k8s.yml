@@ -129,7 +129,7 @@ variables:
   - name: maven_cache_directory
     value: "./.m2"
   - name: maven_profile
-    value: "azure,aws,dynamodb,servicebus,-cosmosdb"
+    value: "azure,aws,dynamodb,servicebus,-cosmosdb,owasp-dependency-check"
   - name: maven_surefire_reports_dir
     value: "target/surefire-reports"
   - name: maven_allowed_test_tags
