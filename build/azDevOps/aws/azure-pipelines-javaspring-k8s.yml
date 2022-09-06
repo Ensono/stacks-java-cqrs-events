@@ -464,7 +464,7 @@ stages:
                       {
                         name: "deploy/${{ variables.resource_def_name }}",
                         namespace: "${{ variables.namespace }}",
-                        timeout: "120s",
+                        timeout: "300s",
                       },
                     ]
 
