@@ -169,7 +169,7 @@ metadata:
   name: ${resource_def_name}
   namespace: ${namespace}
 spec:
-  progressDeadlineSeconds: 600
+  progressDeadlineSeconds: 1200
   replicas: 1
   revisionHistoryLimit: 1
   selector:
