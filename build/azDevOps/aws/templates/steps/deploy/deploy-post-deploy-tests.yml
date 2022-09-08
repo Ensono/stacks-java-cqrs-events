@@ -10,8 +10,8 @@ parameters:
   maven_post_deploy_html_report_directory: ""
   maven_post_deploy_failsafe_reports_directory: ""
   docker_java_container: ""
-  auth0_credentials: { }
-  servicebus_creds: { }
+  auth0_credentials: {}
+  servicebus_creds: {}
 steps:
   - template: ./deploy-post-deploy-tests-serenity.yml
     parameters:
