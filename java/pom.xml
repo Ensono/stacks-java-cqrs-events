@@ -375,13 +375,7 @@
       <properties>
         <aws.profile.name>aws</aws.profile.name>
       </properties>
-      <dependencies>
-        <dependency>
-          <groupId>com.amido.stacks.modules</groupId>
-          <artifactId>stacks-aws</artifactId>
-          <version>${stacks.aws.version}</version>
-        </dependency>
-      </dependencies>
+
     </profile>
 
     <profile>
