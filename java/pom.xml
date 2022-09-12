@@ -36,7 +36,7 @@
     <!-- Stacks versions -->
     <stacks.core.commons.version>2.0.5</stacks.core.commons.version>
     <stacks.core.api.version>1.0.4.4-RELEASE</stacks.core.api.version>
-    <stacks.azure.cosmos.version>2.0.0</stacks.azure.cosmos.version>
+    <stacks.azure.cosmos.version>2.1.1</stacks.azure.cosmos.version>
     <stacks.aws.dynamodb.version>2.1.0</stacks.aws.dynamodb.version>
     <stacks.core.cqrs.version>1.0.0</stacks.core.cqrs.version>
     <stacks.azure-servicebus.version>2.0.0</stacks.azure-servicebus.version>
