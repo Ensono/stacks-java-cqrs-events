@@ -1,4 +1,4 @@
 amazon:
   dynamodb:
-    endpoint: dynamodb.eu-west-2.amazonaws.com
+    endpoint: https://dynamodb.eu-west-2.amazonaws.com
     signingRegion: eu-west-2
