@@ -6,7 +6,7 @@ variables:
   - name: project
     value: stacks
   - name: domain
-    value: java-api-cqrs-events
+    value: java-api-cqrs-evnts
   - name: self_repo
     value: stacks-java-cqrs-events
   - name: self_generic_name
