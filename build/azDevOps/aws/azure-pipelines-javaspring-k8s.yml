@@ -444,7 +444,7 @@ stages:
                           log_level: "Debug",
                           k8s_image: '${{ variables.docker_registry_name }}/${{ variables.docker_image_name }}:${{ variables.docker_image_tag }}',
                           k8s_app_route: "${{ variables.k8s_app_route }}",
-                          k8s_ingress_cert_arn: "17e50dfb-9fdc-4dce-92c1-8351a3961279",
+                          k8s_ingress_cert_arn: "arn:aws:acm:eu-west-2:316154162729:certificate/17e50dfb-9fdc-4dce-92c1-8351a3961279",
                           region: "eu-west-2",
                           dns_pointer: "${enviroment}-${{ variables.domain }}.${{ variables.base_domain_nonprod }}",
                           cloudwatch_log_group: "amido-stacks-dev-h0ax6owA-logs",
