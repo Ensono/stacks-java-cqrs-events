@@ -8,7 +8,12 @@ import com.amido.stacks.workloads.menu.domain.Item;
 import com.amido.stacks.workloads.menu.domain.Menu;
 import com.amido.stacks.workloads.menu.mappers.cqrs.CreateItemCommandMapper;
 import com.amido.stacks.workloads.menu.mappers.cqrs.UpdateItemCommandMapper;
-import com.amido.stacks.workloads.menu.repository.MenuRepository;
+#if DYNAMODB
+import com.amido.stacks.dynamodb.repository.StacksDynamoDbRepository;
+
+#elif COSMOSDB
+import com.amido.stacks.cosmosdb.repository.StacksCosmosRepository;
+#endif
 import com.amido.stacks.workloads.menu.service.v1.utility.MenuHelperService;
 import java.util.Optional;
 import java.util.UUID;
@@ -19,8 +24,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ItemService {
 
-  protected final MenuRepository menuRepository;
-  private final MenuHelperService menuHelperService;
+  #if DYNAMODB
+  private final StacksDynamoDbRepository menuRepository;
+
+  #elif COSMOSDB
+  private final StacksCosmosRepository menuRepository;
+  #endif  private final MenuHelperService menuHelperService;
   private final CreateItemCommandMapper createItemCommandMapper;
   private final UpdateItemCommandMapper updateItemCommandMapper;
 

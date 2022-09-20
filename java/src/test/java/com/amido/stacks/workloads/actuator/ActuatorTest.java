@@ -3,8 +3,14 @@ package com.amido.stacks.workloads.actuator;
 import static com.amido.stacks.workloads.util.TestHelper.getBaseURL;
 import static org.assertj.core.api.BDDAssertions.then;
 
+import com.amido.stacks.dynamodb.repository.StacksDynamoDbRepository;
 import com.amido.stacks.workloads.Application;
-import com.amido.stacks.workloads.menu.repository.MenuRepository;
+#if DYNAMODB
+import com.amido.stacks.dynamodb.repository.StacksDynamoDbRepository;
+
+#elif COSMOSDB
+import com.amido.stacks.cosmosdb.repository.StacksCosmosRepository;
+#endif
 import java.util.Map;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -36,7 +42,12 @@ class ActuatorTest {
 
   @Autowired private TestRestTemplate testRestTemplate;
 
-  @MockBean private MenuRepository menuRepository;
+  #if DYNAMODB
+  @MockBean private StacksDynamoDbRepository menuRepository;
+
+  #elif COSMOSDB
+  @MockBean private StacksCosmosRepository menuRepository;
+  #endif
 
   @Test
   void shouldReturn200WhenSendingRequestToHealthEndpoint() {

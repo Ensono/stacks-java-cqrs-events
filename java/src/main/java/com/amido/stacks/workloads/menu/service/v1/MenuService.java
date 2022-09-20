@@ -5,7 +5,13 @@ import com.amido.stacks.workloads.menu.commands.UpdateMenuCommand;
 import com.amido.stacks.workloads.menu.domain.Menu;
 import com.amido.stacks.workloads.menu.exception.MenuAlreadyExistsException;
 import com.amido.stacks.workloads.menu.mappers.cqrs.CreateMenuCommandMapper;
-import com.amido.stacks.workloads.menu.repository.MenuRepository;
+#if DYNAMODB
+import com.amido.stacks.dynamodb.repository.StacksDynamoDbRepository;
+
+#elif COSMOSDB
+import com.amido.stacks.cosmosdb.repository.StacksCosmosRepository;
+#endif
+
 import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +22,12 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class MenuService {
+ #if DYNAMODB
+  private final StacksDynamoDbRepository menuRepository;
 
-  private final MenuRepository menuRepository;
+  #elif COSMOSDB
+  private final StacksCosmosRepository menuRepository;
+  #endif
 
   private final CreateMenuCommandMapper createMenuCommandMapper;
 
