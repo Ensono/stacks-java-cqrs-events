@@ -34,8 +34,8 @@
 
     <stacks.core.commons.version>2.0.5</stacks.core.commons.version>
     <stacks.core.api.version>1.0.4.4-RELEASE</stacks.core.api.version>
-    <stacks.azure.cosmos.version>2.1.1</stacks.azure.cosmos.version>
-    <stacks.aws.dynamodb.version>2.2.1</stacks.aws.dynamodb.version>
+    <stacks.azure.cosmos.version>2.0.0-SNAPSHOT</stacks.azure.cosmos.version>
+    <stacks.aws.dynamodb.version>1.0.0-SNAPSHOT</stacks.aws.dynamodb.version>
     <stacks.core.cqrs.version>1.0.0</stacks.core.cqrs.version>
     <stacks.azure-servicebus.version>2.0.0</stacks.azure-servicebus.version>
     <stacks.aws.version>1.0.2</stacks.aws.version>
@@ -81,6 +81,10 @@
 
     <pact.provider.spring.version>4.0.10</pact.provider.spring.version>
     <pact.consumer.version>4.3.2</pact.consumer.version>
+
+
+    <manifold-version>2022.1.19</manifold-version>
+
   </properties>
 
   <dependencies>
@@ -186,6 +190,11 @@
         <configuration>
           <source>11</source>
           <target>11</target>
+          <compilerArgs>
+            <!-- Configure manifold plugin -->
+            <arg>-Xplugin:Manifold</arg>
+            <arg>-Amanifold.source.target=${env.MANIFOLD_SRC_LOCATION}</arg>
+          </compilerArgs>
           <annotationProcessorPaths>
             <path>
               <groupId>org.projectlombok</groupId>
@@ -203,6 +212,11 @@
               <groupId>org.mapstruct</groupId>
               <artifactId>mapstruct-processor</artifactId>
               <version>${org.mapstruct.version}</version>
+            </path>
+            <path>
+              <groupId>systems.manifold</groupId>
+              <artifactId>manifold-preprocessor</artifactId>
+              <version>${manifold-version}</version>
             </path>
           </annotationProcessorPaths>
           <forceJavacCompilerUse>true</forceJavacCompilerUse>
@@ -399,6 +413,7 @@
           <exists>.</exists>
         </file>
       </activation>
+
       <properties>
         <cosmosdb.profile.name>cosmosdb</cosmosdb.profile.name>
       </properties>
@@ -415,6 +430,11 @@
 
     <profile>
       <id>dynamodb</id>
+      <activation>
+        <file>
+          <exists>.</exists>
+        </file>
+      </activation>
       <properties>
         <dynamodb.profile.name>dynamodb</dynamodb.profile.name>
       </properties>
@@ -449,6 +469,11 @@
 
     <profile>
       <id>kafka</id>
+      <activation>
+        <file>
+          <exists>.</exists>
+        </file>
+      </activation>
       <properties>
         <kafka.profile.name>kafka</kafka.profile.name>
       </properties>
@@ -458,6 +483,11 @@
 
     <profile>
       <id>sqs</id>
+      <activation>
+        <file>
+          <exists>.</exists>
+        </file>
+      </activation>
       <properties>
         <sqs.profile.name>sqs</sqs.profile.name>
       </properties>

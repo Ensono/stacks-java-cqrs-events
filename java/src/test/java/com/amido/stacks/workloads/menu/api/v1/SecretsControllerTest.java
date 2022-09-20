@@ -3,7 +3,12 @@ package com.amido.stacks.workloads.menu.api.v1;
 import static org.assertj.core.api.BDDAssertions.then;
 
 import com.amido.stacks.workloads.Application;
-import com.amido.stacks.workloads.menu.repository.MenuRepository;
+#if DYNAMODB
+import com.amido.stacks.dynamodb.repository.StacksDynamoDbRepository;
+
+#elif COSMOSDB
+import com.amido.stacks.cosmosdb.repository.StacksCosmosRepository;
+#endif
 import com.amido.stacks.workloads.util.TestHelper;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -44,7 +49,12 @@ class SecretsControllerTest {
 
   @Autowired private TestRestTemplate testRestTemplate;
 
-  @MockBean private MenuRepository menuRepository;
+  #if DYNAMODB
+  @MockBean private StacksDynamoDbRepository menuRepository;
+
+  #elif COSMOSDB
+  @MockBean private StacksCosmosRepository menuRepository;
+  #endif
 
   @Test
   void shouldReturnValidSecrets() {

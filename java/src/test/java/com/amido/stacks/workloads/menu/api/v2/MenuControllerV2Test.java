@@ -10,7 +10,12 @@ import com.amido.stacks.workloads.menu.api.v1.dto.response.MenuDTO;
 import com.amido.stacks.workloads.menu.domain.Menu;
 import com.amido.stacks.workloads.menu.domain.utility.MenuHelper;
 import com.amido.stacks.workloads.menu.mappers.MenuMapper;
-import com.amido.stacks.workloads.menu.repository.MenuRepository;
+#if DYNAMODB
+import com.amido.stacks.dynamodb.repository.StacksDynamoDbRepository;
+
+#elif COSMOSDB
+import com.amido.stacks.cosmosdb.repository.StacksCosmosRepository;
+#endif
 import com.amido.stacks.workloads.util.TestHelper;
 import java.util.Optional;
 import java.util.UUID;
@@ -46,8 +51,12 @@ class MenuControllerV2Test {
 
   @Autowired private TestRestTemplate testRestTemplate;
 
-  @MockBean private MenuRepository menuRepository;
+  #if DYNAMODB
+  @MockBean private StacksDynamoDbRepository menuRepository;
 
+  #elif COSMOSDB
+  @MockBean private StacksCosmosRepository menuRepository;
+  #endif
   @Autowired private MenuMapper menuMapper;
 
   @Test
