@@ -4,7 +4,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 
 import com.amido.stacks.workloads.Application;
 #if DYNAMODB
-import com.amido.stacks.dynamodb.repository.StacksDynamoDbRepository;
+import com.amido.stacks.workloads.menu.repository.StacksDynamoDbRepository;
 
 #elif COSMOSDB
 import com.amido.stacks.cosmosdb.repository.StacksCosmosRepository;

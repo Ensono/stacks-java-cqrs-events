@@ -3,10 +3,9 @@ package com.amido.stacks.workloads.actuator;
 import static com.amido.stacks.workloads.util.TestHelper.getBaseURL;
 import static org.assertj.core.api.BDDAssertions.then;
 
-import com.amido.stacks.dynamodb.repository.StacksDynamoDbRepository;
 import com.amido.stacks.workloads.Application;
 #if DYNAMODB
-import com.amido.stacks.dynamodb.repository.StacksDynamoDbRepository;
+import com.amido.stacks.workloads.menu.repository.StacksDynamoDbRepository;
 
 #elif COSMOSDB
 import com.amido.stacks.cosmosdb.repository.StacksCosmosRepository;

@@ -20,7 +20,6 @@ import static org.springframework.http.HttpStatus.OK;
 import com.amido.stacks.core.api.dto.ErrorResponse;
 import com.amido.stacks.core.api.dto.response.ResourceCreatedResponse;
 import com.amido.stacks.core.api.dto.response.ResourceUpdatedResponse;
-import com.amido.stacks.dynamodb.repository.StacksDynamoDbRepository;
 import com.amido.stacks.workloads.Application;
 import com.amido.stacks.workloads.menu.api.v1.dto.request.CreateMenuRequest;
 import com.amido.stacks.workloads.menu.api.v1.dto.request.UpdateMenuRequest;
@@ -34,7 +33,7 @@ import com.amido.stacks.workloads.menu.domain.utility.MenuHelper;
 import com.amido.stacks.workloads.menu.mappers.MenuMapper;
 import com.amido.stacks.workloads.menu.mappers.SearchMenuResultItemMapper;
 #if DYNAMODB
-import com.amido.stacks.dynamodb.repository.StacksDynamoDbRepository;
+import com.amido.stacks.workloads.menu.repository.StacksDynamoDbRepository;
 
 #elif COSMOSDB
 import com.amido.stacks.cosmosdb.repository.StacksCosmosRepository;

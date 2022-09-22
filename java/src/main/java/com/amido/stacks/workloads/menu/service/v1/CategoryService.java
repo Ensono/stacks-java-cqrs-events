@@ -9,7 +9,7 @@ import com.amido.stacks.workloads.menu.exception.CategoryDoesNotExistException;
 import com.amido.stacks.workloads.menu.mappers.cqrs.CreateCategoryCommandMapper;
 import com.amido.stacks.workloads.menu.mappers.cqrs.UpdateCategoryCommandMapper;
 #if DYNAMODB
-import com.amido.stacks.dynamodb.repository.StacksDynamoDbRepository;
+import com.amido.stacks.workloads.menu.repository.StacksDynamoDbRepository;
 
 #elif COSMOSDB
 import com.amido.stacks.cosmosdb.repository.StacksCosmosRepository;
