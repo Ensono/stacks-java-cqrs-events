@@ -133,7 +133,7 @@ public class MenuControllerTest {
     Menu m = createMenu(1);
     CreateMenuRequest request =
         new CreateMenuRequest(
-            m.getName(), m.getDescription(), UUID.fromString(m.getRestaurantId()), m.getEnabled());
+            m.getName(), m.getDescription(), fromString(m.getRestaurantId()), m.getEnabled());
 
     when(menuRepository.findAllByRestaurantIdAndName(
             eq(m.getRestaurantId()), eq(m.getName()), any(Pageable.class)))
