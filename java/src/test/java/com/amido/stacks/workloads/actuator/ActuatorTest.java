@@ -5,7 +5,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 
 import com.amido.stacks.workloads.Application;
 #if DYNAMODB
-import com.amido.stacks.workloads.menu.repository.StacksDynamoDbRepository;
+import com.amido.stacks.workloads.menu.repository.MenuRepositoryDynamoDb;
 
 #elif COSMOSDB
 import com.amido.stacks.cosmosdb.repository.StacksCosmosRepository;
@@ -42,7 +42,7 @@ class ActuatorTest {
   @Autowired private TestRestTemplate testRestTemplate;
 
   #if DYNAMODB
-  @MockBean private StacksDynamoDbRepository menuRepository;
+  @MockBean private MenuRepositoryDynamoDb menuRepository;
 
   #elif COSMOSDB
   @MockBean private StacksCosmosRepository menuRepository;
