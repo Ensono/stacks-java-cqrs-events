@@ -9,7 +9,7 @@ import com.amido.stacks.workloads.menu.exception.CategoryDoesNotExistException;
 import com.amido.stacks.workloads.menu.mappers.cqrs.CreateCategoryCommandMapper;
 import com.amido.stacks.workloads.menu.mappers.cqrs.UpdateCategoryCommandMapper;
 #if DYNAMODB
-import com.amido.stacks.workloads.menu.repository.StacksDynamoDbRepository;
+import com.amido.stacks.workloads.menu.repository.MenuRepositoryDynamoDb;
 
 #elif COSMOSDB
 import com.amido.stacks.cosmosdb.repository.StacksCosmosRepository;
@@ -26,7 +26,7 @@ public class CategoryService {
 
   private final MenuHelperService menuHelperService;
   #if DYNAMODB
-  private final StacksDynamoDbRepository menuRepository;
+  private final MenuRepositoryDynamoDb menuRepository;
 
   #elif COSMOSDB
   private final StacksCosmosRepository menuRepository;

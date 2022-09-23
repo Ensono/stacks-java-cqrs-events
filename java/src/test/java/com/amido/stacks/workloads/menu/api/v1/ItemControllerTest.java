@@ -27,7 +27,7 @@ import com.amido.stacks.workloads.menu.domain.Item;
 import com.amido.stacks.workloads.menu.domain.Menu;
 import com.amido.stacks.workloads.menu.domain.utility.MenuHelper;
 #if DYNAMODB
-import com.amido.stacks.dynamodb.repository.StacksDynamoDbRepository;
+import com.amido.stacks.workloads.menu.repository.MenuRepositoryDynamoDb;
 
 #elif COSMOSDB
 import com.amido.stacks.cosmosdb.repository.StacksCosmosRepository;
@@ -82,7 +82,7 @@ public class ItemControllerTest {
   @Autowired private TestRestTemplate testRestTemplate;
 
   #if DYNAMODB
-  @MockBean private StacksDynamoDbRepository menuRepository;
+  @MockBean private MenuRepositoryDynamoDb menuRepository;
 
   #elif COSMOSDB
   @MockBean private StacksCosmosRepository menuRepository;
