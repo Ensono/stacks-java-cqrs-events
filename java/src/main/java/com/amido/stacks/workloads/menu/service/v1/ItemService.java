@@ -11,7 +11,7 @@ import com.amido.stacks.workloads.menu.mappers.cqrs.UpdateItemCommandMapper;
 #if DYNAMODB
 import com.amido.stacks.workloads.menu.repository.MenuRepositoryDynamoDb;
 #elif COSMOSDB
-import com.amido.stacks.cosmosdb.repository.StacksCosmosRepository;
+import com.amido.stacks.workloads.menu.repository.CosmosMenuRepository;
 #endif
 import com.amido.stacks.workloads.menu.service.v1.utility.MenuHelperService;
 import java.util.Optional;
@@ -27,8 +27,9 @@ public class ItemService {
   private final MenuRepositoryDynamoDb menuRepository;
 
   #elif COSMOSDB
-  private final StacksCosmosRepository menuRepository;
-  #endif  private final MenuHelperService menuHelperService;
+  private final CosmosMenuRepository menuRepository;
+  #endif
+  private final MenuHelperService menuHelperService;
   private final CreateItemCommandMapper createItemCommandMapper;
   private final UpdateItemCommandMapper updateItemCommandMapper;
 

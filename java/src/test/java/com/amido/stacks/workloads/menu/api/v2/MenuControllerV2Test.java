@@ -14,7 +14,7 @@ import com.amido.stacks.workloads.menu.mappers.MenuMapper;
 import com.amido.stacks.workloads.menu.repository.MenuRepositoryDynamoDb;
 
 #elif COSMOSDB
-import com.amido.stacks.cosmosdb.repository.StacksCosmosRepository;
+import com.amido.stacks.workloads.menu.repository.CosmosMenuRepository;
 #endif
 import com.amido.stacks.workloads.util.TestHelper;
 import java.util.Optional;
@@ -55,7 +55,7 @@ class MenuControllerV2Test {
   @MockBean private MenuRepositoryDynamoDb menuRepository;
 
   #elif COSMOSDB
-  @MockBean private StacksCosmosRepository menuRepository;
+  @MockBean private CosmosMenuRepository menuRepository;
   #endif
   @Autowired private MenuMapper menuMapper;
 

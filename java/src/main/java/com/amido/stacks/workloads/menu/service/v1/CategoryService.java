@@ -12,7 +12,7 @@ import com.amido.stacks.workloads.menu.mappers.cqrs.UpdateCategoryCommandMapper;
 import com.amido.stacks.workloads.menu.repository.MenuRepositoryDynamoDb;
 
 #elif COSMOSDB
-import com.amido.stacks.cosmosdb.repository.StacksCosmosRepository;
+import com.amido.stacks.workloads.menu.repository.CosmosMenuRepository;
 #endif
 import com.amido.stacks.workloads.menu.service.v1.utility.MenuHelperService;
 import java.util.Optional;
@@ -29,7 +29,7 @@ public class CategoryService {
   private final MenuRepositoryDynamoDb menuRepository;
 
   #elif COSMOSDB
-  private final StacksCosmosRepository menuRepository;
+  private final CosmosMenuRepository menuRepository;
   #endif
   private final CreateCategoryCommandMapper createCategoryCommandMapper;
   private final UpdateCategoryCommandMapper updateCategoryCommandMapper;

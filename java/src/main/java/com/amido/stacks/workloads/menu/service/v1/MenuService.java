@@ -8,7 +8,7 @@ import com.amido.stacks.workloads.menu.mappers.cqrs.CreateMenuCommandMapper;
 #if DYNAMODB
 import com.amido.stacks.workloads.menu.repository.MenuRepositoryDynamoDb;
 #elif COSMOSDB
-import com.amido.stacks.cosmosdb.repository.StacksCosmosRepository;
+import com.amido.stacks.workloads.menu.repository.CosmosMenuRepository;
 #endif
 
 import java.util.Optional;
@@ -25,7 +25,7 @@ public class MenuService {
   private final MenuRepositoryDynamoDb menuRepository;
 
   #elif COSMOSDB
-  private final StacksCosmosRepository menuRepository;
+  private final CosmosMenuRepository menuRepository;
   #endif
 
   private final CreateMenuCommandMapper createMenuCommandMapper;
