@@ -30,7 +30,7 @@ import com.amido.stacks.workloads.menu.domain.utility.MenuHelper;
 import com.amido.stacks.workloads.menu.repository.MenuRepositoryDynamoDb;
 
 #elif COSMOSDB
-import com.amido.stacks.cosmosdb.repository.StacksCosmosRepository;
+import com.amido.stacks.workloads.menu.repository.CosmosMenuRepository;
 #endif
 
 import com.amido.stacks.workloads.menu.service.v1.utility.MenuHelperService;
@@ -85,7 +85,7 @@ public class ItemControllerTest {
   @MockBean private MenuRepositoryDynamoDb menuRepository;
 
   #elif COSMOSDB
-  @MockBean private StacksCosmosRepository menuRepository;
+  @MockBean private CosmosMenuRepository menuRepository;
   #endif
 
 
