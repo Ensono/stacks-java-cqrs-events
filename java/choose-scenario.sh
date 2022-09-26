@@ -285,7 +285,6 @@ done
 cp pom.template.xml pom.xml
 
 #####################
-
 cd . || exit 1
 
 export MANIFOLD_SRC_LOCATION=.
@@ -297,6 +296,7 @@ do
    echo "${i}=" |tr "[:lower:]" "[:upper:]" >> build.properties
 done
 
+echo "Test clean compile "
 cd src/main/java || exit 1
 
 mvn -f ../../../pom.xml clean compile
@@ -304,12 +304,12 @@ mvn -f ../../../pom.xml clean compile
 cd ../../../.. || exit 1
 
 #####################
-
+echo "Test copy  "
 mv src/main/java src/main/java.SAV
 
 #####################
-
-cd .|| exit 1
+echo "Test test compile "
+cd java || exit 1
 
 export MANIFOLD_SRC_LOCATION=.
 
@@ -327,13 +327,13 @@ mvn -f ../../../pom.xml test-compile
 cd ../../../.. || exit 1
 
 #####################
-
+echo "Test copy back java "
 rm -rf src/main/java
 
 mv src/main/java.SAV src/main/java
 
 #####################
-
+echo "Test format  "
 cd . || exit 1
 
 mvn -DskipTests=true com.coveo:fmt-maven-plugin:format
@@ -341,6 +341,7 @@ mvn -DskipTests=true com.coveo:fmt-maven-plugin:format
 cd .. || exit 1
 
 #####################
+echo "Test 1 back pom file  "
 
 xmlstarlet edit -N ns='http://maven.apache.org/POM/4.0.0' \
       --delete ".//ns:project/ns:properties/ns:manifold-version" \
@@ -354,5 +355,4 @@ rm -f pom.template.xml
 rm -f build.properties
 
 #####################
-
 unset MANIFOLD_SRC_LOCATION
