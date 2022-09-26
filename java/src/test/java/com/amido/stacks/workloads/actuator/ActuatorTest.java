@@ -8,7 +8,7 @@ import com.amido.stacks.workloads.Application;
 import com.amido.stacks.workloads.menu.repository.MenuRepositoryDynamoDb;
 
 #elif COSMOSDB
-import com.amido.stacks.cosmosdb.repository.StacksCosmosRepository;
+import com.amido.stacks.workloads.menu.repository.CosmosMenuRepository;
 #endif
 import java.util.Map;
 import org.junit.jupiter.api.Tag;
@@ -45,7 +45,7 @@ class ActuatorTest {
   @MockBean private MenuRepositoryDynamoDb menuRepository;
 
   #elif COSMOSDB
-  @MockBean private StacksCosmosRepository menuRepository;
+  @MockBean private CosmosMenuRepository menuRepository;
   #endif
 
   @Test
