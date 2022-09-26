@@ -305,11 +305,11 @@ cd ../../../.. || exit 1
 
 #####################
 echo "Test copy  "
+cd java || exit 1
 mv src/main/java src/main/java.SAV
 
 #####################
 echo "Test test compile "
-cd java || exit 1
 
 export MANIFOLD_SRC_LOCATION=.
 
@@ -328,13 +328,14 @@ cd ../../../.. || exit 1
 
 #####################
 echo "Test copy back java "
+cd java || exit 1
 rm -rf src/main/java
 
 mv src/main/java.SAV src/main/java
 
 #####################
 echo "Test format  "
-cd . || exit 1
+cd java || exit 1
 
 mvn -DskipTests=true com.coveo:fmt-maven-plugin:format
 
