@@ -335,7 +335,6 @@ mv src/main/java.SAV src/main/java
 
 #####################
 echo "Test format  "
-cd java || exit 1
 
 mvn -DskipTests=true com.coveo:fmt-maven-plugin:format
 
