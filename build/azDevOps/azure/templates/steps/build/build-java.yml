@@ -26,8 +26,8 @@ steps:
   # TODO: Pull this out into a bash script?
   - bash: |
       set -euxo pipefail
-      cp "${{ parameters.repo_root_dir }}/java/choose-scenario.sh" .
-      sh choose-scenario.sh
+      cp ${{ parameters.repo_root_dir }}/java/choose-scenario.sh .
+      ls -al  choose-scenario.sh
     workingDirectory: "${{ parameters.project_root_dir }}"
     target:
       container: ${{ parameters.docker_build_container }}
