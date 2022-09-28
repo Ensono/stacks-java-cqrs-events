@@ -210,7 +210,7 @@ stages:
           # Runs a terraform fomatting check and a validation check
           - template: templates/steps/build/test-validate-terraform.yml
             parameters:
-              pipelinedocker_java_image_scripts_directory: "${{ variables.self_pipeline_scripts_dir }}"
+              pipeline_scripts_directory: "${{ variables.self_pipeline_scripts_dir }}"
               terraform_container: "terraform_custom"
               terraform_directory: "${{ variables.self_repo_tf_dir }}"
 
