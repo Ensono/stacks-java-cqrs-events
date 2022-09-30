@@ -153,6 +153,10 @@ variables:
   - name: vulnerability_scan_fail_build_on_detection
     value: false
 
+  # spot_bug_check
+  - name: spot_bug_check
+    value: false
+
   # Yamllint
   - name: yamllint_config_file
     value: "${{ variables.self_repo_dir }}/yamllint.conf"
@@ -228,6 +232,8 @@ stages:
               docker_build_container: "${{ variables.docker_java_image }}"
               # Vulnerability Scanning
               vulnerability_scan: "${{ variables.vulnerability_scan }}"
+              spot_bug_check: "${{ variables.spot_bug_check }}"
+
               vulnerability_scan_fail_build_on_detection: "${{ variables.vulnerability_scan_fail_build_on_detection }}"
               project_type: "${{ variables.java_project_type }}"
 
