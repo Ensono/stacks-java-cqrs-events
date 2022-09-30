@@ -152,6 +152,9 @@ variables:
     value: "target/dependency-check-report.html"
   - name: vulnerability_scan_fail_build_on_detection
     value: false
+  # Spot bug check
+  - name: spot_bug_check
+    value: false
 
   # Yamllint
   - name: yamllint_config_file
@@ -228,6 +231,8 @@ stages:
               docker_build_container: "${{ variables.docker_java_image }}"
               # Vulnerability Scanning
               vulnerability_scan: "${{ variables.vulnerability_scan }}"
+              spot_bug_check: "${{ variables.spot_bug_check }}"
+
               vulnerability_scan_fail_build_on_detection: "${{ variables.vulnerability_scan_fail_build_on_detection }}"
               project_type: "${{ variables.java_project_type }}"
 
