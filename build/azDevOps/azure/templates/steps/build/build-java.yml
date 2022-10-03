@@ -61,7 +61,6 @@ steps:
     target:
       container: ${{ parameters.docker_build_container }}
     displayName: "Maven: Format Check (${{ parameters.project_type }})"
-    
   - ${{ if eq(parameters.spot_bug_check, true) }}:
       - task: Bash@3
         inputs:
