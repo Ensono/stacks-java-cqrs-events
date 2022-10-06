@@ -49,6 +49,8 @@ steps:
             ${{ var.key }}: ${{ var.value }}
           ${{ each var in parameters.servicebus_creds }}:
             ${{ var.key }}: ${{ var.value }}
+          BASE_URL: "${{ parameters.functional_test_base_url }}"
+
       # Run after all Post-Deploy tests to aggregate Serenity reports.
       - task: Bash@3
         inputs:
