@@ -218,13 +218,11 @@ for i in "${!SELECTED[@]}"; do
 	fi
 done
 
-#####################
 
 printf "You have selected these options for your project:\n\n"
 for i in "${CHECKED[@]}";
 do
    printf "   * %s\n" "${i}"
-   MAVEN_SPECIFIC_PROFILES+="${i},"
 done
 
 printf "\nPress ENTER to accept or CTRL-C to quit"
@@ -232,7 +230,7 @@ read -r
 
 #####################
 
-cp ${BASE_FOLDER}/pom.xml ${BASE_FOLDER}/pom.template.xml
+cp pom.xml pom.template.xml
 
 printf ""
 #echo "DELETE THESE..."
@@ -243,14 +241,13 @@ do
    xmlstarlet edit -N ns='http://maven.apache.org/POM/4.0.0' \
       --delete ".//ns:project/ns:properties/ns:${i}.profile.name" \
       --delete ".//ns:project/ns:profiles/ns:profile[ns:id=\"${i}\"]" \
-      ${BASE_FOLDER}/pom.template.xml > ${BASE_FOLDER}/pom.template.xml.work
+      pom.template.xml > pom.template.xml.work
 
-   mv ${BASE_FOLDER}/pom.template.xml.work ${BASE_FOLDER}/pom.template.xml
+   mv pom.template.xml.work pom.template.xml
 
-   sed -i "" "/- \"@${i}.profile.name@\"/d" ${BASE_FOLDER}/src/main/resources/application.yml
+   sed -i "" "/- \"@${i}.profile.name@\"/d" src/main/resources/application.yml
 
-   rm -f "${BASE_FOLDER}/src/main/resources/application-${i}.yml"
-   rm -f "${BASE_FOLDER}/src/main/resources/local/application-${i}.yml"
+   rm -f "src/main/resources/application-${i}.yml"
 
 done
 
@@ -261,20 +258,94 @@ do
 
    xmlstarlet edit -N ns='http://maven.apache.org/POM/4.0.0' \
       --move ".//ns:project/ns:profiles/ns:profile[ns:id=\"${i}\"]/ns:dependencies/*" ".//ns:project/ns:dependencies" \
-      ${BASE_FOLDER}/pom.template.xml > ${BASE_FOLDER}/pom.template.xml.work
- 
-   mv ${BASE_FOLDER}/pom.template.xml.work ${BASE_FOLDER}/pom.template.xml
+      pom.template.xml > pom.template.xml.work
+
+   mv pom.template.xml.work pom.template.xml
 
    xmlstarlet edit -N ns='http://maven.apache.org/POM/4.0.0' \
       --delete ".//ns:project/ns:properties/ns:${i}.profile.name" \
       --delete ".//ns:project/ns:profiles/ns:profile[ns:id=\"${i}\"]" \
-      ${BASE_FOLDER}/pom.template.xml > ${BASE_FOLDER}/pom.template.xml.work
+      pom.template.xml > pom.template.xml.work
 
-   mv ${BASE_FOLDER}/pom.template.xml.work ${BASE_FOLDER}/pom.template.xml
+   mv pom.template.xml.work pom.template.xml
 
-   sed -i "" "s/- \"@${i}.profile.name@\"/- ${i}/g" ${BASE_FOLDER}/src/main/resources/application.yml
+   sed -i "" "s/- \"@${i}.profile.name@\"/- ${i}/g" src/main/resources/application.yml
 
 done
 
-cp ${BASE_FOLDER}/pom.template.xml ${BASE_FOLDER}/pom.xml
-rm -f ${BASE_FOLDER}/pom.template.xml
+cp pom.template.xml pom.xml
+
+#####################
+cd . || exit 1
+
+export MANIFOLD_SRC_LOCATION=.
+
+rm build.properties
+
+for i in "${CHECKED[@]}";
+do
+   echo "${i}=" |tr "[:lower:]" "[:upper:]" >> build.properties
+done
+
+echo "Test clean compile "
+cd src/main/java || exit 1
+
+mvn -f ../../../pom.xml clean compile
+
+cd ../../../.. || exit 1
+
+#####################
+echo "Test copy  "
+cd java || exit 1
+mv src/main/java src/main/java.SAV
+
+#####################
+echo "Test test compile "
+
+export MANIFOLD_SRC_LOCATION=.
+
+rm build.properties
+
+for i in "${CHECKED[@]}";
+do
+   echo "${i}=" |tr "[:lower:]" "[:upper:]" >> build.properties
+done
+
+cd src/test/java || exit 1
+
+mvn -f ../../../pom.xml test-compile
+
+cd ../../../.. || exit 1
+
+#####################
+echo "Test copy back java "
+cd java || exit 1
+rm -rf src/main/java
+
+mv src/main/java.SAV src/main/java
+
+#####################
+echo "Test format  "
+
+mvn -DskipTests=true com.coveo:fmt-maven-plugin:format
+
+
+#####################
+echo "Test 1 back pom file  "
+
+xmlstarlet edit -N ns='http://maven.apache.org/POM/4.0.0' \
+      --delete ".//ns:project/ns:properties/ns:manifold-version" \
+      --delete ".//ns:project/ns:build/ns:plugins/ns:plugin[ns:artifactId=\"maven-compiler-plugin\"]/ns:configuration/ns:compilerArgs" \
+      --delete ".//ns:project/ns:build/ns:plugins/ns:plugin[ns:artifactId=\"maven-compiler-plugin\"]/ns:configuration/ns:annotationProcessorPaths/ns:path[ns:groupId=\"systems.manifold\"]" \
+      pom.xml > pom.template.xml.work
+
+mv pom.template.xml.work pom.xml
+cat pom.xml
+
+rm -f pom.template.xml
+rm -f build.properties
+
+#####################
+unset MANIFOLD_SRC_LOCATION
+
+mvn clean spring-boot:run 
