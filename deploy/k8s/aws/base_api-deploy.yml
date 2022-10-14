@@ -233,7 +233,7 @@ spec:
               cpu: "1"
               memory: "1Gi"
             requests:
-              cpu: "0.2"
+              cpu: "0.4"
               memory: "256Mi"
           image: ${k8s_image}
           imagePullPolicy: IfNotPresent
