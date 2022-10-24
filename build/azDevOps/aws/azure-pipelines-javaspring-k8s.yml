@@ -318,6 +318,8 @@ stages:
       - group: amido-stacks-aws-credentials
       - name: Environment.ShortName
         value: dev
+      - name: dns_name
+        value: "$(Environment.ShortName)-$(domain)"
     jobs:
       - deployment: AppInfraDev
         container: terraform_custom
@@ -401,6 +403,10 @@ stages:
             value: $(kubernetes_clustername_nonprod)
           - name: app_name
             value: "java-api"
+          - name: dns_pointer
+            value: "${{ variables.dns_name }}.${{ variables.base_domain_nonprod }}"
+          - name: functional_test_base_url
+            value: "https://${{ variables.dns_pointer }}/${{ variables.k8s_app_path }}"
           - name: aws_cluster_role
             value: "eks-admin-role"
 
