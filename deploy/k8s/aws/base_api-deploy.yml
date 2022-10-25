@@ -228,6 +228,8 @@ spec:
               value: ${k8s_app_route}
             - name: LOG_LEVEL
               value: debug
+            - name: AWS_XRAY_CONTEXT_MISSING
+              value: LOG_ERROR
           resources:
             limits:
               cpu: "1"
