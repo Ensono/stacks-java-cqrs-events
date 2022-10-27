@@ -246,24 +246,24 @@ spec:
             - name: http
               containerPort: 80
           livenessProbe:
-            failureThreshold: 10
+            failureThreshold: 5
             httpGet:
               path: /health
               port: 9000
               scheme: HTTP
-            initialDelaySeconds: 45
-            periodSeconds: 30
+            initialDelaySeconds: 5
+            periodSeconds: 15
             successThreshold: 1
-            timeoutSeconds: 25
+            timeoutSeconds: 3
           readinessProbe:
-            failureThreshold: 10
+            failureThreshold: 5
             httpGet:
               path: /health
               port: 9000
               scheme: HTTP
-            periodSeconds: 30
+            periodSeconds: 15
             successThreshold: 1
-            timeoutSeconds: 25
+            timeoutSeconds: 3
       volumes:
         - name: appsettings
           configMap:
