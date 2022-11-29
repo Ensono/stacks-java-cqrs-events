@@ -1,0 +1,71 @@
+variables:
+  - name: region
+    value: eu-west-2
+  - name: company
+    value: amido
+  - name: project
+    value: stacks
+  - name: domain
+    value: java-api-cqrs-evnts
+  - name: self_repo
+    value: stacks-java-cqrs-events
+  - name: self_generic_name
+    value: $(project)-$(domain)-aws
+  - name: aws_default_region
+    value: eu-west-2
+  - name: owner
+    value: stacks-team
+  - name: docker_image_name
+    value: stacks-java-api-cqrs-events
+  - name: k8s_app_route
+    value: /api/menu
+  - name: aws_cluster_role
+    value: "eks-admin-role"
+
+  # Terraform Configuration
+
+  # State configuration
+
+  # Stacks operates Terraform states based on workspaces **IT IS VERY IMPORTANT** that you ensure a unique name for each application definition
+  # Furthermore **IT IS VERY IMPORTANT** that you change the name of a workspace for each deployment stage
+  # there are some best practices around this if you are going for feature based environments
+  # - we suggest you create a runtime variable that is dynamically set based on a branch currently running
+  # **`terraform_state_workspace: `**
+  # avoid running anything past dev that is not on master
+  # sample value: company-webapp
+  - name: region
+    value: eu-west-2
+  - name: dynamodb_table
+    value: amido-stacks-nonprod-euw2-java-menu
+  - name: bucket
+    value: s3-ew2-rjs-tf-state-dev-terraform-backend-3
+  - name: key
+    value: "eks.tfstate"
+  - name: aws_encrypt
+    value: "true"
+  - name: TF_FILE_LOCATION
+    value: deploy/aws/app/kube
+
+
+  # Kubernetes configuration
+  # --nonprod
+  - name: kubernetes_clustername_nonprod
+    value: amido-stacks-dev-h0ax6owA
+
+  # Container registry configuration
+  - name: docker_container_registry_name_nonprod
+    value: stacks-java-cqrs-events
+
+  # Domain names
+  - name: base_domain_nonprod
+    value: nonprod.amidostacks.com
+  - name: base_domain_internal_nonprod
+    value: nonprod.amidostacks.internal
+
+  # GitHub infomration
+  - name: create_release
+    value: true
+  - name: github_release_service_connection
+    value: GitHubReleases
+  - name: github_org
+    value: $(company)
