@@ -18,7 +18,7 @@ RUN ./mvnw clean --quiet\
 
 RUN ls -lrt extracted
 
-FROM azul/zulu-openjdk-alpine:11-jre
+FROM azul/zulu-openjdk-alpine:11.0.18-11.62.17-jre-headless-x86
 
 VOLUME /tmp
 
