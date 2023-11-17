@@ -20,17 +20,17 @@ import org.springframework.test.context.TestPropertySource;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
     classes = Application.class,
     properties = {
-        "stacks-secret-1=SEC1",
-        "stacks-secret-2=SEC2",
-        "stacks-secret-3=SEC3",
-        "stacks-secret-4=SEC4"
+      "stacks-secret-1=SEC1",
+      "stacks-secret-2=SEC2",
+      "stacks-secret-3=SEC3",
+      "stacks-secret-4=SEC4"
     })
 @TestPropertySource(
     properties = {
-        "management.port=0",
-        "aws.xray.enabled=false",
-        "aws.secretsmanager.enabled=false",
-        "cosmos.enabled=false"
+      "management.port=0",
+      "aws.xray.enabled=false",
+      "aws.secretsmanager.enabled=false",
+      "cosmos.enabled=false"
     })
 @Tag("Integration")
 @ActiveProfiles("test")
@@ -38,14 +38,11 @@ class SecretsControllerTest {
 
   public static final String GET_SECRETS = "/v1/secrets";
 
-  @LocalServerPort
-  private int port;
+  @LocalServerPort private int port;
 
-  @Autowired
-  private TestRestTemplate testRestTemplate;
+  @Autowired private TestRestTemplate testRestTemplate;
 
-  @MockBean
-  private MenuRepository menuRepository;
+  @MockBean private MenuRepository menuRepository;
 
   @Test
   void shouldReturnValidSecrets() {

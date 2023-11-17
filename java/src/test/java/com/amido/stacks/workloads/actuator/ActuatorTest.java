@@ -21,10 +21,10 @@ import org.springframework.test.context.TestPropertySource;
     classes = Application.class)
 @TestPropertySource(
     properties = {
-        "management.port=0",
-        "aws.xray.enabled=false",
-        "aws.secretsmanager.enabled=false",
-        "cosmos.enabled=false"
+      "management.port=0",
+      "aws.xray.enabled=false",
+      "aws.secretsmanager.enabled=false",
+      "cosmos.enabled=false"
     })
 @Tag("Component")
 class ActuatorTest {
@@ -32,11 +32,9 @@ class ActuatorTest {
   @Value("${local.management.port}")
   private int mgt;
 
-  @Autowired
-  private TestRestTemplate testRestTemplate;
+  @Autowired private TestRestTemplate testRestTemplate;
 
-  @MockBean
-  private MenuRepository menuRepository;
+  @MockBean private MenuRepository menuRepository;
 
   @Test
   void shouldReturn200WhenSendingRequestToHealthEndpoint() {

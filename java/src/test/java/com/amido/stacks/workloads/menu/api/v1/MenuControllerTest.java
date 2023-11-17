@@ -63,10 +63,10 @@ import org.springframework.test.context.TestPropertySource;
     classes = Application.class)
 @TestPropertySource(
     properties = {
-        "management.port=0",
-        "aws.xray.enabled=false",
-        "aws.secretsmanager.enabled=false",
-        "cosmos.enabled=false"
+      "management.port=0",
+      "aws.xray.enabled=false",
+      "aws.secretsmanager.enabled=false",
+      "cosmos.enabled=false"
     })
 @Tag("Integration")
 @ActiveProfiles("test")
@@ -80,23 +80,17 @@ public class MenuControllerTest {
   final int DEFAULT_PAGE_NUMBER = 1;
   final int DEFAULT_PAGE_SIZE = 20;
 
-  @LocalServerPort
-  private int port;
+  @LocalServerPort private int port;
 
-  @Autowired
-  private TestRestTemplate testRestTemplate;
+  @Autowired private TestRestTemplate testRestTemplate;
 
-  @MockBean
-  private MenuRepository menuRepository;
+  @MockBean private MenuRepository menuRepository;
 
-  @Autowired
-  private MenuMapper menuMapper;
+  @Autowired private MenuMapper menuMapper;
 
-  @Autowired
-  private SearchMenuResultItemMapper searchMenuResultItemMapper;
+  @Autowired private SearchMenuResultItemMapper searchMenuResultItemMapper;
 
-  @Autowired
-  private MenuHelperService menuHelperService;
+  @Autowired private MenuHelperService menuHelperService;
 
   @Test
   void testCreateNewMenu() {
@@ -107,7 +101,7 @@ public class MenuControllerTest {
             m.getName(), m.getDescription(), UUID.fromString(m.getRestaurantId()), m.getEnabled());
 
     when(menuRepository.findAllByRestaurantIdAndName(
-        eq(m.getRestaurantId()), eq(m.getName()), any(Pageable.class)))
+            eq(m.getRestaurantId()), eq(m.getName()), any(Pageable.class)))
         .thenReturn(new PageImpl<>(Collections.emptyList()));
     when(menuRepository.save(any(Menu.class))).thenReturn(m);
 
@@ -129,7 +123,7 @@ public class MenuControllerTest {
             m.getName(), m.getDescription(), UUID.fromString(m.getRestaurantId()), m.getEnabled());
 
     when(menuRepository.findAllByRestaurantIdAndName(
-        eq(m.getRestaurantId()), eq(m.getName()), any(Pageable.class)))
+            eq(m.getRestaurantId()), eq(m.getName()), any(Pageable.class)))
         .thenReturn(new PageImpl<>(Arrays.asList(m)));
 
     // When
@@ -246,7 +240,7 @@ public class MenuControllerTest {
     final String searchTerm = "searchTermString";
 
     when(menuRepository.findAllByRestaurantIdAndNameContaining(
-        eq(restaurantId.toString()), eq(searchTerm), any(Pageable.class)))
+            eq(restaurantId.toString()), eq(searchTerm), any(Pageable.class)))
         .thenReturn(new PageImpl<>(Collections.emptyList()));
 
     // When

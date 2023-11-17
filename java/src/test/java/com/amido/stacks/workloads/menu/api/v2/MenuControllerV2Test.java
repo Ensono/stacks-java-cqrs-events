@@ -29,10 +29,10 @@ import org.springframework.test.context.TestPropertySource;
     classes = Application.class)
 @TestPropertySource(
     properties = {
-        "management.port=0",
-        "aws.xray.enabled=false",
-        "aws.secretsmanager.enabled=false",
-        "cosmos.enabled=false"
+      "management.port=0",
+      "aws.xray.enabled=false",
+      "aws.secretsmanager.enabled=false",
+      "cosmos.enabled=false"
     })
 @Tag("Integration")
 @ActiveProfiles("test")
@@ -40,17 +40,13 @@ class MenuControllerV2Test {
 
   private final String GET_MENU_BY_ID = "%s/v2/menu/%s";
 
-  @LocalServerPort
-  private int port;
+  @LocalServerPort private int port;
 
-  @Autowired
-  private TestRestTemplate testRestTemplate;
+  @Autowired private TestRestTemplate testRestTemplate;
 
-  @MockBean
-  private MenuRepository menuRepository;
+  @MockBean private MenuRepository menuRepository;
 
-  @Autowired
-  private MenuMapper menuMapper;
+  @Autowired private MenuMapper menuMapper;
 
   @Test
   void getMenuById() {

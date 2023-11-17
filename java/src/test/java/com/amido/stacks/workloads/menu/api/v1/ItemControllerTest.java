@@ -55,10 +55,10 @@ import org.springframework.test.context.TestPropertySource;
     classes = Application.class)
 @TestPropertySource(
     properties = {
-        "management.port=0",
-        "aws.xray.enabled=false",
-        "aws.secretsmanager.enabled=false",
-        "cosmos.enabled=false"
+      "management.port=0",
+      "aws.xray.enabled=false",
+      "aws.secretsmanager.enabled=false",
+      "cosmos.enabled=false"
     })
 @Tag("Integration")
 @ActiveProfiles("test")
@@ -69,17 +69,13 @@ public class ItemControllerTest {
   public static final String UPDATE_ITEM = "%s/v1/menu/%s/category/%s/items/%s";
 
   public static final String DELETE_ITEM = "%s/v1/menu/%s/category/%s/items/%s";
-  @LocalServerPort
-  private int port;
+  @LocalServerPort private int port;
 
-  @Autowired
-  private TestRestTemplate testRestTemplate;
+  @Autowired private TestRestTemplate testRestTemplate;
 
-  @MockBean
-  private MenuRepository menuRepository;
+  @MockBean private MenuRepository menuRepository;
 
-  @Autowired
-  private MenuHelperService menuHelperService;
+  @Autowired private MenuHelperService menuHelperService;
 
   @AfterEach
   void tearDown() {

@@ -1,6 +1,5 @@
 package com.amido.stacks.workloads;
 
-
 import static org.springframework.security.config.Customizer.withDefaults;
 
 import org.springframework.context.annotation.Bean;

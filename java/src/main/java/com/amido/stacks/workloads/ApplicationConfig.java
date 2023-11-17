@@ -90,14 +90,18 @@ public class ApplicationConfig {
    * @throws Exception
    */
   private SecurityFilterChain enableAuth(HttpSecurity http) throws Exception {
-    return http.authorizeHttpRequests(authConfig -> authConfig.requestMatchers(V1_MENU_ENDPOINT)
-        .authenticated()
-        .requestMatchers(V2_MENU_ENDPOINT)
-        .authenticated()
-        .requestMatchers(V1_MENU)
-        .authenticated()
-        .requestMatchers(V2_MENU)
-        .authenticated()).build();
+    return http.authorizeHttpRequests(
+            authConfig ->
+                authConfig
+                    .requestMatchers(V1_MENU_ENDPOINT)
+                    .authenticated()
+                    .requestMatchers(V2_MENU_ENDPOINT)
+                    .authenticated()
+                    .requestMatchers(V1_MENU)
+                    .authenticated()
+                    .requestMatchers(V2_MENU)
+                    .authenticated())
+        .build();
   }
 
   /**
@@ -108,6 +112,7 @@ public class ApplicationConfig {
    */
   private SecurityFilterChain permitAll(HttpSecurity http) throws Exception {
     return http.authorizeHttpRequests(authConfig -> authConfig.requestMatchers("/**").permitAll())
-        .httpBasic(Customizer.withDefaults()).build();
+        .httpBasic(Customizer.withDefaults())
+        .build();
   }
 }
