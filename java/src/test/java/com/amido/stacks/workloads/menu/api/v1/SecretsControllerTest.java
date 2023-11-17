@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
@@ -20,19 +20,17 @@ import org.springframework.test.context.TestPropertySource;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
     classes = Application.class,
     properties = {
-      "stacks-secret-1=SEC1",
-      "stacks-secret-2=SEC2",
-      "stacks-secret-3=SEC3",
-      "stacks-secret-4=SEC4"
+        "stacks-secret-1=SEC1",
+        "stacks-secret-2=SEC2",
+        "stacks-secret-3=SEC3",
+        "stacks-secret-4=SEC4"
     })
 @TestPropertySource(
     properties = {
-      "management.port=0",
-      "aws.xray.enabled=false",
-      "aws.secretsmanager.enabled=false",
-      "spring.autoconfigure.exclude=com.azure.spring.autoconfigure.cosmos.CosmosRepositoriesAutoConfiguration,"
-          + "com.azure.spring.autoconfigure.cosmos.CosmosAutoConfiguration,"
-          + "com.azure.spring.autoconfigure.cosmos.CosmosHealthConfiguration"
+        "management.port=0",
+        "aws.xray.enabled=false",
+        "aws.secretsmanager.enabled=false",
+        "cosmos.enabled=false"
     })
 @Tag("Integration")
 @ActiveProfiles("test")
@@ -40,11 +38,14 @@ class SecretsControllerTest {
 
   public static final String GET_SECRETS = "/v1/secrets";
 
-  @LocalServerPort private int port;
+  @LocalServerPort
+  private int port;
 
-  @Autowired private TestRestTemplate testRestTemplate;
+  @Autowired
+  private TestRestTemplate testRestTemplate;
 
-  @MockBean private MenuRepository menuRepository;
+  @MockBean
+  private MenuRepository menuRepository;
 
   @Test
   void shouldReturnValidSecrets() {

@@ -8,7 +8,7 @@
 
 .gradle
 
-java/target/
+**/target/*
 api-tests/target
 java/build/
 java/.classpath
