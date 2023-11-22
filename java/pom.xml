@@ -47,6 +47,7 @@
     <pact.provider.spring.version>4.0.10</pact.provider.spring.version>
     <pact.consumer.version>4.3.2</pact.consumer.version>
     <spring-cloud-context.version>4.0.4</spring-cloud-context.version>
+    <maven-owasp-dependency-check-plugin.version>9.0.0</maven-owasp-dependency-check-plugin.version>
   </properties>
 
   <dependencyManagement>
@@ -147,6 +148,29 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>${spring.boot.version}</version>
+        <configuration>
+          <mainClass>com.amido.stacks.workloads.Application</mainClass>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.owasp</groupId>
+        <artifactId>dependency-check-maven</artifactId>
+        <version>${maven-owasp-dependency-check-plugin.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.jacoco</groupId>
