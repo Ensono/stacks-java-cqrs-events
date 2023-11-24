@@ -1,5 +1,6 @@
-azure:
-  cosmos:
-    uri: https://localhost:8081
-    database: Stacks
-    key: ${COSMOSDB_KEY}
+spring:
+  data:
+    cosmos:
+      uri: https://localhost:8081
+      key: ${COSMOSDB_KEY}
+      databaseName: stacks

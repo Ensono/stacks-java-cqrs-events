@@ -1,6 +1,5 @@
 package com.amido.stacks.workloads;
 
-import com.auth0.spring.security.api.JwtWebSecurityConfigurer;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Arrays;
@@ -10,9 +9,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -21,7 +21,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration("MySecurityConfig")
 @EnableWebSecurity
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class ApplicationConfig extends WebSecurityConfigurerAdapter {
+public class ApplicationConfig {
 
   private static final String V1_MENU_ENDPOINT = "/v1/menu";
   private static final String V1_MENU = "/v1/menu/**";
@@ -74,14 +74,13 @@ public class ApplicationConfig extends WebSecurityConfigurerAdapter {
    * @param http
    * @throws Exception
    */
-  @Override
-  protected void configure(HttpSecurity http) throws Exception {
-    http.cors();
+  @Bean
+  public SecurityFilterChain configure(HttpSecurity http) throws Exception {
+    http.cors(Customizer.withDefaults());
     if (BooleanUtils.isTrue(isEnabled)) {
-      enableAuth(http);
-    } else {
-      permitAll(http);
+      return enableAuth(http);
     }
+    return permitAll(http);
   }
 
   /**
@@ -90,18 +89,19 @@ public class ApplicationConfig extends WebSecurityConfigurerAdapter {
    * @param http
    * @throws Exception
    */
-  private void enableAuth(HttpSecurity http) throws Exception {
-    JwtWebSecurityConfigurer.forRS256(apiAudience, issuer)
-        .configure(http)
-        .authorizeRequests()
-        .antMatchers(V1_MENU_ENDPOINT)
-        .authenticated()
-        .antMatchers(V2_MENU_ENDPOINT)
-        .authenticated()
-        .antMatchers(V1_MENU)
-        .authenticated()
-        .antMatchers(V2_MENU)
-        .authenticated();
+  private SecurityFilterChain enableAuth(HttpSecurity http) throws Exception {
+    return http.authorizeHttpRequests(
+            authConfig ->
+                authConfig
+                    .requestMatchers(V1_MENU_ENDPOINT)
+                    .authenticated()
+                    .requestMatchers(V2_MENU_ENDPOINT)
+                    .authenticated()
+                    .requestMatchers(V1_MENU)
+                    .authenticated()
+                    .requestMatchers(V2_MENU)
+                    .authenticated())
+        .build();
   }
 
   /**
@@ -110,11 +110,9 @@ public class ApplicationConfig extends WebSecurityConfigurerAdapter {
    * @param http
    * @throws Exception
    */
-  private void permitAll(HttpSecurity http) throws Exception {
-    JwtWebSecurityConfigurer.forRS256(apiAudience, issuer)
-        .configure(http)
-        .authorizeRequests()
-        .antMatchers("/**")
-        .permitAll();
+  private SecurityFilterChain permitAll(HttpSecurity http) throws Exception {
+    return http.authorizeHttpRequests(authConfig -> authConfig.requestMatchers("/**").permitAll())
+        .httpBasic(Customizer.withDefaults())
+        .build();
   }
 }

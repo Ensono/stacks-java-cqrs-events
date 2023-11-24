@@ -20,7 +20,7 @@
         <parallel.tests>4</parallel.tests>
         <webdriver.base.url/>
         <jackson.version>2.12.3</jackson.version>
-
+        <java.version>17</java.version>
         <!-- Set 'pact.broker.url' and 'pact.broker.token' -->
         <pact.broker.url/>
         <pact.broker.token/>
@@ -428,8 +428,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
+                    <encoding>UTF-8</encoding>
+                    <release>${java.version}</release>
                 </configuration>
             </plugin>
             <plugin>

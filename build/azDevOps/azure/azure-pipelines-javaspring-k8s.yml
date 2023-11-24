@@ -24,7 +24,7 @@ resources:
   repositories:
     - repository: templates
       type: github
-      name: amido/stacks-pipeline-templates
+      name: Ensono/stacks-pipeline-templates
       ref: feature/cycle4
       # EXCHANGE THIS FOR YOUR OWN ENDPOINT CONNECTION TO GITHUB
       # REPOSITORY IS PUBLIC
@@ -33,14 +33,14 @@ resources:
   containers:
     # Container for Java Build and Testing
     - container: azul_java
-      image: azul/zulu-openjdk-debian:11
+      image: amidostacks/runner-pwsh-java:0.4.48-stable
     # Container for inlining Jacoco assets as Azure DevOps strips them
     # https://github.com/microsoft/azure-pipelines-tasks/issues/3027
     - container: node
       image: amidostacks/node-14:0.0.1
     # Container for Sonar Scanner
     - container: sonar_scanner
-      image: amidostacks/ci-sonarscanner:0.0.2
+      image: amidostacks/runner-pwsh-dotnet:0.4.51-stable
     # Container for Kubernetes Deployment
     - container: k8s_deploy
       image: amidostacks/ci-k8s:0.0.12
@@ -89,7 +89,7 @@ variables:
   - name: version_minor
     value: 0
   - name: version_patch
-    value: 0
+    value: 1
   - name: version_number
     value: $(version_major).$(version_minor).$(version_patch)
 

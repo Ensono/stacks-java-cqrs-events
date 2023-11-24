@@ -24,9 +24,7 @@ import org.springframework.test.context.TestPropertySource;
       "management.port=0",
       "aws.xray.enabled=false",
       "aws.secretsmanager.enabled=false",
-      "spring.autoconfigure.exclude=com.azure.spring.autoconfigure.cosmos.CosmosRepositoriesAutoConfiguration,"
-          + "com.azure.spring.autoconfigure.cosmos.CosmosAutoConfiguration,"
-          + "com.azure.spring.autoconfigure.cosmos.CosmosHealthConfiguration"
+      "cosmos.enabled=false"
     })
 @Tag("Component")
 class ActuatorTest {
