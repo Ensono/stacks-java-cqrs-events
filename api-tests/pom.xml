@@ -41,7 +41,7 @@
         <netty.transport.native.epoll.version>4.1.72.Final</netty.transport.native.epoll.version>
         <json.version>20211205</json.version>
         <guava.version>31.0.1-jre</guava.version>
-        <httpclient.version>4.5.13</httpclient.version>
+        <httpclient.version>4.5.14</httpclient.version>
         <xerces.version>2.12.1</xerces.version>
         <commons.codec.version>1.15</commons.codec.version>
         <spring.web.version>5.3.14</spring.web.version>
