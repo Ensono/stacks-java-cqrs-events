@@ -6,6 +6,6 @@
     "gulp": "^4.0.2",
     "gulp-inline-source": "^4.0.0",
     "gulp-postcss": "^8.0.0",
-    "postcss-image-inliner": "^4.0.4"
+    "postcss-image-inliner": "^7.0.1"
   }
 }
