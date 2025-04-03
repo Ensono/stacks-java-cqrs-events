@@ -1,4 +1,4 @@
 amazon:
   dynamodb:
-    endpoint: http://localhost:8000/
+    endpoint: https://dynamodb.eu-west-2.amazonaws.com
     signingRegion: eu-west-2

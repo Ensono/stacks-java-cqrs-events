@@ -1,0 +1,52 @@
+parameters:
+  project_root_dir: ""
+  pipeline_scripts_directory: ""
+  # Docker
+  docker_k8s_container: ""
+  docker_build_additional_args: ""
+  docker_image_name: ""
+  docker_image_tag: ""
+  docker_registry_name: ""
+  # AWS
+  aws_access_key_id: ""
+  aws_secret_access_key: ""
+  aws_default_region: ""
+  aws_account_id: ""
+
+steps:
+  - task: Bash@3
+    inputs:
+      filePath: "${{ parameters.pipeline_scripts_directory }}/build-docker-image-aws.bash"
+      arguments: >
+        -a "${{ parameters.docker_image_name }}"
+        -b "${{ parameters.docker_image_tag }}"
+        -c "${{ parameters.docker_registry_name }}"
+      workingDirectory: ${{ parameters.project_root_dir }}
+    target:
+      container: ${{ parameters.docker_k8s_container }}
+    displayName: "Build Container Image"
+
+  - task: Bash@3
+    inputs:
+      filePath: "${{ parameters.pipeline_scripts_directory }}/util-aws-login.bash"
+      arguments: >
+        -a "${{ parameters.aws_access_key_id}}"
+        -b "${{ parameters.aws_secret_access_key }}"
+        -c "${{ parameters.aws_default_region }}"
+    target:
+      container: ${{ parameters.docker_k8s_container }}
+    displayName: "Login: AWS CLI"
+
+  - task: Bash@3
+    inputs:
+      filePath: "${{ parameters.pipeline_scripts_directory }}/util-docker-image-push-aws.bash"
+      arguments: >
+        -a "${{ parameters.docker_image_name }}"
+        -b "${{ parameters.docker_image_tag }}"
+        -c "${{ parameters.docker_registry_name }}"
+        -d "${{ parameters.aws_default_region }}"
+        -e "${{ parameters.aws_account_id }}"
+        -Y "false"
+    target:
+      container: ${{ parameters.docker_k8s_container }}
+    displayName: "Push Container Image to Elastic Container Registry"
