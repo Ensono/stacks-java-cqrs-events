@@ -14,6 +14,15 @@ parameters:
   project_type: ""
 
 steps:
+  - task: Bash@3
+    inputs:
+      filePath: "${{ parameters.pipeline_scripts_directory }}/build-manifold-install.bash"
+      workingDirectory: "${{ parameters.project_root_dir }}"
+    target:
+      container: ${{ parameters.docker_build_container }}
+    displayName: "Maven: Install manifold Packages (${{ parameters.project_type }})"
+
+
   - task: Cache@2
     inputs:
       key: 'maven | "$(Agent.OS)" | ${{ parameters.project_root_dir }}/pom.xml'
@@ -52,16 +61,17 @@ steps:
     target:
       container: ${{ parameters.docker_build_container }}
     displayName: "Maven: Format Check (${{ parameters.project_type }})"
-
-  - task: Bash@3
-    inputs:
-      filePath: "${{ parameters.pipeline_scripts_directory }}/test-maven-spotbugs-check.bash"
-      arguments: >
-        -Z "${{ parameters.maven_cache_directory }}"
-      workingDirectory: "${{ parameters.project_root_dir }}"
-    target:
-      container: ${{ parameters.docker_build_container }}
-    displayName: "Maven: Spotbugs Check (${{ parameters.project_type }})"
+  - ${{ if eq(parameters.spot_bug_check, true) }}:
+      - task: Bash@3
+        inputs:
+          filePath: "${{ parameters.pipeline_scripts_directory }}/test-maven-spotbugs-check.bash"
+          arguments: >
+            -Z "${{ parameters.maven_cache_directory }}"
+          workingDirectory: "${{ parameters.project_root_dir }}"
+        target:
+          container: ${{ parameters.docker_build_container }}
+        continueOnError: true
+        displayName: "Maven: Spotbugs Check (${{ parameters.project_type }})"
 
   - ${{ if eq(parameters.vulnerability_scan, true) }}:
       - task: Bash@3

@@ -7,6 +7,7 @@ import com.amido.stacks.workloads.menu.events.CategoryUpdatedEvent;
 import com.amido.stacks.workloads.menu.events.MenuEvent;
 import com.amido.stacks.workloads.menu.events.MenuUpdatedEvent;
 import com.amido.stacks.workloads.menu.service.v1.CategoryService;
+
 import com.amido.stacks.workloads.menu.service.v1.MenuService;
 import java.util.Arrays;
 import java.util.List;
