@@ -18,7 +18,6 @@ java/.settings/
 .terraform
 
 node_modules/
-/api-tests-karate/target/
 /.idea/
 target/
 reports/
