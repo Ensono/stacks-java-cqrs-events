@@ -3,9 +3,9 @@
   "license": "Apache-2.0",
   "repository": "N/A",
   "devDependencies": {
-    "gulp": "^4.0.2",
+    "gulp": "^5.0.1",
     "gulp-inline-source": "^4.0.0",
-    "gulp-postcss": "^8.0.0",
-    "postcss-image-inliner": "^4.0.4"
+    "gulp-postcss": "^10.0.0",
+    "postcss-image-inliner": "^7.0.1"
   }
 }
