@@ -1,0 +1,531 @@
+#############################################################################################################################
+# This is a generated file which includes some replacements.                                                                #
+# It is still very much recommended to go through this and ensure all variables are correct for your business/domain        #
+# All variables are defined in a global scope.                                                                              #
+# All Terraform produced resource names are using a labels module ensuring a predictable naming convention                  #
+# E.g.: variables for company, project, stage and domain will produce a name of `$company-$project-$stage-$domain`          #
+# NB: Some resources e.g. blob storage only allow for alpha numeric characters so the name is adjusted accordingly          #
+#  ==> `$company$project$stage$domain`                                                                                      #
+#############################################################################################################################
+name: $(version_major).$(version_minor).$(version_patch)-$(Build.SourceBranchName)-$(Rev:r)
+
+pr:
+  - main
+
+trigger:
+  branches:
+    include:
+      - 'main'
+  paths:
+    include:
+      - '*'
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: amido/stacks-pipeline-templates
+      ref: feature/cycle9_aws
+      # EXCHANGE THIS FOR YOUR OWN ENDPOINT CONNECTION TO GITHUB
+      # REPOSITORY IS PUBLIC
+      endpoint: amidostacks
+
+  containers:
+    # Container for Java Build and Testing
+    - container: azul_java
+      image: azul/zulu-openjdk-debian:11
+    # Container for inlining Jacoco assets as Azure DevOps strips them
+    # https://github.com/microsoft/azure-pipelines-tasks/issues/3027
+    - container: node
+      image: amidostacks/node-14:0.0.1
+    # Container for Sonar Scanner
+    - container: sonar_scanner
+      image: amidostacks/ci-sonarscanner:0.0.2
+    # Container for Kubernetes Deployment
+    - container: k8s_deploy
+      image: amidostacks/ci-k8s:0.0.12
+    # Container for Terraform deployments
+    - container: terraform_custom
+      image: amidostacks/ci-tf:0.0.8
+
+variables:
+  - template: azuredevops-vars.yml
+
+  - name: component
+    value: api
+
+  - name: role
+    value: backend
+  #
+  # SelfConfig
+  # If you haven't specified source_repo at cli runtime please ensure you replace it here
+  # It is case sensitive for TFS based repos
+
+  - name: self_remote_repo
+    value: "$(company)/$(self_repo)"
+  - name: self_repo_src
+    value: java
+  - name: self_post_deploy_test_src
+    value: "api-tests"
+  - name: self_repo_dir
+    value: "$(Agent.BuildDirectory)/s/$(self_repo)"
+  - name: self_project_dir
+    value: "$(self_repo_dir)/$(self_repo_src)"
+  - name: self_functional_testproject_dir
+    value: "$(self_repo_dir)/$(self_post_deploy_test_src)"
+  - name: self_repo_tf_src
+    value: deploy/aws/app/kube
+  - name: self_repo_tf_dir
+    value: "$(self_repo_dir)/$(self_repo_tf_src)"
+
+  - name: self_pipeline_repo
+    value: "$(Agent.BuildDirectory)/s/stacks-pipeline-templates"
+  - name: self_pipeline_scripts_dir
+    value: "$(self_pipeline_repo)/scripts"
+
+  # Versioning
+  - name: version_major
+    value: 1
+  - name: version_minor
+    value: 0
+  - name: version_patch
+    value: 0
+  - name: version_number
+    value: $(version_major).$(version_minor).$(version_patch)
+
+  # PR / Branch vars
+  - name: source_branch_ref
+    value: "$[coalesce(variables['System.PullRequest.SourceBranch'], variables['Build.SourceBranch'])]"
+  - name: target_branch_ref
+    value: "$[coalesce(variables['System.PullRequest.TargetBranch'], '')]"
+  - name: pullrequest_number
+    value: "$[coalesce(variables['System.PullRequest.PullRequestNumber'], variables['System.PullRequest.PullRequestId'], '')]"
+
+  # Docker Config
+  - name: docker_dockerfile_path
+    value: "."
+  - name: docker_registry_name
+    value: "$(aws_account_id).dkr.ecr.eu-west-2.amazonaws.com"
+  - name: docker_image_name
+    value: "stacks-java-api-cqrs-events"
+  - name: docker_image_tag
+    value: "$(Build.BuildNumber)"
+  - name: docker_java_image
+    value: "azul_java"
+  - name: resource_def_name
+    value: java-api-cqrs-events
+
+  # BUILD ARTIFACTS across stages
+  - name: build_artifact_deploy_path
+    value: "${{ variables.self_repo_dir }}/deploy/k8s/app"
+  - name: build_artifact_deploy_name
+    value: "${{ variables.self_generic_name }}"
+
+  # DEFAULT IMAGE RUNNER
+  - name: pool_vm_image
+    value: ubuntu-20.04
+
+  # Maven
+  - name: maven_cache_directory
+    value: "./.m2"
+  - name: maven_surefire_reports_dir
+    value: "target/surefire-reports"
+  - name: maven_allowed_test_tags
+    value: "Unit | Component | Integration"
+  - name: maven_allowed_post_deploy_test_tags
+    value: "@Functional or @Smoke or @Performance"
+  - name: maven_ignored_post_deploy_test_tags
+    value: "@Ignore"
+  - name: maven_post_deploy_html_report_directory
+    value: "target/site/serenity"
+  - name: maven_post_deploy_failsafe_reports_directory
+    value: "target/failsafe-reports"
+
+  # Vulnerability Scan
+  - name: vulnerability_scan
+    value: true
+  - name: vulnerability_scan_report
+    value: "target/dependency-check-report.html"
+  - name: vulnerability_scan_fail_build_on_detection
+    value: false
+
+  # Yamllint
+  - name: yamllint_config_file
+    value: "${{ variables.self_repo_dir }}/yamllint.conf"
+  - name: yamllint_scan_directory
+    value: "."
+
+  # Functional Tests
+  - name: functional_test
+    value: true
+  - name: functional_test_path
+    value: "${{ variables.self_functional_testproject_dir }}"
+  - name: functional_test_artefact_path
+    value: "${{ variables.self_repo_dir }}/${{ variables.self_post_deploy_test_src }}"
+  - name: functional_test_artefact_name
+    value: "post-deploy-test-artefact"
+  - name: functional_test_artefact_download_location
+    value: "$(Pipeline.Workspace)/${{ variables.functional_test_artefact_name }}"
+
+  # Build Task Naming
+  - name: java_project_type
+    value: "Java App"
+  - name: functional_test_project_type
+    value: "Functional API Tests"
+
+stages:
+  - stage: Build
+    variables:
+      # You can find notes in the READMEs around which values to use for each ENV variable group
+      - group: amido-stacks-infra-credentials-nonprod
+      - group: stacks-credentials-nonprod-kv
+      - group: amido-stacks-java-api
+      - group: amido-stacks-java-cqrs-events-api
+      - group: amido-stacks-aws-credentials
+    jobs:
+      - job: ApiBuild
+        pool:
+          vmImage: $(pool_vm_image)
+        steps:
+          - checkout: self
+
+          - checkout: templates
+
+          # Updates the build number in Azure DevOps (requires refresh in the UI to see)
+          - bash: |
+              echo '##vso[Build.UpdateBuildNumber]${{ variables.docker_image_tag }}'
+            displayName: 'Update: Build Number'
+
+          # Validates all YAML files in the repo to check they adhere to standards
+          - template: templates/steps/build/test-validate-yaml.yml
+            parameters:
+              pipeline_scripts_directory: "${{ variables.self_pipeline_scripts_dir }}"
+              container: "k8s_deploy"
+              yamllint_config_file: "${{ variables.yamllint_config_file }}"
+              yamllint_scan_directory: "${{ variables.yamllint_scan_directory }}"
+
+          # Runs a terraform fomatting check and a validation check
+          - template: templates/steps/build/test-validate-terraform.yml
+            parameters:
+              pipeline_scripts_directory: "${{ variables.self_pipeline_scripts_dir }}"
+              terraform_container: "terraform_custom"
+              terraform_directory: "${{ variables.self_repo_tf_dir }}"
+
+          # Builds the Java app and runs tests
+          - template: templates/steps/build/build-java.yml
+            parameters:
+              repo_root_dir: "${{ variables.self_repo_dir }}"
+              project_root_dir: "${{ variables.self_project_dir }}"
+              pipeline_scripts_directory: "${{ variables.self_pipeline_scripts_dir }}"
+              # Maven
+              maven_cache_directory: "${{ variables.maven_cache_directory }}"
+              maven_surefire_reports_dir: "${{ variables.maven_surefire_reports_dir }}"
+              maven_allowed_test_tags: "${{ variables.maven_allowed_test_tags}}"
+              # Docker
+              docker_build_container: "${{ variables.docker_java_image }}"
+              # Vulnerability Scanning
+              vulnerability_scan: "${{ variables.vulnerability_scan }}"
+              vulnerability_scan_fail_build_on_detection: "${{ variables.vulnerability_scan_fail_build_on_detection }}"
+              project_type: "${{ variables.java_project_type }}"
+
+          # Builds the Java API Tests
+          - template: templates/steps/build/build-api-tests.yml
+            parameters:
+              repo_root_dir: "${{ variables.self_repo_dir }}"
+              functional_test_project_root_dir: "${{ variables.self_functional_testproject_dir }}"
+              functional_test_artefact_path: "${{ variables.functional_test_artefact_path }}"
+              pipeline_scripts_directory: "${{ variables.self_pipeline_scripts_dir }}"
+              # Maven
+              maven_untagged_test_check: true
+              maven_cache_directory: "${{ variables.maven_cache_directory }}"
+              maven_allowed_post_deploy_test_tags: "${{ variables.maven_allowed_post_deploy_test_tags }}"
+              maven_ignored_post_deploy_test_tags: "${{ variables.maven_ignored_post_deploy_test_tags }}"
+              maven_post_deploy_html_report_directory: "${{ variables.maven_post_deploy_html_report_directory }}"
+              maven_post_deploy_failsafe_reports_directory: "${{ variables.maven_post_deploy_failsafe_reports_directory }}"
+              # Docker
+              docker_build_container: "${{ variables.docker_java_image }}"
+              # Vulnerability Scan
+              vulnerability_scan: "${{ variables.vulnerability_scan }}"
+              vulnerability_scan_fail_build_on_detection: "${{ variables.vulnerability_scan_fail_build_on_detection }}"
+              project_type: "${{ variables.functional_test_project_type }}"
+
+          # Performs stati code analysis, such as Sonar Cloud
+          - template: templates/steps/build/test-static-code-analysis.yml
+            parameters:
+              project_root_dir: "${{ variables.self_project_dir }}"
+              pipeline_scripts_directory: "${{ variables.self_pipeline_scripts_dir}}"
+              # PR / Branch vars
+              source_branch_ref: "$(source_branch_ref)"
+              target_branch_ref: "$(target_branch_ref)"
+              pullrequest_number: "$(pullrequest_number)"
+              # Sonar
+              sonar_enable: true
+              sonar_container: "sonar_scanner"
+              sonar_host_url: "https://sonarcloud.io"
+              sonar_project_name: "$(SONAR_PROJECT_NAME)"
+              sonar_project_key: "$(SONAR_PROJECT_KEY)"
+              sonar_token: "$(SONAR_TOKEN)"
+              sonar_organisation: "$(SONAR_ORGANIZATION)"
+              # Probably `GitHub` or `vsts`
+              sonar_pullrequest_provider: "GitHub"
+              sonar_remote_repo: "${{ variables.self_remote_repo }}"
+              sonar_command: "sonar-scanner"
+              # Docker
+              docker_image_tag: "${{ variables.docker_image_tag }}"
+
+          # Builds the Docker image and pushes it to an ECR
+          - template: templates/steps/build/build-docker-image.yml
+            parameters:
+              project_root_dir: "${{ variables.self_project_dir }}"
+              pipeline_scripts_directory: "${{ variables.self_pipeline_scripts_dir }}"
+              docker_k8s_container: "k8s_deploy"
+              docker_image_name: "${{ variables.docker_image_name }}"
+              docker_image_tag: "${{ variables.docker_image_tag }}"
+              docker_registry_name: "${{ variables.docker_registry_name }}"
+              docker_container_registry_name: "${{ variables.docker_container_registry_name_nonprod }}"
+              # AWS
+              aws_access_key_id: "$(aws_access_key_id)"
+              aws_secret_access_key: "$(aws_secret_access_key)"
+              aws_default_region: "$(aws_default_region)"
+              aws_account_id: "$(aws_account_id)"
+
+          # Post build tasks, such as Test and Coverage upload, and publishing artefacts
+          - template: templates/steps/build/post-build-tasks.yml
+            parameters:
+              project_root_dir: "${{ variables.self_project_dir }}"
+              functional_test_project_root_dir: "${{ variables.self_functional_testproject_dir }}"
+              # Build Output File
+              # files to be persisted across stages
+              build_file: true
+              build_file_path: "${{ variables.build_artifact_deploy_path }}"
+              build_file_artefact_name: "${{ variables.build_artifact_deploy_name }}"
+              # Functional tests
+              functional_test: ${{ variables.functional_test }}
+              functional_test_artefact_name: "${{ variables.functional_test_artefact_name }}"
+              functional_test_artefact_path: "${{ variables.functional_test_artefact_path }}"
+              vulnerability_scan: "${{ variables.vulnerability_scan }}"
+              vulnerability_scan_report: "${{ variables.vulnerability_scan_report }}"
+              java_project_type: "${{ variables.java_project_type }}"
+              functional_test_project_type: "${{ variables.functional_test_project_type }}"
+
+  - stage: Dev
+    dependsOn: Build
+    condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/main'))
+    variables:
+      - group: amido-stacks-infra-credentials-nonprod
+      - group: stacks-credentials-nonprod-kv
+      - group: amido-stacks-java-api
+      - group: amido-stacks-aws-credentials
+      - name: Environment.ShortName
+        value: dev
+      - name: dns_name
+        value: "$(Environment.ShortName)-$(domain)"
+    jobs:
+      - deployment: AppInfraDev
+        container: terraform_custom
+        pool:
+          vmImage: $(pool_vm_image)
+        environment: ${{ variables.domain }}-dev
+        variables:
+          - name: attributes
+            value: "[]"
+          - name: tags
+            value: "{}"
+
+
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+
+                - checkout: templates
+
+                - template: templates/steps/deploy/deploy-infra.yml
+                  parameters:
+                    pipeline_scripts_directory: "${{ variables.self_pipeline_scripts_dir }}"
+                    docker_terraform_container: "terraform_custom"
+                    # AWS Credenitals (For Deploying)
+                    aws_access_key_id: "$(aws_access_key_id)"
+                    aws_secret_access_key: "$(aws_secret_access_key)"
+                    access_key: "$(aws_access_key_id)"
+                    secret_key: "$(aws_secret_access_key)"
+                    aws_default_region: "$(aws_default_region)"
+                    aws_account_id: "$(aws_account_id)"
+                    # Terraform
+                    terraform_directory: '$(self_repo_tf_dir)'
+                    # Backend Azure State Storage Credentials
+                    # Change these if your state storage is in a different
+                    # location to your deployment
+                    terraform_backend_aws_access_key_id: "$(aws_access_key_id)"
+                    terraform_backend_aws_secret_access_key: "$(aws_secret_access_key)"
+                    terraform_backend_aws_default_region: "$(aws_default_region)"
+                    region: ${{ variables.region }}
+                    dynamodb_table: ${{ variables.dynamodb_table }}
+                    bucket: ${{ variables.bucket }}
+                    key: ${{ variables.key }}
+                    encrypt: ${{ variables.aws_encrypt }}
+                    terraform_state_workspace: "dev"
+                    terraform_extra_properties: {
+                      TF_VAR_name_owner: "stacks-team",
+                      TF_VAR_region: "${{ variables.region }}",
+                      TF_VAR_create_docker_repositories: "true",
+                      TF_VAR_env: "dev",
+                      TF_VAR_docker_image_name: "${{variables.docker_image_name}}",
+                      TF_VAR_name_company: "${{ variables.company }}",
+                      TF_VAR_name_project: "${{ variables.project }}",
+                      TF_VAR_name_domain: "${{ variables.domain }}",
+                      TF_VAR_name_component: "${{ variables.component }}",
+                      TF_VAR_name_role: "${{ variables.role }}",
+                      TF_VAR_name_environment: "$(Environment.ShortName)",
+                      TF_VAR_attributes: "${{ variables.attributes }}",
+                      TF_VAR_tags: "${{ variables.tags }}"
+                    }
+                    terraform_output_commands: |
+                      raw_tf=$(terraform output -json | jq -r 'keys[] as $k | "##vso[task.setvariable variable=\($k);isOutput=true]\(.[$k] | .value)"')
+                      readarray -t outputs <<< "$raw_tf"
+                      for i in "${outputs[@]}"; do echo "$i"; done
+                    # changing this would require changing the App deploy stage to make use of this
+                    terraform_output_artefact_name: 'tfoutputs'
+
+      - deployment: DeployDev
+        dependsOn: AppInfraDev
+        container: k8s_deploy
+        pool:
+          vmImage: $(pool_vm_image)
+        environment: ${{ variables.domain }}-dev
+        variables:
+          - name: namespace
+            value: "$(Environment.ShortName)-${{ variables.domain }}"
+          - name: k8s_app_path
+            value: "/api/menu"
+          - name: eks_cluster_name
+            value: $(kubernetes_clustername_nonprod)
+          - name: app_name
+            value: "java-api"
+          - name: dns_pointer
+            value: "${{ variables.dns_name }}.${{ variables.base_domain_nonprod }}"
+          - name: functional_test_base_url
+            value: "https://${{ variables.dns_pointer }}/${{ variables.k8s_app_path }}"
+          - name: aws_cluster_role
+            value: "eks-admin-role"
+
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+                - checkout: templates
+
+                - template: templates/steps/deploy/deploy-app.yml
+                  parameters:
+                    pipeline_scripts_directory: $(self_pipeline_scripts_dir)
+                    shared_replacements: {
+                      namespace: "${{ variables.namespace }}",
+                      role: "${{ variables.role }}",
+                      company: "${{ variables.company }}",
+                      project: "${{ variables.project }}",
+                      domain: "${{ variables.domain }}",
+                      component: "${{ variables.component }}",
+                      app_name: "${{ variables.app_name }}",
+                      resource_def_name: "${{ variables.resource_def_name }}",
+                      version: "${{ variables.docker_image_tag }}",
+                      environment: $(Environment.ShortName),
+                    }
+                    # Used for doing template substitutions and deployments
+                    template_input: [
+                      {
+                        base: "${{ variables.self_repo_dir }}/deploy/k8s/aws/base_api-deploy.yml",
+                        out: "${{ variables.self_repo_dir }}/deploy/k8s/aws/api-deploy.yml",
+                        displayName: "App Deployment",
+                        replacements: {
+                          tls_domain: "${{ variables.base_domain_nonprod }}",
+                          k8s_app_path: "${{ variables.k8s_app_path }}",
+                          log_level: "Debug",
+                          k8s_image: '${{ variables.docker_registry_name }}/${{ variables.docker_image_name }}:${{ variables.docker_image_tag }}',
+                          k8s_app_route: "${{ variables.k8s_app_route }}",
+                          k8s_ingress_cert_arn: "arn:aws:acm:eu-west-2:316154162729:certificate/17e50dfb-9fdc-4dce-92c1-8351a3961279",
+                          region: "eu-west-2",
+                          dns_pointer: "${enviroment}-${{ variables.domain }}.${{ variables.base_domain_nonprod }}",
+                          cloudwatch_log_group: "amido-stacks-dev-h0ax6owA-logs",
+                          cloudwatch_stream_prefix: "nonprod-${{ variables.domain }}",
+                          cloudwatch_log_group_name: "${cloudwatch_log_group}",
+                          cloudwatch_log_prefix: "${cloudwatch_stream_prefix}",
+                          cloudwatch_region: "${{ variables.region }}",
+                          rewrite_target: '/$([char]0x0024)2'
+                        },
+                        additional_args: "-no-empty",
+                      },
+                    ]
+                    aws_access_key_id: "$(aws_access_key_id)"
+                    aws_secret_access_key: "$(aws_secret_access_key)"
+                    aws_default_region: "$(aws_default_region)"
+                    aws_account_id: "$(aws_account_id)"
+                    eks_cluster_name: "${{ variables.eks_cluster_name }}"
+                    aws_cluster_role: "${{ variables.aws_cluster_role }}"
+                    # Used to do a `kubectl rollout status`
+                    deployments: [
+                      {
+                        name: "deploy/${{ variables.resource_def_name }}",
+                        namespace: "${{ variables.namespace }}",
+                        timeout: "120s",
+                      },
+                    ]
+
+                - template: templates/steps/deploy/deploy-post-deploy-tests.yml
+                  parameters:
+                    environment: "$(Environment.ShortName)"
+                    pipeline_scripts_directory: "${{ variables.self_pipeline_scripts_dir }}"
+                    functional_test: ${{ variables.functional_test }}
+                    functional_test_artefact_name: "${{ variables.functional_test_artefact_name }}"
+                    functional_test_artefact_download_location: "${{ variables.functional_test_artefact_download_location }}"
+                    functional_test_base_url: "${{ variables.functional_test_base_url }}"
+                    maven_cache_directory: "${{ variables.maven_cache_directory }}"
+                    maven_ignored_post_deploy_test_tags: "${{ variables.maven_ignored_post_deploy_test_tags }}"
+                    maven_post_deploy_html_report_directory: "${{ variables.maven_post_deploy_html_report_directory }}"
+                    docker_java_container: "${{ variables.docker_java_image }}"
+                    auth0_credentials:
+                      {
+                        CLIENT_ID: $(AUTH0_CLIENT_ID),
+                        CLIENT_SECRET: $(AUTH0_CLIENT_SECRET),
+                        AUDIENCE: $(AUTH0_AUDIENCE),
+                        GRANT_TYPE: client_credentials,
+                        OAUTH_TOKEN_URL: $(AUTH0_TOKEN_URL),
+                        BASE_URL: "${{ variables.dns_pointer }}",
+                      }
+
+  - stage: Release
+    dependsOn:
+      - Build
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'), eq(variables['create_release'], 'true'))
+    variables:
+      - group: amido-stacks-infra-credentials-nonprod
+    jobs:
+      - job: CreateGitHubRelease
+        pool:
+          vmImage: $(pool_vm_image)
+        steps:
+          # Check out the repo so that it can be tagged
+          - checkout: self
+            persistCredentials: true
+
+          # Create a tag in the code for this release
+          - task: Bash@3
+            displayName: Tag Code
+            inputs:
+              targetType: "inline"
+              script: |
+                git config user.name "BuildService"
+                git config user.email "builder@${COMPANY}.com"
+                git tag -a v${VERSION_NUMBER} -m "Release created by Azure DevOps"
+                git push origin v${VERSION_NUMBER}
+            env:
+              COMPANY: $(company)
+
+          # Create a GitHub release with these packages
+          - task: GitHubRelease@0
+            displayName: Create GitHub Release
+            inputs:
+              gitHubConnection: $(github_release_service_connection)
+              repositoryName: $(github_org)/$(self_repo)
+              tag: $(version_number)

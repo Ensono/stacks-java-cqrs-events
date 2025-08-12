@@ -1,0 +1,268 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ${namespace}
+  labels:
+    app.kubernetes.io/component: ${component}
+    app.kubernetes.io/name: ${resource_def_name}
+    app.kubernetes.io/part-of: ${project}
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    alb.ingress.kubernetes.io/load-balancer-attributes: idle_timeout.timeout_seconds=120
+    alb.ingress.kubernetes.io/certificate-arn: ${k8s_ingress_cert_arn}
+    alb.ingress.kubernetes.io/healthcheck-interval-seconds: "15"
+    alb.ingress.kubernetes.io/healthcheck-port: traffic-port
+    alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
+    alb.ingress.kubernetes.io/healthcheck-timeout-seconds: "5"
+    alb.ingress.kubernetes.io/healthy-threshold-count: "2"
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}, {"HTTP":80}]'
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/success-codes: "200"
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/unhealthy-threshold-count: "2"
+    external-dns.alpha.kubernetes.io/hostname: ${dns_pointer}
+    app.kubernetes.io/instance: ${project}-${app_name}
+    app.kubernetes.io/version: ${version}
+    applicationId: ${project}/${app_name}
+    applicationName: ${project}-${app_name}
+    customerID: ${company}
+    kubernetes.io/ingress.class: alb
+    owner: ${company}/${project}
+    projectID: ${project}
+    version: ${version}
+  labels:
+    app.kubernetes.io/component: ${component}
+    app.kubernetes.io/name: ${resource_def_name}
+    app.kubernetes.io/part-of: ${project}
+    environment: ${environment}
+  finalizers:
+    - ingress.k8s.aws/resources
+  name: ${resource_def_name}
+  namespace: ${namespace}
+spec:
+  rules:
+    - http:
+        paths:
+          - backend:
+              serviceName: ${resource_def_name}
+              servicePort: 80
+            path: ${k8s_app_route}/*
+            pathType: ImplementationSpecific
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    alb.ingress.kubernetes.io/healthcheck-path: ${k8s_app_route}/swagger/index.html
+    app.kubernetes.io/instance: ${project}-${app_name}
+    app.kubernetes.io/version: ${version}
+    applicationId: ${project}/${app_name}
+    applicationName: ${project}-${app_name}
+    customerID: ${company}
+    owner: ${company}/${project}
+    projectID: ${project}
+    version: ${version}
+  labels:
+    app.kubernetes.io/component: ${component}
+    app.kubernetes.io/name: ${resource_def_name}
+    app.kubernetes.io/part-of: ${project}
+    environment: ${environment}
+  name: ${resource_def_name}
+  namespace: ${namespace}
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: http
+  selector:
+    app.kubernetes.io/component: ${component}
+    app.kubernetes.io/name: ${resource_def_name}
+    app.kubernetes.io/part-of: ${project}
+    environment: ${environment}
+  sessionAffinity: None
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: appsecrets
+  namespace: ${namespace}
+type: Opaque
+stringData:
+  CLOUDWATCH_LOG_GROUP: ${cloudwatch_log_group}
+  CLOUDWATCH_STREAM_PREFIX: ${cloudwatch_stream_prefix}
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: appsettings
+  namespace: ${namespace}
+data:
+  appsettings.json: |
+    {
+      "Serilog": {
+          "Using": [
+              "Serilog.Sinks.Console",
+              "Serilog.Sinks.ApplicationInsights"
+          ],
+          "MinimumLevel": {
+              "Default": "${log_level}",
+              "Override": {}
+          },
+          "WriteTo": [
+              { "Name": "Console" },
+          ],
+          "Enrich": [ "FromLogContext", "WithMachineName", "WithThreadId" ],
+          "Destructure": [],
+          "Properties": {
+              "Application": "Menu API"
+          }
+      },
+      "AllowedHosts": "*",
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "${cloudwatch_log_group_name}",
+          "awslogs-region": "${region}",
+          "awslogs-stream-prefix": "${cloudwatch_log_prefix}"
+        }
+      },
+      "TestConfig": "Test value from file",
+      "Values": {
+        "Items": [
+          "Item A from config",
+          "Item B from congig",
+          "Item C from config"
+        ]
+      }
+    }
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    app.kubernetes.io/instance: ${project}-${app_name}
+    app.kubernetes.io/version: ${version}
+    applicationId: ${project}/${app_name}
+    applicationName: ${project}-${app_name}
+    customerID: ${company}
+    owner: ${company}/${project}
+    projectID: ${project}
+    version: ${version}
+  labels:
+    app.kubernetes.io/component: ${component}
+    app.kubernetes.io/name: ${resource_def_name}
+    app.kubernetes.io/part-of: ${project}
+    environment: ${environment}
+  name: ${resource_def_name}
+  namespace: ${namespace}
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: ${component}
+      app.kubernetes.io/name: ${resource_def_name}
+      app.kubernetes.io/part-of: ${project}
+      environment: ${environment}
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        app.kubernetes.io/version: ${version}
+        applicationId: ${project}/${app_name}
+        applicationName: ${project}-${app_name}
+        customerID: ${company}
+        owner: ${company}/${project}
+        projectID: ${project}
+        role: api
+        version: ${version}
+      labels:
+        app.kubernetes.io/component: ${component}
+        app.kubernetes.io/name: ${resource_def_name}
+        app.kubernetes.io/part-of: ${project}
+        environment: ${environment}
+    spec:
+      dnsPolicy: ClusterFirst
+      containers:
+        - name: api
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: ENVIRONMENT
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['environment']
+            - name: VERSION
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.annotations['version']
+            - name: RELEASE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.annotations['release']
+            - name: API_BASEPATH
+              value: ${k8s_app_route}
+            - name: LOG_LEVEL
+              value: debug
+          resources:
+            limits:
+              cpu: "0.2"
+              memory: "500Mi"
+            requests:
+              cpu: "0.2"
+              memory: "256Mi"
+          image: ${k8s_image}
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: appsettings
+              mountPath: /app/config
+          ports:
+            - name: http
+              containerPort: 9000
+      #          livenessProbe:
+      #            failureThreshold: 10
+      #            httpGet:
+      #              path: /health
+      #              port: 80
+      #              scheme: HTTP
+      #            initialDelaySeconds: 90
+      #            periodSeconds: 30
+      #            successThreshold: 1
+      #            timeoutSeconds: 25
+      #          readinessProbe:
+      #            failureThreshold: 10
+      #            httpGet:
+      #              path: /health
+      #              port: 80
+      #              scheme: HTTP
+      #            periodSeconds: 30
+      #            successThreshold: 1
+      #            timeoutSeconds: 25
+      volumes:
+        - name: appsettings
+          configMap:
+            name: appsettings
