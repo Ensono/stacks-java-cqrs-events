@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
@@ -11,7 +8,6 @@
     <relativePath/>
     <!-- lookup parent from repository -->
   </parent>
-
   <groupId>com.amido.stacks.workloads</groupId>
   <artifactId>stacks-api-cqrs-events</artifactId>
   <version>1.0.0</version>
@@ -19,28 +15,17 @@
   <description>Sample Stacks application for Java with CQRS and event messaging using Azure
     ServiceBus
   </description>
-
   <properties>
     <!-- Stacks features -->
-    <aws.profile.name>no-aws</aws.profile.name>
-    <azure.profile.name>no-azure</azure.profile.name>
-    <cosmosdb.profile.name>no-cosmosdb</cosmosdb.profile.name>
-    <dynamodb.profile.name>no-dynamodb</dynamodb.profile.name>
-    <servicebus.profile.name>no-servicebus</servicebus.profile.name>
-    <kafka.profile.name>no-kafka</kafka.profile.name>
-    <sqs.profile.name>no-sqs</sqs.profile.name>
-
     <!-- Stacks versions -->
     <stacks.core.commons.version>2.0.5</stacks.core.commons.version>
     <stacks.core.api.version>1.0.4.4-RELEASE</stacks.core.api.version>
-    <stacks.azure.cosmos.version>3.0.0</stacks.azure.cosmos.version>
-    <stacks.aws.dynamodb.version>3.0.0</stacks.aws.dynamodb.version>
+    <stacks.azure.cosmos.version>2.0.0-SNAPSHOT</stacks.azure.cosmos.version>
+    <stacks.aws.dynamodb.version>1.0.0-SNAPSHOT</stacks.aws.dynamodb.version>
     <stacks.core.cqrs.version>1.0.0</stacks.core.cqrs.version>
     <stacks.azure-servicebus.version>2.0.0</stacks.azure-servicebus.version>
     <stacks.aws.version>1.0.2</stacks.aws.version>
     <stacks.azure.version>1.0.3</stacks.azure.version>
-
-    <!-- Java versions -->
     <java.version>11</java.version>
     <org.projectlombok.version>1.18.0</org.projectlombok.version>
     <org.springdoc-openapi.version>1.5.9</org.springdoc-openapi.version>
@@ -59,41 +44,33 @@
     <junit-jupiter.version>5.7.2</junit-jupiter.version>
     <equals-verifier.version>3.8.1</equals-verifier.version>
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-    <owasp-dependency-check-plugin.version>12.1.3</owasp-dependency-check-plugin.version>
+    <owasp-dependency-check-plugin.version>6.5.0</owasp-dependency-check-plugin.version>
     <auth0-spring-security-api.version>1.4.1</auth0-spring-security-api.version>
     <io-projectreactor-netty.version>1.0.8</io-projectreactor-netty.version>
-    <netty.codec.http.version>4.2.4.Final</netty.codec.http.version>
-    <netty.codec.http2.version>4.2.4.Final</netty.codec.http2.version>
-    <netty.transport.native.epoll.version>4.1.108.Final</netty.transport.native.epoll.version>
+    <netty.codec.http.version>4.1.72.Final</netty.codec.http.version>
+    <netty.codec.http2.version>4.1.72.Final</netty.codec.http2.version>
+    <netty.transport.native.epoll.version>4.1.72.Final</netty.transport.native.epoll.version>
     <log4j-version>2.17.0</log4j-version>
-    <logback.version>1.2.13</logback.version>
+    <logback.version>1.2.8</logback.version>
     <com.google.code.gson-version>2.8.9</com.google.code.gson-version>
     <org.mapstruct.version>1.5.2.Final</org.mapstruct.version>
-
     <fmt-maven-plugin.version>2.13</fmt-maven-plugin.version>
     <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
     <puppycrawl-tools-checkstyle.version>9.2</puppycrawl-tools-checkstyle.version>
     <spotbugs-maven-plugin.version>4.5.0.0</spotbugs-maven-plugin.version>
     <spotbugs.version>4.5.2</spotbugs.version>
     <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
-
     <pact.provider.spring.version>4.0.10</pact.provider.spring.version>
     <pact.consumer.version>4.3.2</pact.consumer.version>
-
-
     <manifold-version>2022.1.19</manifold-version>
-
   </properties>
-
   <dependencies>
-
     <!-- https://security.snyk.io/vuln/SNYK-JAVA-COMGOOGLECODEGSON-1730327 -->
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
       <version>${com.google.code.gson-version}</version>
     </dependency>
-
     <!-- NETTY dependencies -->
     <dependency>
       <groupId>io.netty</groupId>
@@ -110,13 +87,11 @@
       <artifactId>netty-codec-http2</artifactId>
       <version>${netty.codec.http2.version}</version>
     </dependency>
-
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
       <version>${logback.version}</version>
     </dependency>
-
     <!-- STACKS dependencies -->
     <dependency>
       <groupId>com.amido.stacks.modules</groupId>
@@ -133,14 +108,11 @@
       <artifactId>stacks-core-cqrs</artifactId>
       <version>${stacks.core.cqrs.version}</version>
     </dependency>
-
     <!-- Spring dependencies -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
-
-
     <!-- Other dependencies -->
     <!-- TODO: to be moved to a common workloads parent -->
     <dependency>
@@ -166,9 +138,17 @@
       <version>${pact.consumer.version}</version>
       <scope>test</scope>
     </dependency>
-
+    <dependency>
+      <groupId>com.amido.stacks.modules</groupId>
+      <artifactId>stacks-azure-servicebus</artifactId>
+      <version>${stacks.azure-servicebus.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.amido.stacks.modules</groupId>
+      <artifactId>stacks-aws-dynamodb</artifactId>
+      <version>${stacks.aws.dynamodb.version}</version>
+    </dependency>
   </dependencies>
-
   <reporting>
     <plugins>
       <plugin>
@@ -178,7 +158,6 @@
       </plugin>
     </plugins>
   </reporting>
-
   <build>
     <plugins>
       <plugin>
@@ -371,130 +350,9 @@
       </plugin>
     </plugins>
   </build>
-
   <profiles>
-
     <!-- START FEATURE PROFILES -->
-
-    <profile>
-      <id>aws</id>
-      <activation>
-        <file>
-          <exists>.</exists>
-        </file>
-      </activation>
-      <properties>
-        <aws.profile.name>aws</aws.profile.name>
-      </properties>
-      <dependencies>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>azure</id>
-      <activation>
-        <file>
-          <exists>.</exists>
-        </file>
-      </activation>
-      <properties>
-        <azure.profile.name>azure</azure.profile.name>
-      </properties>
-      <dependencies>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>cosmosdb</id>
-      <activation>
-        <file>
-          <exists>.</exists>
-        </file>
-      </activation>
-
-      <properties>
-        <cosmosdb.profile.name>cosmosdb</cosmosdb.profile.name>
-      </properties>
-      <dependencies>
-        <dependency>
-          <groupId>com.amido.stacks.modules</groupId>
-          <artifactId>stacks-azure-cosmos</artifactId>
-          <version>${stacks.azure.cosmos.version}</version>
-        </dependency>
-
-
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>dynamodb</id>
-      <activation>
-        <file>
-          <exists>.</exists>
-        </file>
-      </activation>
-      <properties>
-        <dynamodb.profile.name>dynamodb</dynamodb.profile.name>
-      </properties>
-      <dependencies>
-        <dependency>
-          <groupId>com.amido.stacks.modules</groupId>
-          <artifactId>stacks-aws-dynamodb</artifactId>
-          <version>${stacks.aws.dynamodb.version}</version>
-        </dependency>
-
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>servicebus</id>
-      <activation>
-        <file>
-          <exists>.</exists>
-        </file>
-      </activation>
-      <properties>
-        <servicebus.profile.name>servicebus</servicebus.profile.name>
-      </properties>
-      <dependencies>
-        <dependency>
-          <groupId>com.amido.stacks.modules</groupId>
-          <artifactId>stacks-azure-servicebus</artifactId>
-          <version>${stacks.azure-servicebus.version}</version>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>kafka</id>
-      <activation>
-        <file>
-          <exists>.</exists>
-        </file>
-      </activation>
-      <properties>
-        <kafka.profile.name>kafka</kafka.profile.name>
-      </properties>
-      <dependencies>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>sqs</id>
-      <activation>
-        <file>
-          <exists>.</exists>
-        </file>
-      </activation>
-      <properties>
-        <sqs.profile.name>sqs</sqs.profile.name>
-      </properties>
-      <dependencies>
-      </dependencies>
-    </profile>
-
     <!-- END FEATURE PROFILES -->
-
     <profile>
       <id>owasp-dependency-check</id>
       <build>
@@ -514,7 +372,6 @@
         </plugins>
       </build>
     </profile>
-
     <profile>
       <id>test</id>
       <activation>
@@ -525,7 +382,6 @@
         </property>
       </activation>
     </profile>
-
     <profile>
       <id>local</id>
       <build>
@@ -539,7 +395,6 @@
         </resources>
       </build>
     </profile>
-
     <profile>
       <id>update-permissions</id>
       <activation>
@@ -573,7 +428,5 @@
         </plugins>
       </build>
     </profile>
-
   </profiles>
-
 </project>

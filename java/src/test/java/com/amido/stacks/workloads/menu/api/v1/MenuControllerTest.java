@@ -32,7 +32,12 @@ import com.amido.stacks.workloads.menu.domain.Menu;
 import com.amido.stacks.workloads.menu.domain.utility.MenuHelper;
 import com.amido.stacks.workloads.menu.mappers.MenuMapper;
 import com.amido.stacks.workloads.menu.mappers.SearchMenuResultItemMapper;
-import com.amido.stacks.workloads.menu.repository.MenuRepository;
+#if DYNAMODB
+import com.amido.stacks.workloads.menu.repository.MenuRepositoryDynamoDb;
+
+#elif COSMOSDB
+import com.amido.stacks.workloads.menu.repository.CosmosMenuRepository;
+#endif
 import com.amido.stacks.workloads.menu.service.v1.utility.MenuHelperService;
 import com.amido.stacks.workloads.util.TestHelper;
 import java.util.Arrays;
@@ -86,7 +91,13 @@ public class MenuControllerTest {
 
   @Autowired private TestRestTemplate testRestTemplate;
 
-  @MockBean private MenuRepository menuRepository;
+  #if DYNAMODB
+  @MockBean private MenuRepositoryDynamoDb menuRepository;
+
+  #elif COSMOSDB
+  @MockBean private CosmosMenuRepository menuRepository;
+  #endif
+
 
   @Autowired private MenuMapper menuMapper;
 
@@ -122,7 +133,7 @@ public class MenuControllerTest {
     Menu m = createMenu(1);
     CreateMenuRequest request =
         new CreateMenuRequest(
-            m.getName(), m.getDescription(), UUID.fromString(m.getRestaurantId()), m.getEnabled());
+            m.getName(), m.getDescription(), fromString(m.getRestaurantId()), m.getEnabled());
 
     when(menuRepository.findAllByRestaurantIdAndName(
             eq(m.getRestaurantId()), eq(m.getName()), any(Pageable.class)))

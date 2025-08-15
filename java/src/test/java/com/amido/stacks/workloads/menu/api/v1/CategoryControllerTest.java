@@ -25,7 +25,12 @@ import com.amido.stacks.workloads.menu.api.v1.dto.request.UpdateCategoryRequest;
 import com.amido.stacks.workloads.menu.domain.Category;
 import com.amido.stacks.workloads.menu.domain.Menu;
 import com.amido.stacks.workloads.menu.domain.utility.MenuHelper;
-import com.amido.stacks.workloads.menu.repository.MenuRepository;
+#if DYNAMODB
+import com.amido.stacks.workloads.menu.repository.MenuRepositoryDynamoDb;
+
+#elif COSMOSDB
+import com.amido.stacks.workloads.menu.repository.CosmosMenuRepository;
+#endif
 import com.amido.stacks.workloads.menu.service.v1.utility.MenuHelperService;
 import com.amido.stacks.workloads.util.TestHelper;
 import java.util.ArrayList;
@@ -71,7 +76,14 @@ public class CategoryControllerTest {
 
   @Autowired private TestRestTemplate testRestTemplate;
 
-  @MockBean private MenuRepository menuRepository;
+
+  #if DYNAMODB
+  @MockBean private MenuRepositoryDynamoDb menuRepository;
+
+  #elif COSMOSDB
+  @MockBean private CosmosMenuRepository menuRepository;
+  #endif
+
 
   @Autowired private MenuHelperService menuHelperService;
 

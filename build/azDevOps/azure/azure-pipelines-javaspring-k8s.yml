@@ -25,7 +25,7 @@ resources:
     - repository: templates
       type: github
       name: amido/stacks-pipeline-templates
-      ref: feature/cycle4
+      ref: feature/cycle9_manifold_change
       # EXCHANGE THIS FOR YOUR OWN ENDPOINT CONNECTION TO GITHUB
       # REPOSITORY IS PUBLIC
       endpoint: amidostacks
@@ -33,7 +33,7 @@ resources:
   containers:
     # Container for Java Build and Testing
     - container: azul_java
-      image: azul/zulu-openjdk-debian:11
+      image: amidostacks/runner-pwsh-java:0.3.143-unstable
     # Container for inlining Jacoco assets as Azure DevOps strips them
     # https://github.com/microsoft/azure-pipelines-tasks/issues/3027
     - container: node
@@ -153,6 +153,10 @@ variables:
   - name: vulnerability_scan_fail_build_on_detection
     value: false
 
+  # spot_bug_check
+  - name: spot_bug_check
+    value: false
+
   # Yamllint
   - name: yamllint_config_file
     value: "${{ variables.self_repo_dir }}/yamllint.conf"
@@ -228,6 +232,8 @@ stages:
               docker_build_container: "${{ variables.docker_java_image }}"
               # Vulnerability Scanning
               vulnerability_scan: "${{ variables.vulnerability_scan }}"
+              spot_bug_check: "${{ variables.spot_bug_check }}"
+
               vulnerability_scan_fail_build_on_detection: "${{ variables.vulnerability_scan_fail_build_on_detection }}"
               project_type: "${{ variables.java_project_type }}"
 
@@ -834,6 +840,7 @@ stages:
                         GRANT_TYPE: client_credentials,
                         OAUTH_TOKEN_URL: $(AUTH0_TOKEN_URL),
                         BASE_URL: "${{ variables.dns_pointer }}",
+                        AWS_XRAY_CONTEXT_MISSING: LOG_ERROR,
                       }
                     servicebus_creds:
                       {

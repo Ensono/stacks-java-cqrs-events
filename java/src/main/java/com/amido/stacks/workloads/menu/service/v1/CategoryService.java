@@ -8,7 +8,12 @@ import com.amido.stacks.workloads.menu.domain.Menu;
 import com.amido.stacks.workloads.menu.exception.CategoryDoesNotExistException;
 import com.amido.stacks.workloads.menu.mappers.cqrs.CreateCategoryCommandMapper;
 import com.amido.stacks.workloads.menu.mappers.cqrs.UpdateCategoryCommandMapper;
-import com.amido.stacks.workloads.menu.repository.MenuRepository;
+#if DYNAMODB
+import com.amido.stacks.workloads.menu.repository.MenuRepositoryDynamoDb;
+
+#elif COSMOSDB
+import com.amido.stacks.workloads.menu.repository.CosmosMenuRepository;
+#endif
 import com.amido.stacks.workloads.menu.service.v1.utility.MenuHelperService;
 import java.util.Optional;
 import java.util.UUID;
@@ -20,7 +25,12 @@ import org.springframework.stereotype.Service;
 public class CategoryService {
 
   private final MenuHelperService menuHelperService;
-  private final MenuRepository menuRepository;
+  #if DYNAMODB
+  private final MenuRepositoryDynamoDb menuRepository;
+
+  #elif COSMOSDB
+  private final CosmosMenuRepository menuRepository;
+  #endif
   private final CreateCategoryCommandMapper createCategoryCommandMapper;
   private final UpdateCategoryCommandMapper updateCategoryCommandMapper;
 
