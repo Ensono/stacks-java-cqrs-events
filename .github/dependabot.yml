@@ -7,6 +7,7 @@ multi-ecosystem-groups:
       timezone: Europe/London
     assignees:
       - Ensono/dependency-management
+    open-pull-requests-limit: 10
 
 updates:
   - package-ecosystem: maven
@@ -14,7 +15,6 @@ updates:
     patterns:
       - "*"
     multi-ecosystem-group: all-dependencies
-    open-pull-requests-limit: 10
     rebase-strategy: disabled
 
   - package-ecosystem: npm
@@ -22,7 +22,6 @@ updates:
     patterns:
       - "*"
     multi-ecosystem-group: all-dependencies
-    open-pull-requests-limit: 10
     rebase-strategy: disabled
 
   - package-ecosystem: maven
@@ -30,7 +29,6 @@ updates:
     patterns:
       - "*"
     multi-ecosystem-group: all-dependencies
-    open-pull-requests-limit: 10
     rebase-strategy: disabled
 
   - package-ecosystem: maven
@@ -38,7 +36,6 @@ updates:
     patterns:
       - "*"
     multi-ecosystem-group: all-dependencies
-    open-pull-requests-limit: 10
     rebase-strategy: disabled
 
   - package-ecosystem: terraform
@@ -46,5 +43,4 @@ updates:
     patterns:
       - "*"
     multi-ecosystem-group: all-dependencies
-    open-pull-requests-limit: 10
     rebase-strategy: disabled
