@@ -2,6 +2,11 @@
   "description": "N/A",
   "license": "Apache-2.0",
   "repository": "N/A",
+  "overrides": {
+    "inline-source": "8.0.3",
+    "picomatch": "2.3.2",
+    "svgo": "3.3.3"
+  },
   "devDependencies": {
     "gulp": "^5.0.1",
     "gulp-inline-source": "^4.0.0",
