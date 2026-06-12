@@ -230,10 +230,10 @@ spec:
               value: debug
           resources:
             limits:
-              cpu: "1"
-              memory: "1Gi"
+              cpu: "0.2"
+              memory: "500Mi"
             requests:
-              cpu: "0.5"
+              cpu: "0.2"
               memory: "256Mi"
           image: ${k8s_image}
           imagePullPolicy: IfNotPresent
@@ -242,26 +242,26 @@ spec:
               mountPath: /app/config
           ports:
             - name: http
-              containerPort: 80
-          livenessProbe:
-            failureThreshold: 10
-            httpGet:
-              path: /health
-              port: 80
-              scheme: HTTP
-            initialDelaySeconds: 45
-            periodSeconds: 30
-            successThreshold: 1
-            timeoutSeconds: 25
-          readinessProbe:
-            failureThreshold: 10
-            httpGet:
-              path: /health
-              port: 80
-              scheme: HTTP
-            periodSeconds: 30
-            successThreshold: 1
-            timeoutSeconds: 25
+              containerPort: 9000
+      #          livenessProbe:
+      #            failureThreshold: 10
+      #            httpGet:
+      #              path: /health
+      #              port: 80
+      #              scheme: HTTP
+      #            initialDelaySeconds: 90
+      #            periodSeconds: 30
+      #            successThreshold: 1
+      #            timeoutSeconds: 25
+      #          readinessProbe:
+      #            failureThreshold: 10
+      #            httpGet:
+      #              path: /health
+      #              port: 80
+      #              scheme: HTTP
+      #            periodSeconds: 30
+      #            successThreshold: 1
+      #            timeoutSeconds: 25
       volumes:
         - name: appsettings
           configMap:
