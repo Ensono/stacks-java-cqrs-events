@@ -44,7 +44,7 @@
         <httpclient.version>4.5.14</httpclient.version>
         <xerces.version>2.12.2</xerces.version>
         <commons.codec.version>1.21.0</commons.codec.version>
-        <spring.web.version>7.0.6</spring.web.version>
+        <spring.web.version>7.0.8</spring.web.version>
         <com.google.code.gson-version>2.13.2</com.google.code.gson-version>
 
         <!-- Maven plugins -->
